@@ -1,0 +1,15 @@
+# Auth Service - Kubernetes Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  labels:
+    app: auth-service
+spec:
+  type: ClusterIP
+  selector:
+    app: auth-service
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP

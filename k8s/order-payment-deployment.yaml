@@ -1,0 +1,44 @@
+# Order-Payment Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-payment-service
+  labels:
+    app: order-payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-payment-service
+  template:
+    metadata:
+      labels:
+        app: order-payment-service
+    spec:
+      containers:
+        - name: order-payment-service
+          image: smileon-order-payment-service:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "rootpassword"
+            - name: DB_NAME
+              value: "smileon_db"
+            - name: UPLOAD_DIR
+              value: "/app/uploads"
+            - name: PORT
+              value: "3000"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
