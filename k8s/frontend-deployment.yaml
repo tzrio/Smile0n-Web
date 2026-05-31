@@ -1,4 +1,11 @@
-# Frontend Service Deployment
+# ============================================
+# Kubernetes Deployment - Frontend Service
+# ============================================
+# File ini menjalankan pod frontend-service yang menyajikan
+# tampilan website SmileOn Lab kepada pengguna.
+# Dikerjakan oleh Anggota 1.
+# ============================================
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

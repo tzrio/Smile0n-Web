@@ -1,4 +1,13 @@
-# Order-Payment Service - Kubernetes Service
+# ============================================
+# Kubernetes Service - Order-Payment Service
+# ============================================
+# File ini membuat Service agar pod order-payment-service bisa diakses
+# oleh service lain di dalam cluster (gateway, frontend).
+#
+# Tipe NodePort: bisa diakses langsung dari luar cluster untuk testing
+# dengan Postman menggunakan IP Minikube + NodePort.
+# ============================================
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,10 +15,11 @@ metadata:
   labels:
     app: order-payment-service
 spec:
+  # NodePort: bisa diakses dari luar cluster (untuk testing Postman)
   type: NodePort
   selector:
     app: order-payment-service
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 3000        # Port yang diexpose di dalam cluster
+      targetPort: 3000  # Port container yang dituju
       protocol: TCP

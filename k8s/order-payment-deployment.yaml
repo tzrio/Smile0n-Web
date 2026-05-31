@@ -1,4 +1,19 @@
-# Order-Payment Service Deployment
+# ============================================
+# Kubernetes Deployment - Order-Payment Service
+# ============================================
+# File ini mendefinisikan bagaimana pod order-payment-service dijalankan.
+# Pod ini berisi container Node.js yang menjalankan API pesanan & pembayaran.
+#
+# Environment variable:
+#   DB_HOST     = nama Kubernetes Service untuk MySQL ("mysql-service")
+#   DB_PORT     = port MySQL (3306)
+#   DB_USER     = username database
+#   DB_PASSWORD = password database
+#   DB_NAME     = nama database yang digunakan
+#   UPLOAD_DIR  = folder penyimpanan bukti pembayaran di dalam container
+#   PORT        = port yang digunakan oleh Express server
+# ============================================
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,6 +21,7 @@ metadata:
   labels:
     app: order-payment-service
 spec:
+  # Jumlah pod yang dijalankan (1 replica cukup untuk development)
   replicas: 1
   selector:
     matchLabels:
@@ -17,9 +33,11 @@ spec:
     spec:
       containers:
         - name: order-payment-service
+          # Nama Docker image yang sudah di-build
           image: smileon-order-payment-service:latest
           ports:
             - containerPort: 3000
+          # Environment variable untuk koneksi database dan konfigurasi
           env:
             - name: DB_HOST
               value: "mysql-service"

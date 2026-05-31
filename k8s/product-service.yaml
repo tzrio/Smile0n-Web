@@ -1,4 +1,10 @@
-# Product Service - Kubernetes Service
+# ============================================
+# Kubernetes Service - Product Service
+# ============================================
+# Membuat Service agar product-service bisa diakses oleh gateway.
+# Tipe ClusterIP: hanya bisa diakses dari dalam cluster.
+# ============================================
+
 apiVersion: v1
 kind: Service
 metadata:

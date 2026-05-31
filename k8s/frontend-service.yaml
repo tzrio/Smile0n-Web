@@ -1,4 +1,10 @@
-# Frontend Service - Kubernetes Service
+# ============================================
+# Kubernetes Service - Frontend Service
+# ============================================
+# Membuat Service agar frontend bisa diakses oleh gateway.
+# Tipe ClusterIP: hanya bisa diakses dari dalam cluster.
+# ============================================
+
 apiVersion: v1
 kind: Service
 metadata:

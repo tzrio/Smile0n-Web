@@ -1,4 +1,11 @@
-# Gateway Service Deployment (Nginx)
+# ============================================
+# Kubernetes Deployment - Gateway Service (Nginx)
+# ============================================
+# File ini menjalankan pod Nginx yang berfungsi sebagai API Gateway.
+# Gateway menerima semua request dari user dan meneruskannya
+# ke service backend yang sesuai berdasarkan URL path.
+# ============================================
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,4 +26,5 @@ spec:
         - name: gateway-service
           image: smileon-gateway-service:latest
           ports:
+            # Nginx menerima request di port 80
             - containerPort: 80

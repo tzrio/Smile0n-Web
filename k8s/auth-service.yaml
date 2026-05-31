@@ -1,4 +1,10 @@
-# Auth Service - Kubernetes Service
+# ============================================
+# Kubernetes Service - Auth Service
+# ============================================
+# Membuat Service agar auth-service bisa diakses oleh gateway.
+# Tipe ClusterIP: hanya bisa diakses dari dalam cluster.
+# ============================================
+
 apiVersion: v1
 kind: Service
 metadata:

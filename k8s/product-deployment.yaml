@@ -1,4 +1,11 @@
-# Product Service Deployment
+# ============================================
+# Kubernetes Deployment - Product Service
+# ============================================
+# File ini menjalankan pod product-service yang menangani
+# daftar produk, detail produk, dan CRUD produk.
+# Dikerjakan oleh Anggota 2.
+# ============================================
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:

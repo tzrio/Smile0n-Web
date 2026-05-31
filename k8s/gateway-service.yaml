@@ -1,4 +1,11 @@
-# Gateway Service - Kubernetes Service
+# ============================================
+# Kubernetes Service - Gateway Service
+# ============================================
+# File ini membuat Service agar gateway bisa diakses dari luar cluster.
+# Tipe NodePort: user bisa mengakses website melalui IP Minikube + NodePort.
+# Ini adalah pintu masuk utama ke seluruh sistem SmileOn Lab.
+# ============================================
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,10 +13,11 @@ metadata:
   labels:
     app: gateway-service
 spec:
+  # NodePort: bisa diakses dari luar cluster (browser/Postman)
   type: NodePort
   selector:
     app: gateway-service
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 80          # Port di dalam cluster
+      targetPort: 80    # Port container Nginx
       protocol: TCP

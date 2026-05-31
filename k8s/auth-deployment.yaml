@@ -1,4 +1,11 @@
-# Auth Service Deployment
+# ============================================
+# Kubernetes Deployment - Auth Service
+# ============================================
+# File ini menjalankan pod auth-service yang menangani
+# register, login, dan manajemen role user/admin.
+# Dikerjakan oleh Anggota 2.
+# ============================================
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
