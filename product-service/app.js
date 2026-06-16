@@ -1,9 +1,9 @@
 /**
  * Product Service - SmileOn Lab
- * 
+ * Owner: Rakha
+ *
  * File ini adalah entry point untuk service produk.
  * Service ini menangani daftar produk, detail produk, dan CRUD produk.
- * Dikerjakan oleh Anggota 2.
  */
 
 const express = require('express');

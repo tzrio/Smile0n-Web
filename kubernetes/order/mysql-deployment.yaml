@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-order-initdb
+  labels:
+    app: mysql-order
+    owner: roihan
+data:
+  order_db.sql: |
+    CREATE DATABASE IF NOT EXISTS order_db;
+    USE order_db;
+
+    CREATE TABLE IF NOT EXISTS orders (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      user_id INT NOT NULL,
+      product_id INT NULL,
+      jenis_desain VARCHAR(100) NOT NULL,
+      konsep TEXT,
+      warna VARCHAR(100),
+      ukuran VARCHAR(100),
+      referensi TEXT,
+      catatan TEXT,
+      file_pendukung VARCHAR(255),
+      estimasi_pengerjaan VARCHAR(50),
+      status ENUM('menunggu_pembayaran', 'menunggu_verifikasi', 'diproses', 'revisi', 'selesai', 'dibatalkan') DEFAULT 'menunggu_pembayaran',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );
+
+    INSERT INTO orders (user_id, product_id, jenis_desain, konsep, warna, ukuran, estimasi_pengerjaan, status) VALUES
+    (1, 1, 'Logo Perusahaan', 'Logo modern minimalis', 'Biru dan Putih', '1000x1000 px', '3-5 hari', 'menunggu_pembayaran');
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-order
+  labels:
+    app: mysql-order
+    owner: roihan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-order
+  template:
+    metadata:
+      labels:
+        app: mysql-order
+    spec:
+      containers:
+        - name: mysql-order
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DATABASE
+              value: "order_db"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-order-storage
+              mountPath: /var/lib/mysql
+            - name: mysql-order-initdb
+              mountPath: /docker-entrypoint-initdb.d
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+      volumes:
+        - name: mysql-order-storage
+          persistentVolumeClaim:
+            claimName: mysql-order-pvc
+        - name: mysql-order-initdb
+          configMap:
+            name: mysql-order-initdb

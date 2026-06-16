@@ -1,9 +1,9 @@
 /**
  * Auth Service - SmileOn Lab
- * 
+ * Owner: Rakha
+ *
  * File ini adalah entry point untuk service autentikasi.
  * Service ini menangani register, login, dan manajemen role user/admin.
- * Dikerjakan oleh Anggota 2.
  */
 
 const express = require('express');
