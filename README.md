@@ -20,7 +20,7 @@ Platform jasa desain digital berbasis arsitektur microservices menggunakan Docke
 | Anggota | Service | Kubernetes | Database |
 |---------|---------|------------|----------|
 | **Bagus** | `frontend/`, `api-gateway/` | `kubernetes/frontend/`, `kubernetes/gateway/` | — |
-| **Rakha** | `auth-service/`, `product-service/`, `portfolio-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/portfolio/` | `auth_db`, `product_db`, `portfolio_db` |
+| **Rakha** | `auth-service/`, `product-service/`, `portfolio-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/gallery/` | `auth_db`, `product_db`, `gallery_db` |
 | **Roihan** | `order-service/`, `payment-service/`, `recommendation-service/` | `kubernetes/order/`, `kubernetes/payment/`, `kubernetes/recommendation/` | `order_db`, `payment_db`, `recommendation_db` |
 
 ---
@@ -33,14 +33,14 @@ Smile0n-Web/
 ├── api-gateway/                (Bagus)
 ├── auth-service/               (Rakha)
 ├── product-service/            (Rakha)
-├── portfolio-service/          (Rakha)
+├── gallery-service/            (Rakha)
 ├── order-service/              (Roihan)
 ├── payment-service/            (Roihan)
 ├── recommendation-service/     (Roihan)
 ├── databases/
 │   ├── auth_db.sql             (Rakha)
 │   ├── product_db.sql          (Rakha)
-│   ├── portfolio_db.sql        (Rakha)
+│   ├── gallery_db.sql          (Rakha)
 │   ├── order_db.sql            (Roihan)
 │   ├── payment_db.sql          (Roihan)
 │   └── recommendation_db.sql   (Roihan)
@@ -49,7 +49,7 @@ Smile0n-Web/
 │   ├── gateway/                (Bagus)
 │   ├── auth/                   (Rakha)
 │   ├── product/                (Rakha)
-│   ├── portfolio/              (Rakha)
+│   ├── gallery/                (Rakha)
 │   ├── order/                  (Roihan)
 │   ├── payment/                (Roihan)
 │   └── recommendation/         (Roihan)
@@ -87,7 +87,7 @@ Smile0n-Web/
 | order-service | 3001 |
 | payment-service | 3002 |
 | recommendation-service | 3003 |
-| portfolio-service | 3004 |
+| gallery-service | 3004 |
 
 ---
 
@@ -102,7 +102,7 @@ payment-service          → payment_db        (MySQL pod: mysql-payment)
 recommendation-service   → recommendation_db (MySQL pod: mysql-recommendation)
 auth-service             → auth_db           (MySQL pod: mysql-auth)
 product-service          → product_db        (MySQL pod: mysql-product)
-portfolio-service        → portfolio_db      (MySQL pod: mysql-portfolio)
+gallery-service        → gallery_db          (MySQL pod: mysql-portfolio)
 ```
 
 ---
@@ -136,7 +136,7 @@ docker build -t smileon-payment-service ./payment-service
 docker build -t smileon-recommendation-service ./recommendation-service
 docker build -t smileon-auth-service ./auth-service
 docker build -t smileon-product-service ./product-service
-docker build -t smileon-portfolio-service ./portfolio-service
+docker build -t smileon-gallery-service ./gallery-service
 docker build -t smileon-frontend ./frontend
 docker build -t smileon-api-gateway ./api-gateway
 ```
@@ -149,7 +149,7 @@ kubectl apply -f kubernetes/payment/
 kubectl apply -f kubernetes/recommendation/
 kubectl apply -f kubernetes/auth/
 kubectl apply -f kubernetes/product/
-kubectl apply -f kubernetes/portfolio/
+kubectl apply -f kubernetes/gallery/
 kubectl apply -f kubernetes/frontend/
 kubectl apply -f kubernetes/gateway/
 ```
