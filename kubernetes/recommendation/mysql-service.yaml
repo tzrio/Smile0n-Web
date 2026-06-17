@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-recommendation
+  labels:
+    app: mysql-recommendation
+    owner: roihan
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-recommendation
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
