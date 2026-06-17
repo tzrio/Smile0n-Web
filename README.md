@@ -20,7 +20,7 @@ Platform jasa desain digital berbasis arsitektur microservices menggunakan Docke
 | Anggota | Service | Kubernetes | Database |
 |---------|---------|------------|----------|
 | **Bagus** | `frontend/`, `api-gateway/` | `kubernetes/frontend/`, `kubernetes/gateway/` | — |
-| **Rakha** | `auth-service/`, `product-service/`, `portfolio-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/gallery/` | `auth_db`, `product_db`, `gallery_db` |
+| **Rakha** | `auth-service/`, `product-service/`, `gallery-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/gallery/` | `auth_db`, `product_db`, `gallery_db` |
 | **Roihan** | `order-service/`, `payment-service/`, `recommendation-service/` | `kubernetes/order/`, `kubernetes/payment/`, `kubernetes/recommendation/` | `order_db`, `payment_db`, `recommendation_db` |
 
 ---
@@ -102,7 +102,7 @@ payment-service          → payment_db        (MySQL pod: mysql-payment)
 recommendation-service   → recommendation_db (MySQL pod: mysql-recommendation)
 auth-service             → auth_db           (MySQL pod: mysql-auth)
 product-service          → product_db        (MySQL pod: mysql-product)
-gallery-service        → gallery_db          (MySQL pod: mysql-portfolio)
+gallery-service          → gallery_db        (MySQL pod: mysql-portfolio)
 ```
 
 ---
@@ -174,7 +174,7 @@ User → api-gateway:80
   /api/orders/           → order-service:3001
   /api/payments/         → payment-service:3002
   /api/recommendations/  → recommendation-service:3003
-  /api/portfolio/        → portfolio-service:3004
+  /api/gallery/          → gallery-service:3004
 ```
 
 ---
@@ -188,7 +188,7 @@ User → api-gateway:80
 | recommendation-service | ✅ Fully Implemented & Tested |
 | auth-service | 🔧 Stub, dikerjakan Rakha |
 | product-service | 🔧 Stub, dikerjakan Rakha |
-| portfolio-service | 🔧 Stub, dikerjakan Rakha |
+| gallery-service | 🔧 Stub, dikerjakan Rakha |
 | frontend | 🔧 Stub, dikerjakan Bagus |
 | api-gateway | ✅ Nginx configured |
 
@@ -197,7 +197,7 @@ User → api-gateway:80
 ## Aturan Arsitektur
 
 - `frontend/` dan `api-gateway/` adalah **bukan microservice**
-- Hanya 6 yang dianggap microservice: auth, product, order, payment, recommendation, portfolio
+- Hanya 6 yang dianggap microservice: auth, product, order, payment, recommendation, gallery
 - Setiap microservice memiliki database-nya sendiri
 - **Tidak ada shared database** antar service — tidak ada shadow tables
 - Komunikasi antar service menggunakan **HTTP API** (bukan direct DB query)
