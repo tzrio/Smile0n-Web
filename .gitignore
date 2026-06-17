@@ -1,4 +1,22 @@
+# Dependencies
+node_modules/
 
+# Environment variables
+.env
+
+# IDE / Editor
 .kiro/
+.vscode/
+
+# Upload artifacts (keep .gitkeep)
+uploads/*.png
+uploads/*.jpg
+uploads/*.jpeg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Legacy docs (now inside repo)
 Projects.MD
 projects.md

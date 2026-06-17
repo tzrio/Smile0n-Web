@@ -1,0 +1,88 @@
+# ============================================
+# MySQL untuk Recommendation Service
+# Owner: Roihan
+#
+# Berisi 3 resource:
+# 1. ConfigMap  → init SQL untuk recommendation_db
+# 2. Deployment → container MySQL 8.0
+# 3. (PVC ada di mysql-pvc.yaml)
+# ============================================
+
+---
+# ConfigMap: berisi script inisialisasi database recommendation_db
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-recommendation-initdb
+  labels:
+    app: mysql-recommendation
+    owner: roihan
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS recommendation_db;
+    USE recommendation_db;
+
+    CREATE TABLE IF NOT EXISTS recommendations (
+      id         INT PRIMARY KEY AUTO_INCREMENT,
+      user_id    INT NOT NULL,
+      product_id INT NOT NULL,
+      score      DECIMAL(5, 2) DEFAULT 50.00,
+      reason     VARCHAR(255),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    INSERT INTO recommendations (user_id, product_id, score, reason) VALUES
+    (2, 1, 92.50, 'Produk terpopuler di kategori Logo'),
+    (2, 2, 85.00, 'Cocok untuk kebutuhan promosi media sosial'),
+    (2, 3, 78.50, 'Rekomendasi berdasarkan pesanan sebelumnya');
+
+---
+# Deployment: menjalankan container MySQL 8.0 untuk recommendation_db
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-recommendation
+  labels:
+    app: mysql-recommendation
+    owner: roihan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-recommendation
+  template:
+    metadata:
+      labels:
+        app: mysql-recommendation
+    spec:
+      containers:
+        - name: mysql-recommendation
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpassword"
+            - name: MYSQL_DATABASE
+              value: "recommendation_db"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            # Data MySQL disimpan di PVC agar tidak hilang saat pod restart
+            - name: mysql-recommendation-storage
+              mountPath: /var/lib/mysql
+            # Script init.sql dijalankan otomatis saat MySQL pertama kali start
+            - name: mysql-recommendation-initdb
+              mountPath: /docker-entrypoint-initdb.d
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+      volumes:
+        - name: mysql-recommendation-storage
+          persistentVolumeClaim:
+            claimName: mysql-recommendation-pvc
+        - name: mysql-recommendation-initdb
+          configMap:
+            name: mysql-recommendation-initdb
