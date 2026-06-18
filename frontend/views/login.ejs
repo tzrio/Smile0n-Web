@@ -1,0 +1,259 @@
+<!DOCTYPE html><html class="light" lang="en" style"">
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Login | SmileOn Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f9f9ff",
+                    "inverse-primary": "#a9c7ff",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-variant": "#d8e3fb",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#dae5ff",
+                    "outline": "#727783",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#424752",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-tertiary-container": "#ffe2a7",
+                    "surface-bright": "#f9f9ff",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#263143",
+                    "on-background": "#111c2d",
+                    "inverse-on-surface": "#ecf1ff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#e2e2e2",
+                    "outline-variant": "#c2c6d4",
+                    "primary": "#004d99",
+                    "surface-dim": "#cfdaf2",
+                    "primary-container": "#1565c0",
+                    "on-surface": "#111c2d",
+                    "tertiary": "#644a00",
+                    "surface-container": "#e7eeff",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "on-secondary-container": "#616363",
+                    "surface-container-highest": "#d8e3fb",
+                    "tertiary-container": "#826100",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#dee8ff",
+                    "surface-tint": "#005db7",
+                    "surface-container-low": "#f0f3ff",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "surface": "#f9f9ff",
+                    "on-primary-fixed": "#001b3d",
+                    "secondary-container": "#dfe0e0",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#5d5f5f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "container-max-width": "1280px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "base": "8px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-background {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky bg-surface-lowest flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto z-50">
+<a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
+<div class="flex items-center gap-stack-md">
+<span class="hidden sm:inline text-on-surface-variant font-body-sm">Don't have an account?</span>
+<a class="text-primary font-label-md hover:underline transition-all" href="/register">Register</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile py-stack-lg relative overflow-hidden">
+<!-- Atmospheric Background Element -->
+<div class="absolute inset-0 pointer-events-none opacity-20">
+<div class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 rounded-full bg-primary mix-blend-multiply filter blur-3xl animate-pulse"></div>
+<div class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-tertiary-fixed-dim mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+</div>
+<!-- Login Card -->
+<div class="w-full max-w-md z-10">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 shadow-sm transition-all duration-300 hover:shadow-md">
+<div class="text-center mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Access your expert design dashboard</p>
+</div>
+<form class="space-y-stack-md">
+<!-- Email Field -->
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="email" placeholder="name@google.com" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-stack-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="password" placeholder="••••••••" required="" type="password">
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center gap-stack-sm py-2">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary" id="remember" type="checkbox">
+<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="remember">Remember me for 30 days</label>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-[16px] py-4 rounded-lg flex justify-center items-center gap-2 hover:bg-primary transition-all active:scale-95 shadow-sm" type="submit">
+<span class="">Login to Dashboard</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-label-sm">
+</div>
+</div>
+<!-- Secondary Social Action -->
+<div class="grid grid-cols-2 gap-gutter">
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="mt-stack-lg text-center flex flex-col items-center gap-stack-sm">
+<div class="flex items-center gap-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Trusted by 500+ global creative agencies</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto border-t border-outline-variant bg-surface-container-low">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max-width mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="text-headline-sm font-headline-sm font-bold text-on-surface mb-stack-sm">SmileOn Lab</div>
+<p class="font-body-sm text-on-surface-variant">Precision digital design for high-velocity teams.</p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-on-surface uppercase tracking-wider mb-2">Navigation</h4>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/">Home</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/portfolio">Portfolio</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/recommendation">Recommendations</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/order">Order Now</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-on-surface uppercase tracking-wider mb-2">Account</h4>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/login">Login</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="/register">Register</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Privacy Policy</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-label-md text-on-surface uppercase tracking-wider mb-2">Support</h4>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Contact Us</a>
+<p class="font-body-sm text-on-surface-variant mt-2">© 2024 SmileOn Lab. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for password visibility
+        document.querySelector('button[type="button"]').addEventListener('click', function() {
+            const input = document.getElementById('password');
+            const icon = this.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+
+        // Basic form animation on submit
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="animate-spin material-symbols-outlined">sync</span>';
+            btn.classList.add('opacity-80');
+            setTimeout(() => {
+                alert('Login attempted. Implementation of authentication would happen here.');
+                btn.innerHTML = '<span>Login to Dashboard</span><span class="material-symbols-outlined">arrow_forward</span>';
+                btn.classList.remove('opacity-80');
+            }, 1500);
+        });
+    </script>
+
+
+</body></html>

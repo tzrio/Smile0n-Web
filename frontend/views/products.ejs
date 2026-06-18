@@ -1,0 +1,311 @@
+<!DOCTYPE html><html class="light" lang="en" style""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Products | SmileOn Lab - Premium Design Solutions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#d8e3fb",
+                    "on-surface": "#111c2d",
+                    "surface": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#5d5f5f",
+                    "outline": "#727783",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#dee8ff",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "primary": "#004d99",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#d8e3fb",
+                    "on-surface-variant": "#424752",
+                    "inverse-on-surface": "#ecf1ff",
+                    "on-secondary-container": "#616363",
+                    "surface-container": "#e7eeff",
+                    "inverse-primary": "#a9c7ff",
+                    "surface-tint": "#005db7",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-bright": "#f9f9ff",
+                    "secondary-container": "#dfe0e0",
+                    "secondary-fixed": "#e2e2e2",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-primary-fixed": "#001b3d",
+                    "on-background": "#111c2d",
+                    "outline-variant": "#c2c6d4",
+                    "on-primary-container": "#dae5ff",
+                    "background": "#f9f9ff",
+                    "tertiary-container": "#826100",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "primary-container": "#1565c0",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "inverse-surface": "#263143",
+                    "tertiary": "#644a00",
+                    "surface-container-low": "#f0f3ff",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-container": "#ffe2a7",
+                    "surface-dim": "#cfdaf2",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "container-max-width": "1280px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .product-card:hover .apply-overlay {
+            opacity: 1;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<a href="/"
+   class="font-headline-md text-headline-md font-bold text-primary hover:opacity-80 transition">
+    SmileOn Lab
+</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/">Home</a>
+
+<a class="text-primary border-b-2 border-primary pb-1 font-bold font-body-md" href="/products">Products</a>
+
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/portfolio">Portfolio</a>
+
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a>
+</div>
+<div class="flex items-center gap-4">
+<button onclick="window.location='/login'"
+class="hidden md:block text-on-surface-variant font-label-md hover:underline">
+    Login
+</button>
+
+<button onclick="window.location='/register'"
+class="bg-primary-container text-on-primary text-label-md font-bold py-2 px-6 rounded-lg hover:opacity-90 transition-all duration-200">
+    Register
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-container-max-width mx-auto px-margin-desktop py-stack-lg">
+<!-- Hero Section -->
+<header class="mb-stack-lg text-center md:text-left max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-4">Design Products That Perform.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">From pixel-perfect digital assets to high-impact physical collateral, explore our suite of expert design services tailored for modern business velocity.</p>
+</header>
+<!-- Product Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Logos - Large Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-8 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl cursor-pointer">
+<div class="p-8 pb-0">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm mb-4">Core Identity</span>
+<h2 class="font-headline-lg text-headline-lg mb-2">Brand Logos</h2>
+<p class="font-body-md text-on-surface-variant mb-6">Strategic visual identities that anchor your brand's presence across all touchpoints.</p>
+</div>
+<div class="relative h-80 w-full overflow-hidden">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" data-alt="A clean and professional logo design displayed on a high-end physical storefront of a modern tech boutique in Zurich. The lighting is crisp afternoon sun casting subtle shadows, highlighting the metallic finish of the logo against a charcoal gray facade. The overall aesthetic is minimalist, corporate, and premium, using a deep blue and yellow brand palette for the logo itself." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyhLTNKRp1lAwI82sacpHlPAyDmpfP9xJD4NfXmC_I-efel6NnwD80FxPCIGIJJy0CBRBl1wusuhNSXEbKv01v-xC2KRGK4fErKHQwGYxZslLCGrA9Eloo21rR5tOJyoy86ca73k7QIrbtQfL2c6xyh9nRlQsq5bi1rlJv5tET9wFL6ouvstz9SITj7sAdw0chQDHJbZbOc8Ren2FywzfLzL3JCYTjt48KWs1tsx3NbpG0n98-LenjCurQx2YxrS1bbjHJpv4v8rQ">
+
+</div>
+</div>
+<!-- Instagram Stories - Vertical Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-4 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl flex flex-col cursor-pointer">
+<div class="p-8">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm mb-4">Social Media</span>
+<h2 class="font-headline-md text-headline-md mb-2">Instagram Stories</h2>
+<p class="font-body-sm text-on-surface-variant">High-engagement, vertical layouts optimized for mobile discovery.</p>
+</div>
+<div class="mt-auto h-96 w-full relative overflow-hidden">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" data-alt="A vibrant and engaging Instagram Story design active on a modern smartphone screen held by a person in a bright cafe. The design features bold typography and dynamic yellow and blue geometric shapes. The lighting is soft and natural, emphasizing the clarity of the mobile UI and the professional design quality of the story layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChn2eCQmHzJaqync88uobIyXy1LY9z0HVaZEMxwkaoyTxeLWi5v66HXB-hwUcPzhSTomG39fA_mzs4lL3-8SU4LYoCZpPZJzyMpzl6rLJc71D-CcaE52FCNpip2cLaCo2ILQNreCySHuv531vKO_ABaEI6hD4r4USCT7fDUmXFjDIizXhbD00tHwtNoDrFU88Hb_z8aON7iEqDyav7Xi4BSqnyrSYZuVj3JxnaIXDHG098BtIYJGx8hDmeXCYKJ5id1F7NrXB70zo">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+<p class="text-white font-label-md">Dynamic Social Mockup</p>
+</div>
+</div>
+</div>
+<!-- Posters - Standard Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-4 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl">
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md mb-2">Posters</h3>
+<div class="h-64 mb-4 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A high-quality minimalist poster design framed in a sleek black gallery frame, hanging in a bright, airy modern office hallway with white walls and light wood floors. The poster uses large, bold blue typography and yellow accents to communicate a professional message. Soft ambient lighting creates a clean, corporate atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPVs-7lfqFlhR5oc9IqwlhxbV39H1vStN17V6go2ZxC_9x2gZeipu-bR27vIkkSkeUmqo1zOZlR9iS2DOPSnk0Ni2haXlHGgcrML799E0aH5-oyjlxjshUwCqgsyNVAB-VUZ_TpyZNWzcANkZyi3MNlvOS36gYX0wcSyUS2se2WA_PAl4n-vr2ualKb5wLRBEfxw5B2vGG6vqJTJ5tsUnuSqol3GGrhQHrzNdUR2iu3lwNSkGSQ-0Bozmao0nqbWjrxvDr2omxBR8">
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">print</span>
+<p class="font-body-sm italic">How it's Applied: Interior Branding</p>
+</div>
+</div>
+</div>
+<!-- Banners - Wide Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-8 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl flex flex-col md:flex-row">
+<div class="p-8 md:w-1/2">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm mb-4">Digital Marketing</span>
+<h2 class="font-headline-md text-headline-md mb-2">Digital Banners</h2>
+<p class="font-body-sm text-on-surface-variant mb-6">Conversion-focused web banners for SaaS, E-commerce, and Corporate platforms.</p>
+
+</div>
+<div class="md:w-1/2 h-64 md:h-full overflow-hidden relative">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" data-alt="A professional website homepage displayed on a large 5K desktop monitor. A vibrant digital banner featuring a 'SmileOn' campaign is prominently placed at the top. The scene is a clean, modern workstation with a glass desk and organized peripherals. The lighting is soft studio light, highlighting the premium digital design output." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0eXdshDTB58prxQUzsU8zCFtE58Oz1VDFzgTNPz5HJfsrca25HmppnV3DLzJhWDTXSVIunZefXyRWHiprNbbmv0Bczd8RaUelbdSOox0nk5DcSZsCXghq6Cv4mEluLkoJuyeK-22IbzyIov4Magi59FdtOTmG2-Zf8eaWWv0iuSIZSblsZjPpYvxdMudn6r3JJU15--nSUGbrnHcVB4G9v66f24haNWtpupN61EEWQYzrxN9E7VXrCK13TaTDXSnnHhMCc9m45fY">
+</div>
+</div>
+<!-- Brochures - Standard Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-6 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl">
+<div class="p-8">
+<h3 class="font-headline-md text-headline-md mb-4">Tri-fold Brochures</h3>
+<div class="h-72 mb-4 rounded-lg overflow-hidden relative bg-surface-container">
+<img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" data-alt="Multiple professionally printed tri-fold brochures fanned out on a textured marble conference table in a high-rise office. The brochures feature detailed graphics, charts, and clean typography in the brand's blue and yellow colors. The background shows a blurred city skyline through large windows, creating an expert corporate feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0emJt7GRk8mhbIUfcTreNcoO1VmbCjfOZz6TQpIar7owIBNag-He-QFE8vXMPH7CnpfsB4EmTPXGW7xCBl-8F3g3HZEj5wYvPsBl1koUWjnOJNdrol1ewohtaPnrT-4BVd3a43NRnbSyvEnMX2eB8fk_jCxlljNTxyOnrhlZFHvIKNV2lIgidI5i2nt-gUTUiI3ykQAiYHwF9BUo5lS_H_eQiz45ooF7HXGtqHPHRDfw5GA-ntHD3h2xU3qKVonqGQcmhKL59kDY">
+</div>
+<div class="flex justify-between items-center">
+<p class="font-body-sm text-on-surface-variant">Tangible Professionalism</p>
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm rounded">Popular</span>
+</div>
+</div>
+</div>
+<!-- Instagram Feeds - Standard Bento Item -->
+<div onclick="window.location.href='/order'"
+class="md:col-span-6 group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl">
+<div class="p-8">
+<h3 class="font-headline-md text-headline-md mb-4">Curated Feeds</h3>
+<div class="h-72 mb-4 rounded-lg overflow-hidden relative grid grid-cols-3 gap-1 p-2 bg-on-surface">
+<!-- Simulated Grid -->
+<div class="bg-primary/20 rounded-sm"></div>
+<div class="bg-primary/40 rounded-sm"></div>
+<div class="bg-tertiary-fixed/30 rounded-sm"></div>
+<div class="bg-primary/60 rounded-sm"></div>
+<div class="bg-primary/10 rounded-sm"></div>
+<div class="bg-tertiary-fixed/50 rounded-sm"></div>
+<div class="bg-primary/30 rounded-sm"></div>
+<div class="bg-primary/50 rounded-sm"></div>
+<div class="bg-primary/20 rounded-sm"></div>
+<div class="absolute inset-0 flex items-center justify-center bg-on-surface/60 opacity-0 group-hover:opacity-100 transition-opacity">
+<img class="w-4/5 h-4/5 object-contain" data-alt="A smartphone screen displaying a perfectly curated Instagram grid with a seamless puzzle layout. The colors are harmonized across nine posts using the brand's navy blue and bright yellow accents. The device is held over a clean white desk with professional equipment. The mood is sophisticated and aesthetically pleasing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAM2C65dB3ExcjZcMRg0fKibqAQD08ISV-dIcitobnWEyCZ64vW1uYOGbAd6oBNkKP8yIF2Q9u7hFiCZODoNG1gZ_HHh658fbiY3uShjqGZP7Kb6p2PHBa6jluhmpaANOVdEbhIMZV1ONx4Obgn3J7kcZRdbPcC-UZLcPq4mJoXHiTGpPmafKJdn-Gth5vWNjPQgXmrUabX2xZUppK9TTROvVqyYPTuz8ACmMCTOb492pgCDDZS_4sZosmQEg1hjcx-wXtsDtxRwj0">
+</div>
+</div>
+<p class="font-body-sm text-on-surface-variant">Strategic 9-grid layouts for a cohesive profile aesthetic.</p>
+</div>
+</div>
+</div>
+<!-- Call to Action Section -->
+<section class="mt-stack-lg p-12 bg-primary-container rounded-2xl relative overflow-hidden text-on-primary">
+<div class="relative z-10 md:flex items-center justify-between">
+<div class="max-w-xl mb-8 md:mb-0">
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-lg mb-4">Don't see what you need?</h2>
+<p class="font-body-lg opacity-90">We offer custom bespoke design packages tailored to your specific project requirements. Let's discuss your vision.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-tertiary-fixed text-on-tertiary-fixed font-label-md py-4 px-8 rounded-lg font-bold hover:brightness-110 transition-all">Request Quote</button>
+<button class="border border-white/30 hover:bg-white/10 py-4 px-8 rounded-lg font-label-md transition-all">View All Services</button>
+</div>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-tertiary-fixed/20 rounded-full blur-3xl"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-stack-lg bg-surface-container-low border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-stack-lg max-w-container-max-width mx-auto gap-4">
+<div class="flex flex-col gap-2">
+<div class="font-label-md text-label-md font-bold text-primary">SmileOn Lab</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">© 2024 SmileOn Lab. All rights reserved.</div>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant font-body-sm hover:underline decoration-primary transition-all" href="#">Services</a>
+<a class="text-on-surface-variant font-body-sm hover:underline decoration-primary transition-all" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-body-sm hover:underline decoration-primary transition-all" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-body-sm hover:underline decoration-primary transition-all" href="#">Contact Us</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-lg">public</span>
+</div>
+<div class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-primary cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-lg">mail</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+
+</body></html>

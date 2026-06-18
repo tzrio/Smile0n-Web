@@ -1,0 +1,355 @@
+<!DOCTYPE html><html class="light" lang="en">
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Payment - SmileOn Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .receipt-jagged-edge {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#826100",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-variant": "#d8e3fb",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#d8e3fb",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f0f3ff",
+                    "surface-dim": "#cfdaf2",
+                    "on-tertiary-container": "#ffe2a7",
+                    "secondary-fixed": "#e2e2e2",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary": "#ffffff",
+                    "surface": "#f9f9ff",
+                    "secondary-container": "#dfe0e0",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "background": "#f9f9ff",
+                    "inverse-primary": "#a9c7ff",
+                    "on-secondary-fixed-variant": "#454747",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-surface-variant": "#424752",
+                    "on-primary-fixed": "#001b3d",
+                    "primary": "#004d99",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#263143",
+                    "tertiary-fixed": "#ffdf9e",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#616363",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#00468c",
+                    "surface-container": "#e7eeff",
+                    "secondary": "#5d5f5f",
+                    "on-background": "#111c2d",
+                    "surface-container-high": "#dee8ff",
+                    "surface-tint": "#005db7",
+                    "outline-variant": "#c2c6d4",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "tertiary": "#644a00",
+                    "inverse-on-surface": "#ecf1ff",
+                    "surface-bright": "#f9f9ff",
+                    "primary-container": "#1565c0",
+                    "outline": "#727783",
+                    "on-surface": "#111c2d",
+                    "on-primary-container": "#dae5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "gutter": "24px",
+                    "container-max-width": "1280px",
+                    "margin-desktop": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-surface-lowest dark:bg-inverse-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline z-50">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<div class="flex items-center gap-stack-lg">
+<a class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary" href="/">SmileOn Lab</a>
+<div class="hidden md:flex gap-gutter">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/portfolio">Portfolio</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<a class="hidden md:block px-4 py-2 font-label-md text-label-md text-primary hover:bg-primary/5 transition-colors" href="/register">Register</a>
+<a class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-lg font-label-md text-label-md active:scale-95 transition-transform flex items-center" href="/login">Login</a>
+</div>
+</div>
+</nav>
+<main class="flex-grow max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Order Summary (Receipt) -->
+<div class="lg:col-span-5 flex flex-col gap-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Complete Your Order</h1>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden receipt-jagged-edge shadow-sm">
+<div class="p-stack-lg flex flex-col gap-stack-md border-b border-dashed border-outline-variant">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Invoice #SL-88219</p>
+<p class="font-headline-md text-headline-md mt-1">Order Details</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl">receipt_long</span>
+</div>
+<div class="space-y-4 pt-4">
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Design Type</span>
+<span class="font-body-md text-body-md font-semibold">Poster Design</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Turnaround Time</span>
+<span class="font-body-md text-body-md font-semibold">48 Hours</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Package</span>
+<span class="font-body-md text-body-md font-semibold">Pro Intervention</span>
+</div>
+</div>
+</div>
+<div class="p-stack-lg bg-surface-container-low">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Subtotal</span>
+<span class="font-body-md text-body-md font-medium">$120.00</span>
+</div>
+<div class="flex justify-between items-center mb-6">
+<span class="font-body-md text-body-md text-on-surface-variant">Processing Fee</span>
+<span class="font-body-md text-body-md font-medium text-primary">Free</span>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-outline-variant">
+<span class="font-headline-md text-headline-md">Total Amount</span>
+<span class="font-headline-md text-headline-md text-primary">$120.00</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm p-4 bg-primary/5 rounded-lg border border-primary/20">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Secured by SmileOn Lab Payment Gateway</p>
+</div>
+</div>
+<!-- Right Column: Payment Methods -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container rounded-xl p-stack-lg border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-6">Select Payment Method</h2>
+<div class="space-y-4" id="payment-accordion">
+<!-- QRIS Section -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('qris-content')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">qr_code_2</span>
+</div>
+<div class="text-left">
+<p class="font-label-md text-label-md">QRIS</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Flash pay with any banking or e-wallet app</p>
+</div>
+</div>
+<span class="material-symbols-outlined" id="qris-icon">expand_more</span>
+</button>
+<div class="p-6 flex flex-col items-center bg-white border-t border-outline-variant hidden" id="qris-content">
+<div class="w-48 h-48 bg-gray-100 p-4 border border-outline flex items-center justify-center relative rounded-xl">
+<img alt="QRIS Code" class="w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCs5yHp1mFxq_Yuibuj-PcxJv9d8vlm__5By-GAqxSxYfdbOMCmFWehiBZ-TiG-zJ6-4MlqHwh0Kaa3060h0dxEO6rmbxsTxpLkceuLf-Gn1bL8VIZTddbV5ry7GhyxFVvZvMA6o80RCLJACXsrne8oyl0wWOwBseXSsXys01uL-Zgfortc72zJ5LFW1JIiP2t5BVxtk8tUwuUatIhHrBsSOmHS1ldCYMifrEJWgTdJ7QuLxQqHdV9EZT5nVuX2gHHKF0BQeHn9E0">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+<span class="text-headline-md font-bold text-primary">SMILEON</span>
+</div>
+</div>
+<p class="mt-4 font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">Scan this QR code using GoPay, OVO, Dana, ShopeePay, or your Mobile Banking app.</p>
+</div>
+</div>
+<!-- E-Wallets Section -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('ewallet-content')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<div class="text-left">
+<p class="font-label-md text-label-md">E-Wallets</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">GoPay, Dana, ShopeePay</p>
+</div>
+</div>
+<span class="material-symbols-outlined" id="ewallet-icon">expand_more</span>
+</button>
+<div class="hidden p-6 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-outline-variant" id="ewallet-content">
+<label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<span class="font-label-md mb-1">GoPay</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Automatic Redirect</span>
+</label>
+<label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<span class="font-label-md mb-1">Dana</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Phone Number Link</span>
+</label>
+<label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<span class="font-label-md mb-1">ShopeePay</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Shopee App</span>
+</label>
+</div>
+</div>
+<!-- Bank Transfer Section -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('bank-content')">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div class="text-left">
+<p class="font-label-md text-label-md">Bank Transfer</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">BRI, BNI, Mandiri (Manual Verification)</p>
+</div>
+</div>
+<span class="material-symbols-outlined" id="bank-icon">expand_more</span>
+</button>
+<div class="hidden p-6 space-y-4 border-t border-outline-variant" id="bank-content">
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+<div>
+<p class="font-label-md text-label-md">Bank BRI</p>
+<p class="font-body-md text-body-md font-bold mt-1 tracking-wider">8821 0022 1990 4423</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
+</div>
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+<div>
+<p class="font-label-md text-label-md">Bank BNI</p>
+<p class="font-body-md text-body-md font-bold mt-1 tracking-wider">0442 8812 331</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
+</div>
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+<div>
+<p class="font-label-md text-label-md">Bank Mandiri</p>
+<p class="font-body-md text-body-md font-bold mt-1 tracking-wider">1240 0098 7761 0</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
+</div>
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">content_copy</span>
+</button>
+</div>
+<p class="text-[12px] text-on-surface-variant italic">* Please upload transfer proof after clicking confirm payment.</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-3" onclick="window.location.href='/'">
+                            Confirm Payment
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="mt-4 text-center font-body-sm text-body-sm text-on-surface-variant">
+                            By confirming, you agree to our <a class="underline hover:text-primary" href="#">Service Terms</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface w-full mt-auto border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max-width mx-auto">
+<div class="col-span-1 md:col-span-2">
+<a class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-inverse-on-surface" href="/">SmileOn Lab</a>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant mt-4 max-w-xs">
+                    Premium digital design services for high-velocity teams. Precision meets approachability in every pixel.
+                </p>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<p class="font-label-md text-label-md text-on-surface font-bold">Company</p>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/portfolio">About Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/recommendation">Services</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/#">Contact</a>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<p class="font-label-md text-label-md text-on-surface font-bold">Legal</p>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/privacy">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/terms">Terms of Service</a>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant mt-4 opacity-80">© 2024 SmileOn Lab. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+        function toggleSection(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id.split('-')[0] + '-icon');
+            const isHidden = content.classList.contains('hidden');
+            
+            // Close all first for accordion effect
+            ['qris-content', 'ewallet-content', 'bank-content'].forEach(secId => {
+                document.getElementById(secId).classList.add('hidden');
+                document.getElementById(secId.split('-')[0] + '-icon').textContent = 'expand_more';
+            });
+
+            if (isHidden) {
+                content.classList.remove('hidden');
+                icon.textContent = 'expand_less';
+            }
+        }
+
+        // Initialize with QRIS open
+        window.onload = () => toggleSection('qris-content');
+    </script>
+
+
+</body></html>
