@@ -129,8 +129,13 @@
 </div>
 </div>
 <div class="flex items-center gap-stack-md">
+<% if (locals.user) { %>
+<span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
+<a class="font-label-md text-label-md text-primary hover:bg-primary/5 transition-colors px-4 py-2" href="/logout">Logout</a>
+<% } else { %>
 <a class="hidden md:block px-4 py-2 font-label-md text-label-md text-primary hover:bg-primary/5 transition-colors" href="/register">Register</a>
 <a class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-lg font-label-md text-label-md active:scale-95 transition-transform flex items-center" href="/login">Login</a>
+<% } %>
 </div>
 </div>
 </nav>
@@ -143,7 +148,7 @@
 <div class="p-stack-lg flex flex-col gap-stack-md border-b border-dashed border-outline-variant">
 <div class="flex justify-between items-start">
 <div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Invoice #SL-88219</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Invoice #SL-<%= order_id %></p>
 <p class="font-headline-md text-headline-md mt-1">Order Details</p>
 </div>
 <span class="material-symbols-outlined text-primary text-4xl">receipt_long</span>
@@ -151,30 +156,18 @@
 <div class="space-y-4 pt-4">
 <div class="flex justify-between">
 <span class="font-body-md text-body-md text-on-surface-variant">Design Type</span>
-<span class="font-body-md text-body-md font-semibold">Poster Design</span>
+<span class="font-body-md text-body-md font-semibold"><%= order ? order.jenis_desain : 'Design' %></span>
 </div>
 <div class="flex justify-between">
-<span class="font-body-md text-body-md text-on-surface-variant">Turnaround Time</span>
-<span class="font-body-md text-body-md font-semibold">48 Hours</span>
-</div>
-<div class="flex justify-between">
-<span class="font-body-md text-body-md text-on-surface-variant">Package</span>
-<span class="font-body-md text-body-md font-semibold">Pro Intervention</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Status</span>
+<span class="font-body-md text-body-md font-semibold"><%= order ? order.status : 'Processing' %></span>
 </div>
 </div>
 </div>
 <div class="p-stack-lg bg-surface-container-low">
-<div class="flex justify-between items-center mb-2">
-<span class="font-body-md text-body-md text-on-surface-variant">Subtotal</span>
-<span class="font-body-md text-body-md font-medium">$120.00</span>
-</div>
-<div class="flex justify-between items-center mb-6">
-<span class="font-body-md text-body-md text-on-surface-variant">Processing Fee</span>
-<span class="font-body-md text-body-md font-medium text-primary">Free</span>
-</div>
 <div class="flex justify-between items-center pt-4 border-t border-outline-variant">
 <span class="font-headline-md text-headline-md">Total Amount</span>
-<span class="font-headline-md text-headline-md text-primary">$120.00</span>
+<span class="font-headline-md text-headline-md text-primary">$--.--</span>
 </div>
 </div>
 </div>
@@ -183,14 +176,32 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Secured by SmileOn Lab Payment Gateway</p>
 </div>
 </div>
+
+<!-- Flash Messages -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+
 <!-- Right Column: Payment Methods -->
 <div class="lg:col-span-7">
+<form action="/payment" method="POST" enctype="multipart/form-data">
 <div class="bg-surface-container rounded-xl p-stack-lg border border-outline-variant">
 <h2 class="font-headline-md text-headline-md mb-6">Select Payment Method</h2>
+
+<!-- Hidden field untuk order_id -->
+<input type="hidden" name="order_id" value="<%= order_id %>">
+
 <div class="space-y-4" id="payment-accordion">
 <!-- QRIS Section -->
 <div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
-<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('qris-content')">
+<button type="button" class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('qris-content')">
 <div class="flex items-center gap-4">
 <div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
 <span class="material-symbols-outlined text-primary">qr_code_2</span>
@@ -203,18 +214,19 @@
 <span class="material-symbols-outlined" id="qris-icon">expand_more</span>
 </button>
 <div class="p-6 flex flex-col items-center bg-white border-t border-outline-variant hidden" id="qris-content">
+<label class="flex items-center gap-2 mb-4 cursor-pointer">
+<input type="radio" name="metode_pembayaran" value="QRIS" class="text-primary focus:ring-primary" onchange="selectPaymentMethod('QRIS')">
+<span class="font-label-md">QRIS</span>
+</label>
 <div class="w-48 h-48 bg-gray-100 p-4 border border-outline flex items-center justify-center relative rounded-xl">
 <img alt="QRIS Code" class="w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCs5yHp1mFxq_Yuibuj-PcxJv9d8vlm__5By-GAqxSxYfdbOMCmFWehiBZ-TiG-zJ6-4MlqHwh0Kaa3060h0dxEO6rmbxsTxpLkceuLf-Gn1bL8VIZTddbV5ry7GhyxFVvZvMA6o80RCLJACXsrne8oyl0wWOwBseXSsXys01uL-Zgfortc72zJ5LFW1JIiP2t5BVxtk8tUwuUatIhHrBsSOmHS1ldCYMifrEJWgTdJ7QuLxQqHdV9EZT5nVuX2gHHKF0BQeHn9E0">
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-<span class="text-headline-md font-bold text-primary">SMILEON</span>
-</div>
 </div>
 <p class="mt-4 font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">Scan this QR code using GoPay, OVO, Dana, ShopeePay, or your Mobile Banking app.</p>
 </div>
 </div>
 <!-- E-Wallets Section -->
 <div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
-<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('ewallet-content')">
+<button type="button" class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('ewallet-content')">
 <div class="flex items-center gap-4">
 <div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
 <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
@@ -228,17 +240,17 @@
 </button>
 <div class="hidden p-6 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-outline-variant" id="ewallet-content">
 <label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<input type="radio" name="metode_pembayaran" value="GoPay" class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" onchange="selectPaymentMethod('GoPay')">
 <span class="font-label-md mb-1">GoPay</span>
 <span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Automatic Redirect</span>
 </label>
 <label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<input type="radio" name="metode_pembayaran" value="Dana" class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" onchange="selectPaymentMethod('Dana')">
 <span class="font-label-md mb-1">Dana</span>
 <span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Phone Number Link</span>
 </label>
 <label class="relative flex flex-col items-center p-4 border-2 border-outline-variant rounded-xl cursor-pointer hover:border-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-<input class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" name="payment" type="radio">
+<input type="radio" name="metode_pembayaran" value="ShopeePay" class="absolute top-2 right-2 text-primary focus:ring-primary h-4 w-4" onchange="selectPaymentMethod('ShopeePay')">
 <span class="font-label-md mb-1">ShopeePay</span>
 <span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Shopee App</span>
 </label>
@@ -246,7 +258,7 @@
 </div>
 <!-- Bank Transfer Section -->
 <div class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
-<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('bank-content')">
+<button type="button" class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleSection('bank-content')">
 <div class="flex items-center gap-4">
 <div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center">
 <span class="material-symbols-outlined text-primary">account_balance</span>
@@ -259,50 +271,52 @@
 <span class="material-symbols-outlined" id="bank-icon">expand_more</span>
 </button>
 <div class="hidden p-6 space-y-4 border-t border-outline-variant" id="bank-content">
-<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+<label class="relative flex items-center gap-2 p-4 bg-surface rounded-lg border border-outline-variant cursor-pointer hover:border-primary transition-colors">
+<input type="radio" name="metode_pembayaran" value="BRI" class="text-primary focus:ring-primary" onchange="selectPaymentMethod('BRI')">
 <div>
 <p class="font-label-md text-label-md">Bank BRI</p>
 <p class="font-body-md text-body-md font-bold mt-1 tracking-wider">8821 0022 1990 4423</p>
 <p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
 </div>
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
-<span class="material-symbols-outlined">content_copy</span>
-</button>
-</div>
-<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+</label>
+<label class="relative flex items-center gap-2 p-4 bg-surface rounded-lg border border-outline-variant cursor-pointer hover:border-primary transition-colors">
+<input type="radio" name="metode_pembayaran" value="BNI" class="text-primary focus:ring-primary" onchange="selectPaymentMethod('BNI')">
 <div>
 <p class="font-label-md text-label-md">Bank BNI</p>
 <p class="font-body-md text-body-md font-bold mt-1 tracking-wider">0442 8812 331</p>
 <p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
 </div>
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
-<span class="material-symbols-outlined">content_copy</span>
-</button>
-</div>
-<div class="p-4 bg-surface rounded-lg border border-outline-variant flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+</label>
+<label class="relative flex items-center gap-2 p-4 bg-surface rounded-lg border border-outline-variant cursor-pointer hover:border-primary transition-colors">
+<input type="radio" name="metode_pembayaran" value="Mandiri" class="text-primary focus:ring-primary" onchange="selectPaymentMethod('Mandiri')">
 <div>
 <p class="font-label-md text-label-md">Bank Mandiri</p>
 <p class="font-body-md text-body-md font-bold mt-1 tracking-wider">1240 0098 7761 0</p>
 <p class="font-body-sm text-body-sm text-on-surface-variant">SmileOn Lab Group</p>
 </div>
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
-<span class="material-symbols-outlined">content_copy</span>
-</button>
-</div>
-<p class="text-[12px] text-on-surface-variant italic">* Please upload transfer proof after clicking confirm payment.</p>
+</label>
 </div>
 </div>
 </div>
+
+<!-- Upload Bukti Pembayaran -->
+<div class="mt-8 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant">
+<h3 class="font-label-md text-label-md mb-3">Upload Payment Proof</h3>
+<input type="file" name="bukti_pembayaran" accept="image/*,.pdf" class="w-full p-2 border border-outline-variant rounded-lg bg-white font-body-sm text-body-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary file:text-white file:font-label-sm hover:file:bg-primary-container transition-all" required>
+<p class="text-[11px] text-on-surface-variant mt-2 italic">Format: JPG, PNG, atau PDF. Maksimal 5MB.</p>
+</div>
+
 <div class="mt-8">
-<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-3" onclick="window.location.href='/'">
-                            Confirm Payment
-                            <span class="material-symbols-outlined">arrow_forward</span>
+<button type="submit" class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-3 cursor-pointer">
+Confirm Payment
+<span class="material-symbols-outlined">arrow_forward</span>
 </button>
 <p class="mt-4 text-center font-body-sm text-body-sm text-on-surface-variant">
-                            By confirming, you agree to our <a class="underline hover:text-primary" href="#">Service Terms</a>
+By confirming, you agree to our <a class="underline hover:text-primary" href="#">Service Terms</a>
 </p>
 </div>
 </div>
+</form>
 </div>
 </div>
 </main>
@@ -345,6 +359,10 @@
                 content.classList.remove('hidden');
                 icon.textContent = 'expand_less';
             }
+        }
+
+        function selectPaymentMethod(method) {
+            console.log('Payment method selected:', method);
         }
 
         // Initialize with QRIS open

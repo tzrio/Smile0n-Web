@@ -143,6 +143,10 @@
 <a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a>
 </div>
 <div class="flex items-center gap-4">
+<% if (locals.user) { %>
+<span class="hidden md:block text-on-surface-variant font-body-sm"><%= user.email %></span>
+<a href="/logout" class="text-primary font-label-md hover:underline">Logout</a>
+<% } else { %>
 <button onclick="window.location='/login'"
 class="hidden md:block text-on-surface-variant font-label-md hover:underline">
     Login
@@ -152,10 +156,22 @@ class="hidden md:block text-on-surface-variant font-label-md hover:underline">
 class="bg-primary-container text-on-primary text-label-md font-bold py-2 px-6 rounded-lg hover:opacity-90 transition-all duration-200">
     Register
 </button>
+<% } %>
 </div>
 </div>
 </nav>
 <main class="max-w-container-max-width mx-auto px-margin-desktop py-stack-lg">
+<!-- Flash Messages -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
 <!-- Hero Section -->
 <header class="mb-stack-lg text-center md:text-left max-w-3xl">
 <h1 class="font-display-lg text-display-lg text-primary mb-4">Design Products That Perform.</h1>
@@ -256,6 +272,36 @@ class="md:col-span-6 group relative overflow-hidden bg-white border border-outli
 </div>
 </div>
 </div>
+
+<!-- Dynamic Products Section from API -->
+<% if (locals.products && products.length > 0) { %>
+<section class="mt-stack-lg">
+  <div class="mb-stack-lg">
+    <h2 class="font-headline-lg text-headline-lg text-primary">Available Products</h2>
+    <p class="font-body-md text-body-md text-on-surface-variant">Produk desain yang tersedia saat ini.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    <% products.forEach(function(product) { %>
+      <div onclick="window.location.href='/order'" class="group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl cursor-pointer">
+        <div class="p-6">
+          <span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm mb-3"><%= product.kategori || 'General' %></span>
+          <h3 class="font-headline-md text-headline-md mb-2"><%= product.nama_produk %></h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mb-4"><%= product.deskripsi || '' %></p>
+          <div class="flex items-center gap-2">
+            <% if (product.harga) { %>
+              <span class="font-headline-md text-primary">$<%= parseFloat(product.harga).toFixed(2) %></span>
+            <% } %>
+            <% if (product.estimasi_pengerjaan) { %>
+              <span class="font-body-sm text-on-surface-variant ml-auto"><%= product.estimasi_pengerjaan %></span>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<% } %>
+
 <!-- Call to Action Section -->
 <section class="mt-stack-lg p-12 bg-primary-container rounded-2xl relative overflow-hidden text-on-primary">
 <div class="relative z-10 md:flex items-center justify-between">

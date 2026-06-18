@@ -138,6 +138,13 @@
 <a class="block hover:opacity-80 transition-opacity" href="/">
 <h1 class="font-headline-md text-headline-md font-bold text-primary">SmileOn Lab</h1>
 </a>
+<div class="flex items-center gap-stack-md">
+<% if (locals.user) { %>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="/logout">Logout</a>
+<% } else { %>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="/login">Login</a>
+<% } %>
+</div>
 <div class="space-y-stack-sm">
 <p class="font-headline-lg text-headline-lg text-on-surface">Precision Design, Delivered with Clarity.</p>
 <p class="font-body-md text-body-md text-on-surface-variant">Join our ecosystem of high-velocity design experts and transform your brand identity with professional clarity.</p>
@@ -162,13 +169,25 @@
 <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Create Account</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">Join our platform to start your first project.</p>
 </header>
-<form action="/register" class="space-y-6" method="POST" onsubmit="window.location.href='/register'; return false;">
-<!-- Username -->
+<!-- Tampilkan flash messages (error/success) -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+
+<form action="/register" class="space-y-6" method="POST">
+<!-- Nama Lengkap -->
 <div class="space-y-stack-sm">
-<label class="block font-label-md text-label-md text-on-surface-variant" for="username">Username</label>
+<label class="block font-label-md text-label-md text-on-surface-variant" for="nama">Nama Lengkap</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">person</span>
-<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="username" name="username" placeholder="johndoe" required="" type="text">
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="nama" name="nama" placeholder="John Doe" required="" type="text">
 </div>
 </div>
 <!-- Email -->
@@ -179,23 +198,31 @@
 <input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="email" name="email" placeholder="name@company.com" required="" type="email">
 </div>
 </div>
+<!-- Nomor Telepon -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="nomor_telepon">Nomor Telepon</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">phone</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="nomor_telepon" name="nomor_telepon" placeholder="0812-3456-7890" type="tel">
+</div>
+</div>
+<!-- Alamat -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="alamat">Alamat</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">home</span>
+<textarea class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="alamat" name="alamat" placeholder="Jl. Contoh No. 123, Jakarta" rows="2"></textarea>
+</div>
+</div>
 <!-- Password -->
 <div class="space-y-stack-sm">
 <label class="block font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
-<input class="w-full pl-10 pr-10 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="password" name="password" placeholder="••••••••" required="" type="password">
+<input class="w-full pl-10 pr-10 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="password" name="password" placeholder="Min. 6 karakter" required="" type="password">
 <button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
 <span class="material-symbols-outlined text-[20px]">visibility</span>
 </button>
-</div>
-</div>
-<!-- Confirm Password -->
-<div class="space-y-stack-sm">
-<label class="block font-label-md text-label-md text-on-surface-variant" for="confirm-password">Confirm Password</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock_reset</span>
-<input class="w-full pl-10 pr-10 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="confirm-password" name="confirm-password" placeholder="••••••••" required="" type="password">
 </div>
 </div>
 <!-- Register Button -->

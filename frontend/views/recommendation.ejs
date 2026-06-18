@@ -124,12 +124,28 @@
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
 <div class="hidden md:flex items-center gap-stack-lg"><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/">Home</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/products">Products</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a><a class="text-primary font-bold border-b-2 border-primary pb-1" href="/recommendation">Recommendation</a></div>
 <div class="flex items-center gap-stack-md">
+<% if (locals.user) { %>
+<span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
+<a class="font-label-md text-label-md text-primary px-4 py-2 hover:opacity-80 transition-all" href="/logout">Logout</a>
+<% } else { %>
 <a class="hidden md:block font-label-md text-label-md text-primary px-4 py-2 hover:opacity-80 transition-all" href="/login">Login</a>
 <a class="font-label-md text-label-md px-6 py-2.5 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-sm bg-[#1565c0] text-white" href="/register">Register</a>
+<% } %>
 </div>
 </div>
 </nav>
 <main class="pt-20">
+<!-- Flash Messages -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm max-w-container-max-width mx-auto"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm max-w-container-max-width mx-auto"><%= msg %></div>
+  <% }) %>
+<% } %>
 <!-- Hero Section -->
 <section class="relative py-stack-lg md:py-24 overflow-hidden">
 <div class="absolute inset-0 z-0"></div>
@@ -268,6 +284,34 @@ class="border-2 border-on-tertiary-fixed text-on-tertiary-fixed font-bold px-8 p
 </div>
 </div>
 </section>
+
+<!-- Dynamic Recommendations from API -->
+<% if (locals.recommendations && recommendations.length > 0) { %>
+<section class="py-stack-lg px-margin-desktop max-w-container-max-width mx-auto">
+  <div class="text-center space-y-stack-sm max-w-2xl mx-auto mb-stack-lg">
+    <span class="text-primary font-label-md text-label-md tracking-widest uppercase">Personalized For You</span>
+    <h2 class="font-headline-lg text-headline-lg">Recommended Products</h2>
+    <p class="font-body-md text-body-md text-on-surface-variant">Produk yang direkomendasikan khusus untuk Anda berdasarkan preferensi dan riwayat.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    <% recommendations.forEach(function(rec) { %>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:border-primary transition-all duration-300">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="material-symbols-outlined text-tertiary-fixed-dim text-lg">stars</span>
+          <span class="font-label-sm text-label-sm text-tertiary">Score: <%= rec.score %>%</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-4"><%= rec.reason || 'Rekomendasi produk untuk Anda.' %></p>
+        <div class="flex items-center gap-2">
+          <span class="text-label-sm text-on-surface-variant">Product ID:</span>
+          <span class="font-label-md"><%= rec.product_id %></span>
+        </div>
+        <button onclick="window.location.href='/order'" class="mt-4 w-full py-2 bg-primary text-white rounded-lg font-label-sm hover:opacity-90 transition-all">Order Now</button>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<% } %>
+
 <!-- Trust Section -->
 <section class="py-stack-lg bg-surface-container-low mt-stack-lg">
 <div class="max-w-container-max-width mx-auto px-margin-desktop flex flex-col items-center">

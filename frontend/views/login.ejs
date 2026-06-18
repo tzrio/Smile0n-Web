@@ -122,8 +122,12 @@
 <nav class="w-full top-0 sticky bg-surface-lowest flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto z-50">
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
 <div class="flex items-center gap-stack-md">
+<% if (locals.user) { %>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="/logout">Logout</a>
+<% } else { %>
 <span class="hidden sm:inline text-on-surface-variant font-body-sm">Don't have an account?</span>
 <a class="text-primary font-label-md hover:underline transition-all" href="/register">Register</a>
+<% } %>
 </div>
 </nav>
 <!-- Main Content Canvas -->
@@ -140,13 +144,25 @@
 <h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Welcome Back</h1>
 <p class="font-body-md text-body-md text-on-surface-variant">Access your expert design dashboard</p>
 </div>
-<form class="space-y-stack-md">
+<!-- Tampilkan flash messages (error/success) -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+
+<form class="space-y-stack-md" action="/login" method="POST">
 <!-- Email Field -->
 <div class="space-y-stack-sm">
 <label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
-<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="email" placeholder="name@google.com" required="" type="email">
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="email" name="email" placeholder="name@google.com" required="" type="email">
 </div>
 </div>
 <!-- Password Field -->
@@ -157,16 +173,11 @@
 </div>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
-<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="password" placeholder="••••••••" required="" type="password">
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="password" name="password" placeholder="••••••••" required="" type="password">
 <button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface-variant" type="button">
 <span class="material-symbols-outlined text-[20px]">visibility</span>
 </button>
 </div>
-</div>
-<!-- Remember Me -->
-<div class="flex items-center gap-stack-sm py-2">
-<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary" id="remember" type="checkbox">
-<label class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer" for="remember">Remember me for 30 days</label>
 </div>
 <!-- Primary Action -->
 <button class="w-full bg-primary-container text-on-primary-container font-label-md text-[16px] py-4 rounded-lg flex justify-center items-center gap-2 hover:bg-primary transition-all active:scale-95 shadow-sm" type="submit">
@@ -241,18 +252,6 @@
             }
         });
 
-        // Basic form animation on submit
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            btn.innerHTML = '<span class="animate-spin material-symbols-outlined">sync</span>';
-            btn.classList.add('opacity-80');
-            setTimeout(() => {
-                alert('Login attempted. Implementation of authentication would happen here.');
-                btn.innerHTML = '<span>Login to Dashboard</span><span class="material-symbols-outlined">arrow_forward</span>';
-                btn.classList.remove('opacity-80');
-            }, 1500);
-        });
     </script>
 
 
