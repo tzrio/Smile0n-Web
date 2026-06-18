@@ -1,0 +1,517 @@
+<!DOCTYPE html><html class="light" lang="en" styl""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SmileOn Lab | Modern Digital Design Service</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f9f9ff",
+                    "inverse-primary": "#a9c7ff",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-variant": "#d8e3fb",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#dae5ff",
+                    "outline": "#727783",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#424752",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-tertiary-container": "#ffe2a7",
+                    "surface-bright": "#f9f9ff",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#263143",
+                    "on-background": "#111c2d",
+                    "inverse-on-surface": "#ecf1ff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#e2e2e2",
+                    "outline-variant": "#c2c6d4",
+                    "primary": "#004d99",
+                    "surface-dim": "#cfdaf2",
+                    "primary-container": "#1565c0",
+                    "on-surface": "#111c2d",
+                    "tertiary": "#644a00",
+                    "surface-container": "#e7eeff",
+                    "primary-fixed": "#d6e3ff",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "on-secondary-container": "#616363",
+                    "surface-container-highest": "#d8e3fb",
+                    "tertiary-container": "#826100",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#dee8ff",
+                    "surface-tint": "#005db7",
+                    "surface-container-low": "#f0f3ff",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "surface": "#f9f9ff",
+                    "on-primary-fixed": "#001b3d",
+                    "secondary-container": "#dfe0e0",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#5d5f5f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "container-max-width": "1280px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "base": "8px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .ambient-glow { filter: drop-shadow(0 0 20px rgba(21, 101, 192, 0.15)); }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .transition-standard { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-lowest dark:bg-inverse-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline z-50">
+<nav class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<a class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary" href="/">
+                SmileOn Lab
+            </a>
+<div class="hidden md:flex items-center gap-stack-lg"><a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/">Home</a><a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/products">Products</a><a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/portfolio">Portfolio</a><a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/order">Order</a><a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/recommendation">Recommendation</a></div>
+<div class="flex items-center gap-stack-md">
+<a class="px-4 py-2 font-label-md text-label-md text-primary hover:bg-primary-container/10 rounded-lg transition-standard inline-block" href="/login">Login</a>
+<a class="px-6 py-2 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg active:scale-95 transition-standard inline-block" href="/register">Register</a>
+</div>
+</nav>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-stack-lg pb-24 px-margin-mobile md:px-margin-desktop transition-all duration-700 opacity-100 translate-y-0" id="home">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row items-center gap-gutter">
+<div class="w-full md:w-1/2 space-y-stack-md z-10">
+<span class="inline-flex items-center px-3 py-1 rounded-pill bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">
+                        Digital Design Excellence
+                    </span>
+<h1 class="font-display-lg text-display-lg text-on-background leading-tight">
+                        Wujudkan Ide Anda dengan <span class="text-primary-container">Desain Profesional</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        SmileOn Lab hadir memberikan solusi desain grafis berkualitas tinggi dengan proses yang cepat dan harga yang kompetitif. Fokuslah pada bisnis Anda, biarkan kami yang mengurus visualnya.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a href="/order" class="bg-[#1565C0] text-white px-8 py-4 rounded-lg font-headline-md text-headline-md hover:brightness-110 active:scale-95 transition-standard shadow-lg shadow-primary/20 inline-block text-center">Mulai Desain Sekarang</a>
+<a class="border-2 border-primary text-primary px-8 py-4 rounded-lg font-headline-md text-headline-md hover:bg-primary/5 active:scale-95 transition-standard inline-block" href="/portfolio">
+                            Lihat Portfolio
+                        </a>
+</div>
+</div>
+<div class="w-full md:w-1/2 relative">
+<div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A professional workspace with high-end digital design tools, featuring a sleek dual-monitor setup showing vibrant vector illustrations. The environment is clean and minimalist with warm wooden textures and soft ambient blue and yellow lighting accents. The overall aesthetic is modern corporate, professional, and creatively inspiring, utilizing a bright high-key lighting scheme for clarity and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3u1H_ZRD87bmVhj9vPxqk6_sLne15zNQDCAKdnsmZYfKxl0AAGzJ2jKVHjjgD4-wlI3QRRwZB-2TZgyB2Z2jDMP2TemW_Hb5BO1wkrMW2v50WXbMVicd7yZF2xBccxCYttzASCNxKfOTFZ4GLXGr-aX-5kJdCWk15NIGEkkEYPOBSPcUoQY0vGy0WdoTzZhTnd0MtfWoSdirGqPDSNbAdR8PBJB0VpwpubXe1Gm_cYFaE8z_KCqy7FyjLGZpE4TCkqQ_knukmFag">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute -top-6 -right-6 w-32 h-32 bg-[#FFC107] opacity-20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary-container opacity-10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- Tentang SmileOn Lab -->
+<section class="bg-surface-container py-24 px-margin-mobile md:px-margin-desktop transition-all duration-700 opacity-100 translate-y-0">
+<div class="max-w-container-max-width mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white p-4 rounded-xl shadow-sm space-y-2">
+<span class="material-symbols-outlined text-primary text-4xl">verified</span>
+<h3 class="font-headline-md text-headline-md">Terpercaya</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ratusan proyek telah kami selesaikan dengan kepuasan klien.</p>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm space-y-2 translate-y-8">
+<span class="material-symbols-outlined text-primary text-4xl">speed</span>
+<h3 class="font-headline-md text-headline-md">Cepat</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Efisiensi alur kerja menjamin desain selesai tepat waktu.</p>
+</div>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-stack-md">
+<h2 class="font-headline-lg text-headline-lg text-primary">Tentang SmileOn Lab</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        SmileOn Lab adalah mitra kreatif Anda dalam dunia digital. Kami percaya bahwa desain yang baik bukan hanya tentang estetika, tetapi tentang bagaimana pesan Anda tersampaikan dengan efektif kepada audiens.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Tim desainer kami menggabungkan keahlian teknis dengan pemahaman mendalam tentang tren pasar saat ini, menghasilkan karya yang relevan, berdampak, dan membantu bisnis Anda tumbuh lebih cepat.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Layanan Section (Bento-style Grid) -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-background transition-all duration-700 opacity-100 translate-y-0" id="services">
+<div class="max-w-container-max-width mx-auto space-y-stack-lg">
+<div class="text-center space-y-stack-sm max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg">Layanan Kami</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Pilih jenis desain yang sesuai dengan kebutuhan kampanye digital Anda.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<!-- Poster -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">image</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Poster</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Visual cetak &amp; digital yang menarik perhatian.</p>
+</div>
+<!-- Banner -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">view_column</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Banner</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Headline besar untuk eksposur maksimal.</p>
+</div>
+<!-- Instagram Feed -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">grid_on</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Feed IG</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Konten reguler untuk engagement audiens.</p>
+</div>
+<!-- Story -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">rectangle</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Story</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Konten vertikal interaktif &amp; dinamis.</p>
+</div>
+<!-- Brosur -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">auto_stories</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Brosur</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Detail informasi dalam layout yang rapi.</p>
+</div>
+<!-- Logo -->
+<div class="group bg-white border border-outline-variant rounded-2xl p-6 hover:border-primary-container hover:shadow-lg transition-standard flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-standard">
+<span class="material-symbols-outlined text-primary text-3xl">pentagon</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Logo</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Identitas brand yang unik &amp; ikonik.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Best Seller Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-low transition-all duration-700 opacity-100 translate-y-0" id="best-sellers">
+<div class="max-w-container-max-width mx-auto space-y-stack-lg">
+<div class="text-center space-y-stack-sm max-w-2xl mx-auto">
+<span class="text-primary font-label-md text-label-md tracking-widest uppercase">Pilihan Terfavorit</span>
+<h2 class="font-headline-lg text-headline-lg">Best Seller Recommendations</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Paket desain paling banyak dipesan yang telah membantu bisnis klien kami bertumbuh secara visual.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Package 1 -->
+<div class="group bg-white rounded-3xl overflow-hidden border border-outline-variant hover:border-primary-container hover:shadow-2xl transition-standard flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 aspect-square md:aspect-auto overflow-hidden">
+<img class="w-full h-full object-cover transition-standard group-hover:scale-110" data-alt="Vibrant Professional Instagram Feed design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSD9iqsRgPe2itEQBuvMopEAfGtSFm8TYPb27GqFSiGGxUYJKoY_v1X3vrVKRdfvfjC7qBi-mWDnoJyhNcrGBN7P05J4nFLg0kj23mmglMyKAALGVyXddkWxosDM7K5SyR5H4e-XWUb4kABjBLRyX2LIeuQY7rBO1iDUPDhcsFGdLpJV1vvlQfl0lJHDFECOPzUiwToKIos2UyaOAjqFAjvOUW_DrEzMm1CzLASTwBa8pwWNPVxTsLRl4vfGBXGoUmWcnizg-FwlM">
+</div>
+<div class="p-8 flex flex-col justify-between w-full md:w-1/2">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded text-[10px] font-bold uppercase">Best Seller</span>
+<div class="flex text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Professional Instagram Feed</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Paket 15 konten feed estetik yang konsisten untuk meningkatkan identitas brand di media sosial.</p>
+</div>
+<div class="space-y-4">
+<p class="font-headline-md text-headline-md text-primary">Start from $25,5</p>
+<a class="w-full py-3 bg-primary text-white rounded-xl font-label-md text-label-md hover:brightness-110 transition-standard block text-center" href="/order">Pesan Sekarang</a>
+</div>
+</div>
+</div>
+<!-- Package 2 -->
+<div class="group bg-white rounded-3xl overflow-hidden border border-outline-variant hover:border-primary-container hover:shadow-2xl transition-standard flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 aspect-square md:aspect-auto overflow-hidden">
+<img class="w-full h-full object-cover transition-standard group-hover:scale-110" data-alt="Sleek Branding Mockup for Complete Brand Identity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc62RE_pUwvALs9iv0dLS_OQjqJfMmSYK6cNQ-PGfVeW77WrrmKaBb0NJX6DuE3BzilHxbzoC_yqccS4hXYtbqznrY1x98P1WfIIZtnIqLzSGXKjUKvqKiU-gfKY4yjEvSNdty78ZFxAwPnmcrzYLTQlQs11r288YLAp_piLTAVu1RnOr48vDi9VE6nTpbiQVxSp94YVARF6wWBJgq79XgEp6rGNjpFhfd1YS-hFrNqVLf7eHTH8qcSXnVxk3oarDPoOlEvtWfwGc">
+</div>
+<div class="p-8 flex flex-col justify-between w-full md:w-1/2">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-1 rounded text-[10px] font-bold uppercase">Popular</span>
+<div class="flex text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Complete Brand Identity</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Layanan lengkap mulai dari desain logo, kartu nama, hingga brand guideline untuk bisnis profesional.</p>
+</div>
+<div class="space-y-4">
+<p class="font-headline-md text-headline-md text-primary">Start from $84,5</p>
+<a class="w-full py-3 bg-primary text-white rounded-xl font-label-md text-label-md hover:brightness-110 transition-standard block text-center" href="/order">Pesan Sekarang</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Grid -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-background transition-all duration-700 opacity-100 translate-y-0" id="portfolio">
+<div class="max-w-container-max-width mx-auto space-y-stack-lg">
+<div class="flex justify-between items-end border-b border-outline-variant pb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg">Hasil Karya Kami</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Eksplorasi kreativitas tanpa batas di setiap proyek.</p>
+</div>
+<a class="hidden md:flex items-center gap-2 text-primary font-label-md text-label-md" href="/portfolio">
+                        Lihat Semua Proyek <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-md">
+<img class="w-full h-full object-cover transition-standard group-hover:scale-110" data-alt="A sophisticated branding mock-up of a corporate identity set, including business cards, letterheads, and a minimalist logo on a premium paper texture. The design is displayed against a clean, architectural background with sharp shadows and high-contrast lighting. The color palette consists of deep blue and crisp white, embodying a modern corporate aesthetic of precision and professional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc62RE_pUwvALs9iv0dLS_OQjqJfMmSYK6cNQ-PGfVeW77WrrmKaBb0NJX6DuE3BzilHxbzoC_yqccS4hXYtbqznrY1x98P1WfIIZtnIqLzSGXKjUKvqKiU-gfKY4yjEvSNdty78ZFxAwPnmcrzYLTQlQs11r288YLAp_piLTAVu1RnOr48vDi9VE6nTpbiQVxSp94YVARF6wWBJgq79XgEp6rGNjpFhfd1YS-hFrNqVLf7eHTH8qcSXnVxk3oarDPoOlEvtWfwGc">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-standard p-8 flex flex-col justify-end">
+<span class="text-[#FFC107] font-label-sm text-label-sm uppercase tracking-wider mb-2">Branding</span>
+<h4 class="text-white font-headline-md text-headline-md">TechNova Identity</h4>
+</div>
+</div>
+<div class="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-md">
+<img class="w-full h-full object-cover transition-standard group-hover:scale-110" data-alt="A vibrant and creative social media design concept showcasing a cohesive Instagram grid for a fashion brand. The layout features high-energy compositions, bold typography, and a lively color palette of bright yellow and professional blue. The style is upbeat, youthful, and designed for high engagement in a digital light-mode environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSD9iqsRgPe2itEQBuvMopEAfGtSFm8TYPb27GqFSiGGxUYJKoY_v1X3vrVKRdfvfjC7qBi-mWDnoJyhNcrGBN7P05J4nFLg0kj23mmglMyKAALGVyXddkWxosDM7K5SyR5H4e-XWUb4kABjBLRyX2LIeuQY7rBO1iDUPDhcsFGdLpJV1vvlQfl0lJHDFECOPzUiwToKIos2UyaOAjqFAjvOUW_DrEzMm1CzLASTwBa8pwWNPVxTsLRl4vfGBXGoUmWcnizg-FwlM">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-standard p-8 flex flex-col justify-end">
+<span class="text-[#FFC107] font-label-sm text-label-sm uppercase tracking-wider mb-2">Social Media</span>
+<h4 class="text-white font-headline-md text-headline-md">StyleVibe Campaign</h4>
+</div>
+</div>
+<div class="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-md">
+<img class="w-full h-full object-cover transition-standard group-hover:scale-110" data-alt="A sleek and professional digital poster design for a technology conference, featuring abstract 3D elements and clean sans-serif typography. The lighting is focused and cinematic, creating a sense of depth and innovation. The visual theme uses a primary palette of blue and yellow, maintaining a high-end corporate feel that is both approachable and expertly executed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNIhS2rwYwm-KkGHvMcwu6qxpvl7Og2ha3lTqV6evw2M3i3GKwobyJsAd7UbL03SGYYN8dTXoi9eto2-xj_7caH5SGBJQK7JBr72abaAN7Ap8CzLF4KEr6LKx74S26Dqaz8CX1JvRHfrU_knHzKAWtLZ_381qElVsrL5tNUV4R-axktePbmwG68MW8yCcjqBD3-Db4gCzyEFLWVkRs2eTinggIsWKUlIzC2eKUsb0orX1E2gVNEXKhw3CkfDExpx7M4VwKOAby5Xw">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-standard p-8 flex flex-col justify-end">
+<span class="text-[#FFC107] font-label-sm text-label-sm uppercase tracking-wider mb-2">Marketing</span>
+<h4 class="text-white font-headline-md text-headline-md">FutureTalks Event</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-white transition-all duration-700 opacity-100 translate-y-0">
+<div class="max-w-container-max-width mx-auto text-center space-y-16">
+<h2 class="font-headline-lg text-headline-lg">Mengapa Memilih Kami?</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="space-y-4">
+<div class="w-16 h-16 mx-auto bg-surface-container rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Fast Delivery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Kami menghargai waktu Anda. Proses pengerjaan express tanpa mengorbankan kualitas.</p>
+</div>
+<div class="space-y-4">
+<div class="w-16 h-16 mx-auto bg-surface-container rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">palette</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Professional Designers</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Tim ahli dengan pengalaman bertahun-tahun di industri kreatif siap membantu Anda.</p>
+</div>
+<div class="space-y-4">
+<div class="w-16 h-16 mx-auto bg-surface-container rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Affordable Price</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Layanan premium dengan harga yang terjangkau untuk berbagai skala bisnis.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-highest transition-all duration-700 opacity-100 translate-y-0" id="contact">
+<div class="max-w-container-max-width mx-auto">
+<div class="glass-card rounded-3xl p-8 md:p-16 flex flex-col md:flex-row gap-16 shadow-xl">
+<div class="w-full md:w-1/2 space-y-stack-lg">
+<h2 class="font-headline-lg text-headline-lg">Mari Berdiskusi</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Punya pertanyaan atau ingin memulai proyek baru? Hubungi tim kami sekarang juga.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary">mail</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Email Kami</p>
+<p class="font-body-md text-body-md font-semibold">smileonlab@google.com</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary">phone</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">WhatsApp</p>
+<p class="font-body-md text-body-md font-semibold">+62 813-8489-4801</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4 pt-4">
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:scale-110 transition-standard" href="#">
+<i class="fab fa-instagram"></i>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:scale-110 transition-standard" href="#">
+<i class="fab fa-linkedin-in"></i>
+</a>
+<a class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:scale-110 transition-standard" href="#">
+<i class="fab fa-behance"></i>
+</a>
+</div>
+</div>
+<div class="w-full md:w-1/2 bg-white rounded-2xl p-8 shadow-inner border border-outline-variant">
+<form class="space-y-6" onsubmit="event.preventDefault()">
+<div class="space-y-2">
+<label class="font-label-md text-label-md block text-on-surface">Nama Lengkap</label>
+<input class="w-full p-4 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-standard" placeholder="Masukkan nama Anda" type="text">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md block text-on-surface">Email Aktif</label>
+<input class="w-full p-4 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-standard" placeholder="example@mail.com" type="email">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md block text-on-surface">Pesan / Kebutuhan</label>
+<textarea class="w-full p-4 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-standard" placeholder="Ceritakan kebutuhan desain Anda..." rows="4"></textarea>
+</div>
+<button class="w-full py-4 bg-[#FFC107] text-neutral-900 font-bold rounded-lg shadow-md hover:brightness-105 active:scale-[0.98] transition-standard">
+                                Kirim Pesan
+                            </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface w-full mt-auto border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg max-w-container-max-width mx-auto">
+<div class="col-span-1 md:col-span-1 space-y-4">
+<a class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-inverse-on-surface block" href="/">
+                    SmileOn Lab
+                </a>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Solusi desain digital profesional untuk pertumbuhan bisnis yang lebih cepat dan visual yang lebih bermakna.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-primary">Navigasi</h4>
+<ul class="space-y-2"><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/">Home</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/products">Products</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/portfolio">Portfolio</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/recommendation">Recommendation</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/order">Order</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/media">Media</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/payment">Payment</a></li></ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-primary">Legal</h4>
+<ul class="space-y-2">
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/privacy-policy">Privacy Policy</a></li><li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/products">Products</a></li>
+<li class=""><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/terms">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-primary">Newsletter</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dapatkan update promo dan inspirasi desain bulanan.</p>
+<div class="flex">
+<input class="w-full p-2 rounded-l-lg border border-outline-variant focus:outline-none" placeholder="Email" type="email">
+<button class="bg-primary text-white p-2 rounded-r-lg"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant py-6 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-80">© 2024 SmileOn Lab. All rights reserved.</p>
+</div>
+</footer>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+<script>
+        // Micro-interactions for scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                      target.scrollIntoView({
+                          behavior: 'smooth'
+                      });
+                    }
+                }
+            });
+        });
+
+        // Simple intersection observer for reveal animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

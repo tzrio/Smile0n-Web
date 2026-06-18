@@ -1,0 +1,257 @@
+<!DOCTYPE html><html class="light" lang="en">
+  <head>
+    <link rel="stylesheet" href="/css/style.css">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Register | SmileOn Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#f9f9ff",
+                      "inverse-primary": "#a9c7ff",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "surface-variant": "#d8e3fb",
+                      "tertiary-fixed-dim": "#fabd00",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#dae5ff",
+                      "outline": "#727783",
+                      "on-tertiary-fixed": "#261a00",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#424752",
+                      "tertiary-fixed": "#ffdf9e",
+                      "on-tertiary-container": "#ffe2a7",
+                      "surface-bright": "#f9f9ff",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#263143",
+                      "on-background": "#111c2d",
+                      "inverse-on-surface": "#ecf1ff",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#e2e2e2",
+                      "outline-variant": "#c2c6d4",
+                      "primary": "#004d99",
+                      "surface-dim": "#cfdaf2",
+                      "primary-container": "#1565c0",
+                      "on-surface": "#111c2d",
+                      "tertiary": "#644a00",
+                      "surface-container": "#e7eeff",
+                      "primary-fixed": "#d6e3ff",
+                      "on-primary-fixed-variant": "#00468c",
+                      "on-tertiary-fixed-variant": "#5b4300",
+                      "on-secondary-container": "#616363",
+                      "surface-container-highest": "#d8e3fb",
+                      "tertiary-container": "#826100",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#dee8ff",
+                      "surface-tint": "#005db7",
+                      "surface-container-low": "#f0f3ff",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "surface": "#f9f9ff",
+                      "on-primary-fixed": "#001b3d",
+                      "secondary-container": "#dfe0e0",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-secondary-fixed-variant": "#454747",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#5d5f5f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "container-max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "stack-lg": "32px",
+                      "base": "8px",
+                      "margin-desktop": "32px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #1565C0;
+            box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.15);
+        }
+        .animate-subtle-drift {
+            animation: drift 20s ease-in-out infinite alternate;
+        }
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar Suppression: Hidden on Transactional Screens -->
+<main class="flex-grow flex items-center justify-center relative overflow-hidden px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Atmospheric Background Element -->
+<div class="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-primary-fixed blur-[120px] animate-subtle-drift"></div>
+<div class="absolute top-[40%] -right-[15%] w-[50%] h-[50%] rounded-full bg-surface-variant blur-[120px] animate-subtle-drift" style="animation-delay: -5s;"></div>
+</div>
+<!-- Registration Container -->
+<div class="w-full max-w-[1000px] grid grid-cols-1 lg:grid-cols-2 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-lg overflow-hidden relative z-10">
+<!-- Branding/Visual Side (Desktop Only) -->
+<div class="hidden lg:flex flex-col justify-between p-margin-desktop bg-surface-container-low border-r border-outline-variant">
+<div class="space-y-stack-md">
+<a class="block hover:opacity-80 transition-opacity" href="/">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">SmileOn Lab</h1>
+</a>
+<div class="space-y-stack-sm">
+<p class="font-headline-lg text-headline-lg text-on-surface">Precision Design, Delivered with Clarity.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Join our ecosystem of high-velocity design experts and transform your brand identity with professional clarity.</p>
+</div>
+</div>
+<div class="mt-stack-lg rounded-lg overflow-hidden border border-outline-variant aspect-square">
+<img alt="Modern workspace" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-700" data-alt="A sophisticated, high-end design studio workspace captured in a minimalist light-mode aesthetic. The scene features a clean white desk with a high-resolution monitor displaying abstract geometric design patterns. The environment is bathed in soft, natural daylight, emphasizing professional clarity and precision. The overall mood is calm, modern, and corporate, utilizing a palette of soft grays, whites, and deep primary blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvI6sc7jKWwHsKCAlasoZ6J1BjdbbVE3O1gQtuzdzhMlfHGkqDjOguieAVgcWX3udXVzDcyxOhcPA7HKSI-x2pTcU8SziZPKH9pGP47fgaphizrnCNQ4FwS-accxDFISmr6YdPwST_96j7RQ00zUcW5pql0wMjanJz9ZoTPAbQJw4G3yA8nGYp5kr7DlA1DR3ReXU_LmYs7slAvPRh2iAiOWU6_k9UoypM-53EVzRVTLIfVhaetwPlgPUsRp6Wa4RN5XhPtZ1Bw_I">
+</div>
+<div class="flex items-center gap-stack-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-md text-label-md">Secure enterprise-grade encryption</span>
+</div>
+</div>
+<!-- Form Side -->
+<div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+<div class="mb-stack-lg lg:hidden">
+<a href="/">
+<h1 class="font-headline-md text-headline-md-mobile font-bold text-primary">SmileOn Lab</h1>
+</a>
+</div>
+<header class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Create Account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Join our platform to start your first project.</p>
+</header>
+<form action="/register" class="space-y-6" method="POST" onsubmit="window.location.href='/register'; return false;">
+<!-- Username -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="username">Username</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">person</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="username" name="username" placeholder="johndoe" required="" type="text">
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="email" name="email" placeholder="name@company.com" required="" type="email">
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input class="w-full pl-10 pr-10 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="password" name="password" placeholder="••••••••" required="" type="password">
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock_reset</span>
+<input class="w-full pl-10 pr-10 py-3 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline/50 form-input-focus transition-all" id="confirm-password" name="confirm-password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Register Button -->
+<button class="w-full py-4 bg-primary-container text-white font-label-md text-body-md font-bold rounded-lg hover:bg-primary transition-all active:scale-[0.98] shadow-sm flex items-center justify-center gap-2" type="submit">
+                        Register
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<footer class="mt-stack-lg text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Already have an account? 
+                        <a class="text-primary font-bold hover:underline transition-all" href="/login">Login</a>
+</p>
+</footer>
+</div>
+</div>
+</main>
+<!-- Footer Component Integration (Minimal version for transaction) -->
+<footer class="w-full py-stack-md px-margin-desktop border-t border-outline-variant bg-surface-container-low mt-auto">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 <a class="hover:text-primary transition-colors" href="/">SmileOn Lab</a>. All rights reserved.</span>
+<div class="flex gap-gutter flex-wrap justify-center">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/portfolio">Portfolio</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/recommendation">Recommendation</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/order">Order</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/login">Login</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/media">Media</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/payment">Payment</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for input fields
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                const icon = input.previousElementSibling;
+                if (icon) icon.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                const icon = input.previousElementSibling;
+                if (icon) icon.classList.remove('text-primary');
+            });
+        });
+
+        // Simple visibility toggle logic
+        const toggleBtn = document.querySelector('button[type="button"]');
+        const passwordInput = document.getElementById('password');
+        if (toggleBtn && passwordInput) {
+            toggleBtn.addEventListener('click', () => {
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                toggleBtn.querySelector('span').textContent = isPassword ? 'visibility_off' : 'visibility';
+            });
+        }
+    </script>
+
+
+</body></html>
