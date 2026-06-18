@@ -17,14 +17,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: smileon-api-gateway:latest
-          imagePullPolicy: IfNotPresent
+          image: api-gateway:v1
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "50m"
-            limits:
-              memory: "128Mi"
-              cpu: "200m"

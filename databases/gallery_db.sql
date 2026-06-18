@@ -2,8 +2,8 @@
 -- Portfolio Service Database - Owner: Rakha
 -- ============================================
 
-CREATE DATABASE IF NOT EXISTS portfolio_db;
-USE portfolio_db;
+CREATE DATABASE IF NOT EXISTS gallery_db;
+USE gallery_db;
 
 -- ============================================
 -- TABEL PORTFOLIOS

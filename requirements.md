@@ -34,15 +34,15 @@
 - Admin dapat menambah dan menghapus rekomendasi
 - Rekomendasi diurutkan berdasarkan score tertinggi
 
-### FR-06: Portfolio Display (portfolio-service — Rakha)
-- Pengguna dapat melihat portofolio karya desain SmileOn Lab
-- Setiap portfolio memiliki: judul, kategori, deskripsi, gambar, tags
+### FR-06: Gallery Display (gallery-service — Rakha)
+- Pengguna dapat melihat galeri karya desain SmileOn Lab
+- Setiap karya memiliki: judul, kategori, deskripsi, gambar, tags
 
 ### FR-07: Frontend (frontend — Bagus)
 - Menampilkan halaman utama SmileOn Lab
 - Client-side routing untuk navigasi antar halaman
 - Konsumsi API dari semua microservice melalui API Gateway
-- UI untuk: autentikasi, browsing produk, manajemen pesanan, pembayaran, rekomendasi, portofolio
+- UI untuk: autentikasi, browsing produk, manajemen pesanan, pembayaran, rekomendasi, galeri
 
 ### FR-08: API Gateway (api-gateway — Bagus)
 - Routing request dari client ke microservice yang sesuai berdasarkan URL path
@@ -99,7 +99,7 @@ Frontend BUKAN microservice. Tanggung jawab frontend:
 | Order Management UI | Form pembuatan pesanan dan riwayat pesanan |
 | Payment UI | Form upload bukti pembayaran |
 | Recommendation Display | Menampilkan rekomendasi produk |
-| Portfolio Display | Menampilkan portofolio karya |
+| Gallery Display | Menampilkan galeri karya |
 
 ---
 
@@ -121,11 +121,11 @@ API Gateway BUKAN microservice. Tanggung jawab API Gateway:
 |------|--------|
 | `/` | frontend:3000 |
 | `/api/auth/` | auth-service:3000 |
-| `/api/products/` | product-service:3000 |
-| `/api/orders/` | order-service:3001 |
-| `/api/payments/` | payment-service:3002 |
-| `/api/recommendations/` | recommendation-service:3003 |
-| `/api/portfolio/` | portfolio-service:3004 |
+| `/api/products/` | product-service:3001 |
+| `/api/orders/` | order-service:3003 |
+| `/api/payments/` | payment-service:3004 |
+| `/api/recommendations/` | recommendation-service:3005 |
+| `/api/gallery/` | gallery-service:3002 |
 
 ---
 
@@ -137,7 +137,7 @@ Hanya 6 service yang dianggap **microservice**:
 |-------------|-------|----------|---------------------|
 | auth-service | Rakha | auth_db | Autentikasi dan otorisasi |
 | product-service | Rakha | product_db | Manajemen produk |
-| portfolio-service | Rakha | portfolio_db | Portofolio karya |
+| gallery-service | Rakha | gallery_db | Galeri karya |
 | order-service | Roihan | order_db | Manajemen pesanan |
 | payment-service | Roihan | payment_db | Manajemen pembayaran |
 | recommendation-service | Roihan | recommendation_db | Rekomendasi produk |
@@ -150,7 +150,7 @@ Hanya 6 service yang dianggap **microservice**:
 |----------|-------|---------|
 | auth_db | users | Rakha |
 | product_db | products | Rakha |
-| portfolio_db | portfolios | Rakha |
+| gallery_db | portfolios | Rakha |
 | order_db | orders | Roihan |
 | payment_db | payments | Roihan |
 | recommendation_db | recommendations | Roihan |

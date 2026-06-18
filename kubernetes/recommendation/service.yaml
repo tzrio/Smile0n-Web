@@ -6,10 +6,9 @@ metadata:
     app: recommendation-service
     owner: roihan
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: recommendation-service
   ports:
-    - protocol: TCP
-      port: 3003
-      targetPort: 3003
+    - port: 3005
+      targetPort: 3005

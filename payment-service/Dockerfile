@@ -8,7 +8,7 @@
 #   docker build -t smileon-payment-service ./payment-service
 #
 # Cara run:
-#   docker run -p 3002:3002 --env-file ./payment-service/.env smileon-payment-service
+#   docker run -p 3004:3004 --env-file ./payment-service/.env smileon-payment-service
 # ============================================
 
 FROM node:18-alpine
@@ -23,6 +23,6 @@ COPY . .
 # Membuat folder uploads untuk menyimpan bukti pembayaran
 RUN mkdir -p /app/uploads
 
-EXPOSE 3002
+EXPOSE 3004
 
 CMD ["node", "app.js"]

@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
     res.send("Gallery Service Running");
 });
 
-app.listen(3002, () => {
+app.listen(process.env.PORT || 3002, () => {
     console.log(
         "Gallery Service running on port 3002"
     );

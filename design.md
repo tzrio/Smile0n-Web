@@ -14,11 +14,11 @@
 │                                                                 │
 │  /              → frontend:3000                                 │
 │  /api/auth/     → auth-service:3000                             │
-│  /api/products/ → product-service:3000                          │
-│  /api/orders/   → order-service:3001                            │
-│  /api/payments/ → payment-service:3002                          │
-│  /api/recommendations/ → recommendation-service:3003            │
-│  /api/portfolio/ → portfolio-service:3004                       │
+│  /api/products/ → product-service:3001                          │
+│  /api/orders/   → order-service:3003                            │
+│  /api/payments/ → payment-service:3004                          │
+│  /api/recommendations/ → recommendation-service:3005            │
+│  /api/gallery/  → gallery-service:3002                          │
 └──┬──────┬──────┬──────┬──────┬──────┬──────┬────────────────────┘
    │      │      │      │      │      │      │
    ▼      ▼      ▼      ▼      ▼      ▼      ▼
@@ -94,9 +94,9 @@ Tidak ada shared database.
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  mysql-auth      │     │  mysql-product   │     │  mysql-portfolio │
+│  mysql-auth      │     │  mysql-product   │     │  mysql-gallery   │
 │  ┌─────────────┐│     │  ┌─────────────┐│     │  ┌─────────────┐│
-│  │  auth_db    ││     │  │ product_db   ││     │  │portfolio_db ││
+│  │  auth_db    ││     │  │ product_db   ││     │  │gallery_db   ││
 │  │  - users    ││     │  │ - products   ││     │  │- portfolios ││
 │  └─────────────┘│     │  └─────────────┘│     │  └─────────────┘│
 │     Rakha        │     │     Rakha        │     │     Rakha        │
@@ -177,11 +177,11 @@ Client Request
       │
       ├── /              → upstream frontend   (frontend:3000)
       ├── /api/auth/     → upstream auth       (auth-service:3000)
-      ├── /api/products/ → upstream product    (product-service:3000)
-      ├── /api/orders/   → upstream order      (order-service:3001/orders/)
-      ├── /api/payments/ → upstream payment    (payment-service:3002/payments/)
-      ├── /api/recommendations/ → upstream recommendation (recommendation-service:3003/recommendations/)
-      └── /api/portfolio/ → upstream portfolio  (portfolio-service:3004/portfolio/)
+      ├── /api/products/ → upstream product    (product-service:3001/products/)
+      ├── /api/orders/   → upstream order      (order-service:3003/orders/)
+      ├── /api/payments/ → upstream payment    (payment-service:3004/payments/)
+      ├── /api/recommendations/ → upstream recommendation (recommendation-service:3005/recommendations/)
+      └── /api/gallery/  → upstream gallery    (gallery-service:3002/gallery/)
 ```
 
 ---
@@ -219,7 +219,7 @@ CMD ["node", "app.js"]
 | order-service | smileon-order-service |
 | payment-service | smileon-payment-service |
 | recommendation-service | smileon-recommendation-service |
-| portfolio-service | smileon-portfolio-service |
+| gallery-service | smileon-gallery-service |
 
 ---
 
@@ -257,7 +257,7 @@ Frontend dan API Gateway hanya memiliki 2 resources:
 | frontend | ClusterIP | Diakses via gateway |
 | auth-service | ClusterIP | Internal cluster only |
 | product-service | ClusterIP | Internal cluster only |
-| portfolio-service | ClusterIP | Internal cluster only |
+| gallery-service | ClusterIP | Internal cluster only |
 | recommendation-service | ClusterIP | Internal cluster only |
 | mysql-* | ClusterIP | Internal cluster only |
 

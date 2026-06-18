@@ -22,7 +22,7 @@
 const pool = require('../config/db.js');
 const axios = require('axios');
 
-const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || 'http://order-service:3001';
+const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || 'http://order-service:3003';
 
 /**
  * Upload bukti pembayaran

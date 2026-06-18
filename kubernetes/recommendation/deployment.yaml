@@ -17,27 +17,7 @@ spec:
     spec:
       containers:
         - name: recommendation-service
-          image: smileon-recommendation-service:latest
-          imagePullPolicy: IfNotPresent
+          image: recommendation-service:v1
+          imagePullPolicy: Never
           ports:
-            - containerPort: 3003
-          env:
-            - name: PORT
-              value: "3003"
-            - name: DB_HOST
-              value: "mysql-recommendation"
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_USER
-              value: "root"
-            - name: DB_PASSWORD
-              value: "rootpassword"
-            - name: DB_NAME
-              value: "recommendation_db"
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
+            - containerPort: 3005

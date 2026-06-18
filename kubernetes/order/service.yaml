@@ -10,6 +10,5 @@ spec:
   selector:
     app: order-service
   ports:
-    - protocol: TCP
-      port: 3001
-      targetPort: 3001
+    - port: 3003
+      targetPort: 3003

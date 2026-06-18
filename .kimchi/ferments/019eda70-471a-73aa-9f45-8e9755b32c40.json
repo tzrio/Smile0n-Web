@@ -1,0 +1,198 @@
+{
+  "id": "019eda70-471a-73aa-9f45-8e9755b32c40",
+  "name": "Fix Minikube Deployment",
+  "description": "Deploy",
+  "status": "paused",
+  "worktree": {
+    "path": "/home/khaa/Smile0n-Web",
+    "branch": "main",
+    "commit": "5d32ca0b5b0dc59d305758e5941a29cdcd2f6c5b"
+  },
+  "scoping": {
+    "goal": {
+      "answer": "Fix ErrImageNeverPull errors for the SmileOn Lab microservices on Minikube by loading locally-built Docker images into Minikube, clean up stale resources, re-apply Kubernetes manifests, and verify all pods are running with the frontend URL accessible.",
+      "confirmedAt": "2026-06-18T11:48:22.782Z"
+    },
+    "criteria": {
+      "answer": "All eight services (api-gateway, frontend, auth, product, gallery, order, payment, recommendation) have Kubernetes pods in Running state with no ErrImageNeverPull errors.\nDocker images for all services are present inside the Minikube Docker daemon.\nThe frontend service URL is accessible via minikube service URL and responds successfully to HTTP requests.",
+      "confirmedAt": "2026-06-18T11:48:22.782Z"
+    },
+    "constraints": {
+      "answer": "Do NOT run destructive git commands without explicit user consent., Do NOT use git add -A or git add . — stage files explicitly by name., Focus only on the current workspace /home/khaa/Smile0n-Web., Delete only Minikube resources unrelated to this project, not cluster-critical resources in kube-system., Do NOT introduce new external dependencies (Helm, ArgoCD, cloud registry).",
+      "confirmedAt": "2026-06-18T11:48:22.782Z"
+    },
+    "phases": {
+      "answer": "Prepare Minikube, Deploy & Verify",
+      "confirmedAt": "2026-06-18T11:48:22.782Z"
+    },
+    "assumptions": {
+      "answer": "We will use minikube image load to import locally-built Docker images into the Minikube VM, fixing ErrImageNeverPull.; Images are already built and tagged locally on the host Docker daemon.; Kubernetes manifests already exist under kubernetes/ for all services and use imagePullPolicy: Never.; We will delete any pods/deployments/services unrelated to this project from the default namespace in Minikube (e.g., the old nginx deployment from 37 days ago).; Frontend URL will be obtained via minikube service frontend --url or kubectl port-forward for verification.",
+      "confirmedAt": "2026-06-18T11:48:22.782Z"
+    }
+  },
+  "phases": [
+    {
+      "id": "phase-1",
+      "index": 1,
+      "name": "Prepare Minikube",
+      "goal": "Clean stale resources and import Docker images into Minikube",
+      "description": "Clean up stale Minikube resources (old nginx deployment etc.), then load all SmileOn Lab Docker images from the host into Minikube, verify they are present inside Minikube.",
+      "budget": "100k tokens",
+      "parallel": false,
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Delete all pods, deployments, and services in the default namespace that are NOT part of the SmileOn Lab project (e.g., old nginx deployment).",
+          "status": "verified",
+          "verification": {
+            "command": "kubectl get pods -n default | grep -v -E 'api-gateway|frontend|auth-service|product-service|gallery-service|order-service|payment-service|recommendation-service' | wc -l returns 0 (or only empty lines)",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-18T11:49:37.517Z",
+          "completedAt": "2026-06-18T11:50:18.751Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-18T11:50:18.751Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Load all SmileOn Lab Docker images from the host Docker daemon into Minikube using minikube image load.",
+          "status": "verified",
+          "verification": {
+            "command": "minikube ssh -- docker images | grep -E 'frontend|api-gateway|auth-service|product-service|gallery-service|order-service|payment-service|recommendation-service' shows all 8 images",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-18T11:54:56.750Z",
+          "completedAt": "2026-06-18T11:55:10.606Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-18T11:55:10.606Z"
+          }
+        }
+      ],
+      "startedAt": "2026-06-18T11:49:04.917Z",
+      "completedAt": "2026-06-18T11:56:52.024Z",
+      "summary": "Phase 1 completed: deleted stale nginx deployment/service and built all 5 missing Docker images into Minikube Docker daemon. All 8 service images are now available.",
+      "grade": {
+        "grade": "A",
+        "rationale": "All gates pass; project checks validate.",
+        "gradedAt": "2026-06-18T11:56:52.023Z"
+      }
+    },
+    {
+      "id": "phase-2",
+      "index": 2,
+      "name": "Deploy & Verify",
+      "goal": "Apply manifests and verify full deployment",
+      "description": "Re-apply all Kubernetes manifests, then verify all pods reach Running state and the frontend service URL is accessible via minikube service --url or kubectl port-forward.",
+      "budget": "100k tokens",
+      "parallel": false,
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Apply all Kubernetes manifests for the SmileOn Lab stack: gateway, frontend, auth, product, gallery, order, payment, recommendation.",
+          "status": "verified",
+          "verification": {
+            "command": "kubectl apply -f kubernetes/ returns success for all services",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-18T12:06:47.751Z",
+          "completedAt": "2026-06-18T12:07:18.336Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-18T12:07:18.336Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Verify all project pods are in Running state with no ErrImageNeverPull.",
+          "status": "verified",
+          "verification": {
+            "command": "kubectl get pods -n default shows all 8 services in Running state",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-18T12:09:39.038Z",
+          "completedAt": "2026-06-18T12:11:25.989Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-18T12:11:25.989Z"
+          }
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "Get the frontend accessible URL using minikube service frontend --url and verify it responds to HTTP.",
+          "status": "verified",
+          "verification": {
+            "command": "minikube service frontend --url returns URL and curl returns 200",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-18T12:15:14.757Z",
+          "completedAt": "2026-06-18T12:15:27.070Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-18T12:15:27.070Z"
+          }
+        }
+      ],
+      "startedAt": "2026-06-18T11:57:43.960Z",
+      "completedAt": "2026-06-18T12:18:13.942Z",
+      "summary": "Phase 2 completed. Full deployment verified: all 8 SmileOn Lab service pods are Running, frontend URL accessible at http://192.168.49.2:31120 with HTTP 200 response, and no ErrImageNeverPull errors.",
+      "grade": {
+        "grade": "A",
+        "rationale": "All gates pass; project checks validate.",
+        "gradedAt": "2026-06-18T12:18:13.915Z"
+      }
+    }
+  ],
+  "decisions": [],
+  "memories": [],
+  "createdAt": "2026-06-18T11:14:11.866Z",
+  "updatedAt": "2026-06-18T12:36:28.188Z",
+  "goal": "Fix ErrImageNeverPull errors for the SmileOn Lab microservices on Minikube by loading locally-built Docker images into Minikube, clean up stale resources, re-apply Kubernetes manifests, and verify all pods are running with the frontend URL accessible.",
+  "successCriteria": [
+    "All eight services (api-gateway, frontend, auth, product, gallery, order, payment, recommendation) have Kubernetes pods in Running state with no ErrImageNeverPull errors.",
+    "Docker images for all services are present inside the Minikube Docker daemon.",
+    "The frontend service URL is accessible via minikube service URL and responds successfully to HTTP requests."
+  ],
+  "constraints": [
+    "Do NOT run destructive git commands without explicit user consent.",
+    "Do NOT use git add -A or git add . — stage files explicitly by name.",
+    "Focus only on the current workspace /home/khaa/Smile0n-Web.",
+    "Delete only Minikube resources unrelated to this project, not cluster-critical resources in kube-system.",
+    "Do NOT introduce new external dependencies (Helm, ArgoCD, cloud registry)."
+  ],
+  "lastActiveAt": "2026-06-18T11:57:43.960Z"
+}

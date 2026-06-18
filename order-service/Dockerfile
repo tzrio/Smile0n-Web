@@ -8,7 +8,7 @@
 #   docker build -t smileon-order-service ./order-service
 #
 # Cara run:
-#   docker run -p 3001:3001 --env-file ./order-service/.env smileon-order-service
+#   docker run -p 3003:3003 --env-file ./order-service/.env smileon-order-service
 # ============================================
 
 FROM node:18-alpine
@@ -20,6 +20,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3003
 
 CMD ["node", "app.js"]

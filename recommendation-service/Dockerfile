@@ -8,7 +8,7 @@
 #   docker build -t smileon-recommendation-service ./recommendation-service
 #
 # Cara run:
-#   docker run -p 3003:3003 --env-file ./recommendation-service/.env smileon-recommendation-service
+#   docker run -p 3005:3005 --env-file ./recommendation-service/.env smileon-recommendation-service
 # ============================================
 
 FROM node:18-alpine
@@ -20,6 +20,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3003
+EXPOSE 3005
 
 CMD ["node", "app.js"]

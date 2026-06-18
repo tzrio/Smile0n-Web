@@ -83,11 +83,11 @@ Smile0n-Web/
 | api-gateway (Nginx) | 80 |
 | frontend | 3000 |
 | auth-service | 3000 |
-| product-service | 3000 |
-| order-service | 3001 |
-| payment-service | 3002 |
-| recommendation-service | 3003 |
-| gallery-service | 3004 |
+| product-service | 3001 |
+| order-service | 3003 |
+| payment-service | 3004 |
+| recommendation-service | 3005 |
+| gallery-service | 3002 |
 
 ---
 
@@ -102,7 +102,7 @@ payment-service          → payment_db        (MySQL pod: mysql-payment)
 recommendation-service   → recommendation_db (MySQL pod: mysql-recommendation)
 auth-service             → auth_db           (MySQL pod: mysql-auth)
 product-service          → product_db        (MySQL pod: mysql-product)
-gallery-service          → gallery_db        (MySQL pod: mysql-portfolio)
+gallery-service          → gallery_db        (MySQL pod: mysql-gallery)
 ```
 
 ---
@@ -170,11 +170,11 @@ kubectl get deployments
 User → api-gateway:80
   /                      → frontend:3000
   /api/auth/             → auth-service:3000
-  /api/products/         → product-service:3000
-  /api/orders/           → order-service:3001
-  /api/payments/         → payment-service:3002
-  /api/recommendations/  → recommendation-service:3003
-  /api/gallery/          → gallery-service:3004
+  /api/products/         → product-service:3001
+  /api/orders/           → order-service:3003
+  /api/payments/         → payment-service:3004
+  /api/recommendations/  → recommendation-service:3005
+  /api/gallery/          → gallery-service:3002
 ```
 
 ---

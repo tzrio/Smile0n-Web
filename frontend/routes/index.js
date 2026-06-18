@@ -25,8 +25,8 @@ router.get('/payment', (req, res) => {
     res.render('payment');
 });
 
-router.get('/portfolio', (req, res) => {
-    res.render('portfolio');
+router.get('/gallery', (req, res) => {
+    res.render('gallery');
 });
 
 router.get('/recommendation', (req, res) => {

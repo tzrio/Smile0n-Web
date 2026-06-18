@@ -28,11 +28,11 @@ SmileOn Lab menggunakan arsitektur microservices dengan prinsip berikut:
 | Service | Database | Port | Deskripsi |
 |---------|----------|------|-----------|
 | auth-service | auth_db | 3000 | Login, register, manajemen role user/admin |
-| product-service | product_db | 3000 | Daftar produk, detail produk, CRUD produk |
-| order-service | order_db | 3001 | Pembuatan pesanan, riwayat pesanan, update status |
-| payment-service | payment_db | 3002 | Upload bukti pembayaran, verifikasi pembayaran |
-| recommendation-service | recommendation_db | 3003 | Rekomendasi produk berdasarkan preferensi user |
-| portfolio-service | portfolio_db | 3004 | Data portofolio karya desain SmileOn Lab |
+| product-service | product_db | 3001 | Daftar produk, detail produk, CRUD produk |
+| order-service | order_db | 3003 | Pembuatan pesanan, riwayat pesanan, update status |
+| payment-service | payment_db | 3004 | Upload bukti pembayaran, verifikasi pembayaran |
+| recommendation-service | recommendation_db | 3005 | Rekomendasi produk berdasarkan preferensi user |
+| gallery-service | gallery_db | 3002 | Data galeri karya desain SmileOn Lab |
 
 ---
 
@@ -41,7 +41,7 @@ SmileOn Lab menggunakan arsitektur microservices dengan prinsip berikut:
 | Anggota | Service | Kubernetes | Database |
 |---------|---------|------------|----------|
 | **Bagus** | `frontend/`, `api-gateway/` | `kubernetes/frontend/`, `kubernetes/gateway/` | — |
-| **Rakha** | `auth-service/`, `product-service/`, `portfolio-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/portfolio/` | `auth_db`, `product_db`, `portfolio_db` |
+| **Rakha** | `auth-service/`, `product-service/`, `gallery-service/` | `kubernetes/auth/`, `kubernetes/product/`, `kubernetes/gallery/` | `auth_db`, `product_db`, `gallery_db` |
 | **Roihan** | `order-service/`, `payment-service/`, `recommendation-service/` | `kubernetes/order/`, `kubernetes/payment/`, `kubernetes/recommendation/` | `order_db`, `payment_db`, `recommendation_db` |
 
 ---
@@ -56,7 +56,7 @@ Smile0n-Web/
 │
 ├── auth-service/               ← Login & Register (Rakha)
 ├── product-service/            ← Produk & CRUD (Rakha)
-├── portfolio-service/          ← Portfolio karya (Rakha)
+├── gallery-service/            ← Galeri karya (Rakha)
 │
 ├── order-service/              ← Manajemen Pesanan (Roihan)
 ├── payment-service/            ← Pembayaran & Upload Bukti (Roihan)
@@ -65,7 +65,7 @@ Smile0n-Web/
 ├── databases/
 │   ├── auth_db.sql             ← Schema DB autentikasi (Rakha)
 │   ├── product_db.sql          ← Schema DB produk (Rakha)
-│   ├── portfolio_db.sql        ← Schema DB portfolio (Rakha)
+│   ├── gallery_db.sql          ← Schema DB galeri (Rakha)
 │   ├── order_db.sql            ← Schema DB pesanan (Roihan)
 │   ├── payment_db.sql          ← Schema DB pembayaran (Roihan)
 │   └── recommendation_db.sql   ← Schema DB rekomendasi (Roihan)
@@ -75,7 +75,7 @@ Smile0n-Web/
     ├── gateway/                ← K8s manifests gateway (Bagus)
     ├── auth/                   ← K8s manifests auth (Rakha)
     ├── product/                ← K8s manifests product (Rakha)
-    ├── portfolio/              ← K8s manifests portfolio (Rakha)
+    ├── gallery/                ← K8s manifests galeri (Rakha)
     ├── order/                  ← K8s manifests order (Roihan)
     ├── payment/                ← K8s manifests payment (Roihan)
     └── recommendation/         ← K8s manifests recommendation (Roihan)
@@ -91,7 +91,7 @@ Prinsip utama arsitektur microservices ini adalah **setiap service memiliki data
 |---------|----------|---------|
 | auth-service | auth_db | Rakha |
 | product-service | product_db | Rakha |
-| portfolio-service | portfolio_db | Rakha |
+| gallery-service | gallery_db | Rakha |
 | order-service | order_db | Roihan |
 | payment-service | payment_db | Roihan |
 | recommendation-service | recommendation_db | Roihan |
@@ -114,9 +114,9 @@ Prinsip utama arsitektur microservices ini adalah **setiap service memiliki data
 - **Memiliki**: Tabel `products` di `product_db`
 - **Tanggung jawab**: CRUD produk, daftar produk, detail produk
 
-### portfolio-service (Rakha)
-- **Memiliki**: Tabel `portfolios` di `portfolio_db`
-- **Tanggung jawab**: Data portofolio karya desain
+### gallery-service (Rakha)
+- **Memiliki**: Tabel `portfolios` di `gallery_db`
+- **Tanggung jawab**: Data galeri karya desain
 
 ### order-service (Roihan)
 - **Memiliki**: Tabel `orders` di `order_db`
@@ -158,7 +158,7 @@ docker build -t smileon-payment-service ./payment-service
 docker build -t smileon-recommendation-service ./recommendation-service
 docker build -t smileon-auth-service ./auth-service
 docker build -t smileon-product-service ./product-service
-docker build -t smileon-portfolio-service ./portfolio-service
+docker build -t smileon-gallery-service ./gallery-service
 docker build -t smileon-frontend ./frontend
 docker build -t smileon-api-gateway ./api-gateway
 ```
@@ -169,7 +169,7 @@ docker build -t smileon-api-gateway ./api-gateway
 # Apply semua manifest
 kubectl apply -f kubernetes/auth/
 kubectl apply -f kubernetes/product/
-kubectl apply -f kubernetes/portfolio/
+kubectl apply -f kubernetes/gallery/
 kubectl apply -f kubernetes/order/
 kubectl apply -f kubernetes/payment/
 kubectl apply -f kubernetes/recommendation/
@@ -188,4 +188,4 @@ kubectl apply -f kubernetes/gateway/
 | order-service | 3001 |
 | payment-service | 3002 |
 | recommendation-service | 3003 |
-| portfolio-service | 3004 |
+| gallery-service | 3002 |

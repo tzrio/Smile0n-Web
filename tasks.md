@@ -18,7 +18,7 @@
 | Order Management UI | 🔧 In Progress | Form pesanan dan riwayat pesanan |
 | Payment UI | 🔧 In Progress | Form upload bukti pembayaran |
 | Recommendation Display | 🔧 In Progress | Menampilkan rekomendasi produk |
-| Portfolio Display | 🔧 In Progress | Menampilkan portofolio karya |
+| Gallery Display | 🔧 In Progress | Menampilkan galeri karya |
 | API Gateway Config | ✅ Done | Konfigurasi Nginx routing ke semua service |
 
 ### Integration Dependencies
@@ -39,7 +39,7 @@
 ### Scope
 - Auth Service
 - Product Service
-- Portfolio Service
+- Gallery Service
 
 ### Deliverables
 
@@ -52,11 +52,11 @@
 | Product: CRUD endpoints | 🔧 In Progress | GET/POST/PUT/DELETE /products |
 | Product: Product listing | 🔧 In Progress | GET /products dengan filter |
 | Product: Product detail | 🔧 In Progress | GET /products/:id |
-| Portfolio: CRUD endpoints | 🔧 In Progress | GET/POST/PUT/DELETE /portfolio |
-| Portfolio: Portfolio listing | 🔧 In Progress | GET /portfolio |
+| Gallery: CRUD endpoints | 🔧 In Progress | GET/POST/PUT/DELETE /gallery |
+| Gallery: Gallery listing | 🔧 In Progress | GET /gallery |
 | Auth: Unit tests | 🔧 In Progress | Jest + Supertest |
 | Product: Unit tests | 🔧 In Progress | Jest + Supertest |
-| Portfolio: Unit tests | 🔧 In Progress | Jest + Supertest |
+| Gallery: Unit tests | 🔧 In Progress | Jest + Supertest |
 
 ### Integration Dependencies
 - auth-service harus siap agar service lain bisa validasi user
@@ -65,12 +65,12 @@
 ### Kubernetes Responsibilities
 - `kubernetes/auth/` — Deployment, Service, MySQL, PVC, ConfigMap untuk auth-service
 - `kubernetes/product/` — Deployment, Service, MySQL, PVC, ConfigMap untuk product-service
-- `kubernetes/portfolio/` — Deployment, Service, MySQL, PVC, ConfigMap untuk portfolio-service
+- `kubernetes/gallery/` — Deployment, Service, MySQL, PVC, ConfigMap untuk gallery-service
 
 ### Database Responsibilities
 - `databases/auth_db.sql` — Schema tabel `users`
 - `databases/product_db.sql` — Schema tabel `products`
-- `databases/portfolio_db.sql` — Schema tabel `portfolios`
+- `databases/gallery_db.sql` — Schema tabel `portfolios`
 
 ---
 

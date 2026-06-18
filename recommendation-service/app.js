@@ -40,7 +40,7 @@ app.get('/', (_req, res) => {
 // ============================================
 // MENJALANKAN SERVER
 // ============================================
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3005;
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {

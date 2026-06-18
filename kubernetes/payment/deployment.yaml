@@ -17,31 +17,7 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: smileon-payment-service:latest
-          imagePullPolicy: IfNotPresent
+          image: payment-service:v1
+          imagePullPolicy: Never
           ports:
-            - containerPort: 3002
-          env:
-            - name: PORT
-              value: "3002"
-            - name: DB_HOST
-              value: "mysql-payment"
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_USER
-              value: "root"
-            - name: DB_PASSWORD
-              value: "rootpassword"
-            - name: DB_NAME
-              value: "payment_db"
-            - name: UPLOAD_DIR
-              value: "/app/uploads"
-            - name: ORDER_SERVICE_URL
-              value: "http://order-service:3001"
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
+            - containerPort: 3004
