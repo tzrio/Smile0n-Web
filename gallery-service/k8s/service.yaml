@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: gallery-service
+
+spec:
+  selector:
+    app: gallery-service
+
+  ports:
+    - port: 3002
+      targetPort: 3002
+
+  type: NodePort
+
