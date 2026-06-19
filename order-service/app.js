@@ -27,6 +27,39 @@ app.use(express.json());
 // ============================================
 const orderRoutes = require('./routes/orderRoutes');
 
+// ============================================
+// AUTO INITIALISASI TABEL (idempotent)
+// ============================================
+const pool = require('./config/db');
+
+(async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT NOT NULL,
+        product_id INT NULL,
+        jenis_desain VARCHAR(100) NOT NULL,
+        konsep TEXT,
+        warna VARCHAR(100),
+        ukuran VARCHAR(100),
+        referensi TEXT,
+        catatan TEXT,
+        file_pendukung VARCHAR(255),
+        estimasi_pengerjaan VARCHAR(50),
+        total_harga DECIMAL(12, 2) DEFAULT 0,
+        status ENUM('menunggu_pembayaran', 'menunggu_verifikasi', 'diproses', 'revisi', 'selesai', 'dibatalkan') DEFAULT 'menunggu_pembayaran',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+    await pool.query(`CREATE INDEX idx_user_id ON orders(user_id)`);
+    console.log('[Order DB] Tabel orders siap');
+  } catch (err) {
+    console.error('[Order DB] Gagal inisialisasi tabel:', err.message);
+  }
+})();
+
 // Semua request ke /orders ditangani oleh orderRoutes
 app.use('/orders', orderRoutes);
 

@@ -29,10 +29,13 @@ CREATE TABLE IF NOT EXISTS orders (
   catatan TEXT,
   file_pendukung VARCHAR(255),
   estimasi_pengerjaan VARCHAR(50),
+  total_harga DECIMAL(12, 2) DEFAULT 0,
   status ENUM('menunggu_pembayaran', 'menunggu_verifikasi', 'diproses', 'revisi', 'selesai', 'dibatalkan') DEFAULT 'menunggu_pembayaran',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_user_id ON orders(user_id);
 
 -- ============================================
 -- DATA DUMMY UNTUK TESTING

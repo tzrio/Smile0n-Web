@@ -136,10 +136,10 @@
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
 <div class="hidden md:flex items-center gap-stack-lg">
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Gallery</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
-<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1" href="/order">Order</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/order">Order</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 </div>
 <div class="flex items-center gap-stack-md">
@@ -190,32 +190,32 @@ Back to Products
           </label>
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-stack-md" id="designTypeGrid">
 <!-- Poster -->
-<button class="design-type-card active flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="120" data-type="Poster">
+<button class="design-type-card active flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="120000" data-type="Poster">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">article</span>
 <span class="font-label-md">Poster</span>
 </button>
 <!-- Banner -->
-<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="150" data-type="Banner">
+<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="150000" data-type="Banner">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">view_carousel</span>
 <span class="font-label-md">Banner</span>
 </button>
 <!-- Instagram Feed -->
-<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="80" data-type="Instagram Feed">
+<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="80000" data-type="Instagram Feed">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">grid_view</span>
 <span class="font-label-md text-center">Instagram Feed</span>
 </button>
 <!-- Instagram Story -->
-<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="60" data-type="Instagram Story">
+<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="60000" data-type="Instagram Story">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">auto_stories</span>
 <span class="font-label-md text-center">Instagram Story</span>
 </button>
 <!-- Brochure -->
-<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="250" data-type="Brochure">
+<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="250000" data-type="Brochure">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">menu_book</span>
 <span class="font-label-md">Brochure</span>
 </button>
 <!-- Logo -->
-<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="400" data-type="Logo">
+<button class="design-type-card flex flex-col items-center justify-center p-stack-md border border-outline-variant rounded-xl transition-all hover:border-primary group" data-base-price="400000" data-type="Logo">
 <span class="material-symbols-outlined text-[32px] mb-2 group-hover:scale-110 transition-transform">pentagon</span>
 <span class="font-label-md">Logo</span>
 </button>
@@ -299,10 +299,23 @@ Back to Products
 <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg shadow-sm">
 <h2 class="font-headline-md mb-stack-md border-b border-outline-variant pb-4">Order Summary</h2>
 
+<!-- Product Selection -->
+<div class="mb-4">
+  <label class="font-label-sm text-label-sm text-on-surface-variant mb-1 block">Pilih Produk</label>
+  <select name="product_id" id="productSelect" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-2 text-body-md">
+    <option value="">Custom Order</option>
+    <% if (products && products.length > 0) { %>
+      <% products.forEach(function(p) { %>
+        <option value="<%= p.id %>" data-harga="<%= p.harga %>" <%= (selectedProduct && String(selectedProduct.id) === String(p.id)) ? 'selected' : '' %>><%= p.nama_produk %> — Rp <%= Number(p.harga).toLocaleString('id-ID') %></option>
+      <% }) %>
+    <% } %>
+  </select>
+</div>
 <!-- Hidden inputs for form submission -->
 <input type="hidden" name="jenis_desain" id="hiddenJenisDesain" value="Poster">
 <input type="hidden" name="ukuran" id="hiddenUkuran" value="Standard">
 <input type="hidden" name="estimasi_pengerjaan" id="hiddenEstimasi" value="">
+<input type="hidden" name="total_harga" id="hiddenTotalHarga" value="120000">
 
 <ul class="space-y-4 mb-stack-lg">
 <li class="flex justify-between items-center">
@@ -325,7 +338,7 @@ Back to Products
 <div class="bg-surface-container-low rounded-xl p-stack-md mb-stack-lg">
 <div class="flex justify-between items-end">
 <span class="font-label-md text-on-surface-variant mb-1">Estimated Total</span>
-<span class="text-headline-lg text-primary" id="totalPrice">$120.00</span>
+<span class="text-headline-lg text-primary" id="totalPrice">Rp 120.000</span>
 </div>
 <p class="text-[10px] text-on-surface-variant mt-2 leading-relaxed italic">
 * Final quote may vary slightly after detailed requirement analysis.
@@ -381,7 +394,7 @@ Anda harus <a href="/login" class="text-primary font-bold underline">login</a> t
 <script>
     // Selection state
     const state = {
-      basePrice: 120,
+      basePrice: 120000,
       sizeMultiplier: 1,
       complexityMultiplier: 1,
       selectedDate: null,
@@ -389,10 +402,21 @@ Anda harus <a href="/login" class="text-primary font-bold underline">login</a> t
     };
 
     // DOM Elements
+    const productSelect = document.getElementById('productSelect');
     const typeCards = document.querySelectorAll('.design-type-card');
     const sizeSelect = document.getElementById('sizeSelector');
     const complexityChips = document.querySelectorAll('.complexity-chip');
     const priceDisplay = document.getElementById('totalPrice');
+
+    // Initialize price from pre-selected product or active design card
+    if (productSelect && productSelect.value) {
+      const opt = productSelect.options[productSelect.selectedIndex];
+      const harga = parseFloat(opt.dataset.harga);
+      if (harga && !isNaN(harga)) {
+        state.basePrice = harga;
+        state.type = opt.text.split('—')[0].trim();
+      }
+    }
     const summaryType = document.getElementById('summaryType');
     const summaryComplexity = document.getElementById('summaryComplexity');
     const summarySize = document.getElementById('summarySize');
@@ -416,8 +440,9 @@ const currentYear = 2026;
 
     // Update Price and Summary + hidden form fields
     function updatePricing() {
-      const total = state.basePrice * state.sizeMultiplier * state.complexityMultiplier;
-      priceDisplay.innerText = `$${total.toFixed(2)}`;
+      const total = Math.round(state.basePrice * state.sizeMultiplier * state.complexityMultiplier);
+      priceDisplay.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+      document.getElementById('hiddenTotalHarga').value = total;
       
       summaryType.innerText = state.type;
       summaryComplexity.innerText = state.complexityMultiplier === 1 ? 'Low' : (state.complexityMultiplier === 1.5 ? 'Medium' : 'High');
@@ -432,6 +457,26 @@ const currentYear = 2026;
       }
     }
 
+    // Product Selection
+    if (productSelect) {
+      productSelect.addEventListener('change', (e) => {
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const productPrice = parseFloat(selectedOption.dataset.harga);
+        if (productPrice && !isNaN(productPrice)) {
+          state.basePrice = productPrice;
+          state.type = selectedOption.text.split('—')[0].trim();
+        } else {
+          // Reset to currently active design card
+          const activeCard = document.querySelector('.design-type-card.active');
+          if (activeCard) {
+            state.basePrice = parseFloat(activeCard.dataset.basePrice);
+            state.type = activeCard.dataset.type;
+          }
+        }
+        updatePricing();
+      });
+    }
+
     // Type Selection
     typeCards.forEach(card => {
       card.addEventListener('click', () => {
@@ -439,6 +484,8 @@ const currentYear = 2026;
         card.classList.add('active');
         state.basePrice = parseFloat(card.dataset.basePrice);
         state.type = card.dataset.type;
+        // Clear product select if user clicks a design type card manually
+        if (productSelect) productSelect.value = '';
         updatePricing();
       });
     });

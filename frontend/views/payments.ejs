@@ -61,14 +61,12 @@
 <div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
 <a href="/" class="font-headline-md text-headline-md font-bold text-primary hover:opacity-80 transition">SmileOn Lab</a>
 <div class="hidden md:flex items-center gap-8">
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/">Home</a>
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/products">Products</a>
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/gallery">Portfolio</a>
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/order">Order</a>
-<a class="text-primary border-b-2 border-primary pb-1 font-bold font-body-md" href="/orders">My Orders</a>
-<% if (locals.user && user.role === 'admin') { %>
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/admin/orders">Admin</a>
-<% } %>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Gallery</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/order">Order</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 </div>
 <div class="flex items-center gap-4">
 <% if (locals.user) { %>
@@ -145,7 +143,7 @@ Back to Orders
 <div class="bg-surface-container rounded-lg p-4 border border-outline-variant">
 <div class="font-label-sm text-on-surface-variant mb-1">Amount</div>
 <div class="font-headline-md text-primary">
-<% if (payment.jumlah) { %>$<%= parseFloat(payment.jumlah).toFixed(2) %><% } else { %>—<% } %>
+<% if (payment.jumlah) { %>Rp <%= Number(payment.jumlah).toLocaleString('id-ID') %><% } else { %>—<% } %>
 </div>
 </div>
 <div class="bg-surface-container rounded-lg p-4 border border-outline-variant">

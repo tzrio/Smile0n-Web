@@ -247,8 +247,23 @@ router.get('/orders', isAuthenticated, async (req, res) => {
 });
 
 // GET /order - Tampilkan halaman order
-router.get('/order', (req, res) => {
-    res.render('order');
+router.get('/order', async (req, res) => {
+    const { product_id } = req.query;
+    let products = [];
+    let selectedProduct = null;
+
+    try {
+        const response = await apiClient.get('/api/products');
+        products = response.data || [];
+        if (product_id && products.length > 0) {
+            selectedProduct = products.find(p => String(p.id) === String(product_id)) || null;
+        }
+    } catch (error) {
+        console.error('[Order] Gagal fetch produk:', error.message);
+        // fallback: products array tetap kosong, form tetap bisa dipakai
+    }
+
+    res.render('order', { products, selectedProduct });
 });
 
 // POST /order - Buat pesanan baru via order-service
@@ -267,19 +282,23 @@ router.post('/order', async (req, res) => {
         ukuran,
         referensi,
         catatan,
-        estimasi_pengerjaan
+        estimasi_pengerjaan,
+        product_id,
+        total_harga
     } = req.body;
 
     try {
         const response = await apiClient.post('/api/orders', {
             user_id: userId,
+            product_id,
             jenis_desain,
             konsep,
             warna,
             ukuran,
             referensi,
             catatan,
-            estimasi_pengerjaan
+            estimasi_pengerjaan,
+            total_harga
         });
 
         const { order_id } = response.data;

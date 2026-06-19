@@ -33,7 +33,7 @@ const pool = require('../config/db.js');
  * atau auth middleware sebelum request sampai ke sini.
  */
 const createOrder = async (req, res) => {
-  const { user_id, jenis_desain, konsep, warna, ukuran, referensi, catatan, product_id, estimasi_pengerjaan } = req.body;
+  const { user_id, jenis_desain, konsep, warna, ukuran, referensi, catatan, product_id, estimasi_pengerjaan, total_harga } = req.body;
 
   // Validasi: user_id wajib diisi
   if (!user_id) {
@@ -48,8 +48,8 @@ const createOrder = async (req, res) => {
   try {
     // Simpan pesanan baru ke tabel orders
     const [result] = await pool.query(
-      'INSERT INTO orders (user_id, product_id, jenis_desain, konsep, warna, ukuran, referensi, catatan, estimasi_pengerjaan, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [user_id, product_id || null, jenis_desain, konsep || null, warna || null, ukuran || null, referensi || null, catatan || null, estimasi_pengerjaan || null, 'menunggu_pembayaran']
+      'INSERT INTO orders (user_id, product_id, jenis_desain, konsep, warna, ukuran, referensi, catatan, estimasi_pengerjaan, total_harga, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [user_id, product_id || null, jenis_desain, konsep || null, warna || null, ukuran || null, referensi || null, catatan || null, estimasi_pengerjaan || null, total_harga || 0, 'menunggu_pembayaran']
     );
 
     // Berhasil: kembalikan ID pesanan dan status awal
@@ -73,7 +73,7 @@ const getOrdersByUser = async (req, res) => {
     const { userId } = req.params;
 
     const [orders] = await pool.query(
-      'SELECT id, jenis_desain, status, estimasi_pengerjaan, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC',
+      'SELECT id, product_id, jenis_desain, status, estimasi_pengerjaan, total_harga, created_at FROM orders WHERE user_id = ? ORDER BY created_at DESC',
       [userId]
     );
 

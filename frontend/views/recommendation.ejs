@@ -122,7 +122,14 @@
 <nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
 <div class="max-w-container-max-width mx-auto px-margin-desktop h-20 flex justify-between items-center">
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
-<div class="hidden md:flex items-center gap-stack-lg"><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/">Home</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/products">Products</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a><a class="text-primary font-bold border-b-2 border-primary pb-1" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/orders">My Orders</a></div>
+<div class="hidden md:flex items-center gap-stack-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Gallery</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
+</div>
 <div class="flex items-center gap-stack-md">
 <% if (locals.user) { %>
 <span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
@@ -180,8 +187,8 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Complete visual kit for a consistent social presence across all platforms.</p>
 <div class="mt-auto">
 <div class="flex items-baseline gap-2 mb-6">
-<span class="text-3xl font-bold text-on-surface">$299</span>
-<span class="text-body-sm text-on-surface-variant line-through">$450</span>
+<span class="text-3xl font-bold text-on-surface">Rp 299.000</span>
+<span class="text-body-sm text-on-surface-variant line-through">Rp 450.000</span>
 </div>
 <ul class="space-y-3 mb-8">
 <li class="flex items-center gap-2 text-body-sm">
@@ -211,8 +218,8 @@ class="w-full py-3 px-4 border-1.5 border-primary text-primary font-label-md rou
 <h3 class="font-display-lg-mobile md:text-headline-lg text-white mb-stack-md leading-tight">Brand Identity Essential</h3>
 <p class="font-body-md text-white/80 mb-stack-lg max-w-md">The core foundation for any emerging business. Professional, scalable, and memorable branding delivered in record time.</p>
 <div class="flex items-baseline gap-4 mb-stack-lg">
-<span class="text-4xl font-bold text-[#ffc107]">$899</span>
-<span class="text-body-md text-white/60 line-through">$1,250</span>
+<span class="text-4xl font-bold text-[#ffc107]">Rp 899.000</span>
+<span class="text-body-md text-white/60 line-through">Rp 1.250.000</span>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-stack-lg">
 <div class="flex items-center gap-2">
@@ -250,7 +257,7 @@ class="bg-[#ffc107] text-[#1a1c1c] font-label-md px-8 py-4 rounded-lg hover:scal
 <div class="flex-1">
 <div class="flex justify-between items-center mb-4">
 <h3 class="font-headline-md text-headline-md">Small Business Bundle</h3>
-<span class="text-2xl font-bold text-primary">$1,499</span>
+<span class="text-2xl font-bold text-primary">Rp 1.499.000</span>
 </div>
 <p class="font-body-sm text-on-surface-variant mb-6">The ultimate all-in-one package for retail or local services looking to go digital.</p>
 <div class="grid grid-cols-2 gap-y-2 mb-8">

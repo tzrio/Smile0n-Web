@@ -28,6 +28,9 @@ CREATE TABLE IF NOT EXISTS payments (
   verified_at TIMESTAMP NULL
 );
 
+CREATE INDEX idx_order_id ON payments(order_id);
+CREATE INDEX idx_user_id ON payments(user_id);
+
 -- ============================================
 -- DATA DUMMY UNTUK TESTING
 -- ============================================

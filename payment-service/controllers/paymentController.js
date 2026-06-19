@@ -22,7 +22,8 @@
 const pool = require('../config/db.js');
 const axios = require('axios');
 
-const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || 'http://order-service:3003';
+// URL untuk order-service (fallback chain: ORDER_SERVICE_URL -> API_GATEWAY -> default)
+const ORDER_SERVICE_URL = process.env.ORDER_SERVICE_URL || process.env.API_GATEWAY || 'http://api-gateway';
 
 /**
  * Upload bukti pembayaran

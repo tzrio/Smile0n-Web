@@ -123,13 +123,14 @@
 <a class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary" href="/">SmileOn Lab</a>
 <div class="hidden md:flex gap-gutter">
 <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/gallery">Gallery</a>
 <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/products">Products</a>
-<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1" href="/orders">My Orders</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 <% if (locals.user && user.role === 'admin') { %>
 <a class="font-body-md text-body-md text-on-surface-variant dark:text-inverse-primary hover:text-primary dark:hover:text-inverse-primary transition-colors" href="/admin/orders">Admin</a>
 <% } %>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/gallery">Portfolio</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/recommendation">Recommendation</a><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="/order">Order</a>
 </div>
 </div>
 <div class="flex items-center gap-stack-md">
@@ -187,12 +188,16 @@ Back to Orders
 %>
 <span class="font-label-sm px-3 py-1 rounded-full bg-surface-container-high <%= payStatusClass %>"><%= payStatusLabel %></span>
 </div>
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">Amount</span>
+<span class="font-body-md text-body-md font-semibold text-primary">Rp <%= order && order.total_harga ? Number(order.total_harga).toLocaleString('id-ID') : '0' %></span>
+</div>
 </div>
 </div>
 <div class="p-stack-lg bg-surface-container-low">
 <div class="flex justify-between items-center pt-4 border-t border-outline-variant">
 <span class="font-headline-md text-headline-md">Total Amount</span>
-<span class="font-headline-md text-headline-md text-primary">$--.--</span>
+<span class="font-headline-md text-headline-md text-primary">Rp <%= order && order.total_harga ? Number(order.total_harga).toLocaleString('id-ID') : '0' %></span>
 </div>
 </div>
 </div>
@@ -327,7 +332,7 @@ Back to Orders
 <!-- Jumlah Pembayaran -->
 <div class="mt-8 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant">
 <h3 class="font-label-md text-label-md mb-3">Payment Amount (Rp)</h3>
-<input type="number" name="jumlah" min="1000" step="1000" placeholder="Masukkan jumlah pembayaran (contoh: 150000)" class="w-full p-2 border border-outline-variant rounded-lg bg-white font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" required>
+<input type="number" name="jumlah" min="1000" step="1000" value="<%= order && order.total_harga ? order.total_harga : '' %>" placeholder="Masukkan jumlah pembayaran (contoh: 150000)" class="w-full p-2 border border-outline-variant rounded-lg bg-white font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary" required>
 <p class="text-[11px] text-on-surface-variant mt-2 italic">Masukkan nominal yang sesuai dengan bukti transfer Anda.</p>
 </div>
 

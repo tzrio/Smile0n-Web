@@ -35,6 +35,34 @@ fs.mkdirSync(uploadDir, { recursive: true });
 // ============================================
 const paymentRoutes = require('./routes/paymentRoutes');
 
+// ============================================
+// AUTO INITIALISASI TABEL (idempotent)
+// ============================================
+const pool = require('./config/db');
+
+(async () => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS payments (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        order_id INT NOT NULL,
+        user_id INT NOT NULL,
+        metode_pembayaran VARCHAR(100),
+        jumlah DECIMAL(12, 2),
+        bukti_pembayaran VARCHAR(255),
+        status_verifikasi ENUM('menunggu_verifikasi', 'terverifikasi', 'ditolak') DEFAULT 'menunggu_verifikasi',
+        tanggal_pembayaran TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        verified_at TIMESTAMP NULL
+      )
+    `);
+    await pool.query(`CREATE INDEX idx_order_id ON payments(order_id)`);
+    await pool.query(`CREATE INDEX idx_user_id ON payments(user_id)`);
+    console.log('[Payment DB] Tabel payments siap');
+  } catch (err) {
+    console.error('[Payment DB] Gagal inisialisasi tabel:', err.message);
+  }
+})();
+
 // Semua request ke /payments ditangani oleh paymentRoutes
 app.use('/payments', paymentRoutes);
 

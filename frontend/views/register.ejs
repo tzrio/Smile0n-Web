@@ -123,7 +123,29 @@
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col">
-<!-- TopNavBar Suppression: Hidden on Transactional Screens -->
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<a href="/" class="font-headline-md text-headline-md font-bold text-primary hover:opacity-80 transition">SmileOn Lab</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Gallery</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
+</div>
+<div class="flex items-center gap-4">
+<% if (locals.user) { %>
+<span class="hidden md:block text-on-surface-variant font-body-sm"><%= user.email %></span>
+<a href="/logout" class="text-primary font-label-md hover:underline">Logout</a>
+<% } else { %>
+<a href="/login" class="text-on-surface-variant font-label-md hover:underline">Login</a>
+<a href="/register" class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md hover:underline">Register</a>
+<% } %>
+</div>
+</div>
+</nav>
 <main class="flex-grow flex items-center justify-center relative overflow-hidden px-margin-mobile md:px-margin-desktop py-stack-lg">
 <!-- Atmospheric Background Element -->
 <div class="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
@@ -245,7 +267,7 @@
 <div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
 <span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 <a class="hover:text-primary transition-colors" href="/">SmileOn Lab</a>. All rights reserved.</span>
 <div class="flex gap-gutter flex-wrap justify-center">
-<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/gallery">Portfolio</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/gallery">Gallery</a>
 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/recommendation">Recommendation</a>
 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/order">Order</a>
 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="/login">Login</a>

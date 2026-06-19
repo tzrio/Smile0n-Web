@@ -132,15 +132,12 @@
     SmileOn Lab
 </a>
 <div class="hidden md:flex items-center gap-8">
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/">Home</a>
-
-<a class="text-primary border-b-2 border-primary pb-1 font-bold font-body-md" href="/products">Products</a>
-
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a>
-
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
-
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Gallery</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/order">Order</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 </div>
 <div class="flex items-center gap-4">
 <% if (locals.user) { %>
@@ -292,7 +289,7 @@ class="md:col-span-6 group relative overflow-hidden bg-white border border-outli
           <p class="font-body-sm text-body-sm text-on-surface-variant mb-4"><%= product.deskripsi || '' %></p>
           <div class="flex items-center gap-2">
             <% if (product.harga) { %>
-              <span class="font-headline-md text-primary">$<%= parseFloat(product.harga).toFixed(2) %></span>
+              <span class="font-headline-md text-primary">Rp <%= Number(product.harga).toLocaleString('id-ID') %></span>
             <% } %>
             <% if (product.estimasi_pengerjaan) { %>
               <span class="font-body-sm text-on-surface-variant ml-auto"><%= product.estimasi_pengerjaan %></span>
