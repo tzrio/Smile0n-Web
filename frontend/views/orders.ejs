@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Orders | SmileOn Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            surface: "#f9f9ff",
+            "surface-container": "#e7eeff",
+            "surface-container-high": "#dee8ff",
+            "surface-container-highest": "#d8e3fb",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant": "#d8e3fb",
+            "on-surface": "#111c2d",
+            "on-surface-variant": "#424752",
+            primary: "#004d99",
+            "primary-container": "#1565c0",
+            "on-primary": "#ffffff",
+            secondary: "#5d5f5f",
+            "secondary-container": "#dfe0e0",
+            "on-secondary": "#ffffff",
+            tertiary: "#644a00",
+            "tertiary-fixed": "#ffdf9e",
+            "on-tertiary-fixed": "#261a00",
+            outline: "#727783",
+            "outline-variant": "#c2c6d4",
+            error: "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "inverse-surface": "#263143",
+          },
+          fontFamily: {
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+          },
+          fontSize: {
+            "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+            "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            "headline-lg": ["32px", { lineHeight: "1.25", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "1", letterSpacing: "0.01em", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "1", fontWeight: "500" }],
+          },
+          spacing: {
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "stack-lg": "32px",
+            "gutter": "24px",
+            "margin-desktop": "32px",
+            "margin-mobile": "16px",
+            "container-max-width": "1280px",
+          },
+          borderRadius: {
+            lg: "0.5rem",
+            xl: "0.75rem",
+          },
+        },
+      },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- NavBar -->
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<a href="/" class="font-headline-md text-headline-md font-bold text-primary hover:opacity-80 transition">SmileOn Lab</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/">Home</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/products">Products</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/gallery">Portfolio</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/order">Order</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-bold font-body-md" href="/orders">My Orders</a>
+<% if (locals.user && user.role === 'admin') { %>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/admin/orders">Admin</a>
+<% } %>
+</div>
+<div class="flex items-center gap-4">
+<% if (locals.user) { %>
+<span class="hidden md:block text-on-surface-variant font-body-sm"><%= user.email %></span>
+<a href="/logout" class="text-primary font-label-md hover:underline">Logout</a>
+<% } else { %>
+<a href="/login" class="text-on-surface-variant font-label-md hover:underline">Login</a>
+<a href="/register" class="bg-primary text-on-primary font-label-md py-2 px-5 rounded-lg hover:opacity-90 transition-all">Register</a>
+<% } %>
+</div>
+</div>
+</nav>
+
+<main class="flex-1 max-w-container-max-width mx-auto px-margin-desktop py-stack-lg w-full">
+<!-- Flash Messages -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Order History</h1>
+<p class="font-body-md text-on-surface-variant">View and track all your design orders in one place.</p>
+</div>
+<a href="/order" class="inline-flex items-center gap-2 bg-primary text-on-primary font-label-md py-3 px-6 rounded-lg hover:opacity-90 transition-all self-start">
+<span class="material-symbols-outlined">add</span>
+New Order
+</a>
+</div>
+
+<% if (locals.orders && orders.length > 0) { %>
+<!-- Orders Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-surface-container-high text-on-surface-variant font-label-sm uppercase">
+<tr>
+<th class="p-4">Order ID</th>
+<th class="p-4">Type</th>
+<th class="p-4">Size / Notes</th>
+<th class="p-4">Est. Delivery</th>
+<th class="p-4">Status</th>
+<th class="p-4">Date</th>
+<th class="p-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<% orders.forEach(function(order) {
+    let statusLabel = order.status || 'unknown';
+    let statusClass = 'bg-gray-100 text-gray-700';
+    let statusIcon = 'help';
+    switch (order.status) {
+        case 'menunggu_pembayaran':
+            statusLabel = 'Awaiting Payment';
+            statusClass = 'bg-amber-100 text-amber-800';
+            statusIcon = 'schedule';
+            break;
+        case 'menunggu_verifikasi':
+            statusLabel = 'Awaiting Verification';
+            statusClass = 'bg-blue-100 text-blue-800';
+            statusIcon = 'pending';
+            break;
+        case 'diproses':
+            statusLabel = 'Processing';
+            statusClass = 'bg-purple-100 text-purple-800';
+            statusIcon = 'construction';
+            break;
+        case 'revisi':
+            statusLabel = 'Revision';
+            statusClass = 'bg-red-100 text-red-800';
+            statusIcon = 'edit_note';
+            break;
+        case 'selesai':
+            statusLabel = 'Completed';
+            statusClass = 'bg-green-100 text-green-800';
+            statusIcon = 'check_circle';
+            break;
+        case 'dibatalkan':
+            statusLabel = 'Cancelled';
+            statusClass = 'bg-gray-100 text-gray-700';
+            statusIcon = 'cancel';
+            break;
+    }
+%>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="p-4 font-label-md">#<%= order.id %></td>
+<td class="p-4 font-body-sm"><%= order.jenis_desain || '-' %></td>
+<td class="p-4 font-body-sm text-on-surface-variant max-w-xs truncate" title="<%= order.catatan || '' %>"><%= order.ukuran || '-' %><% if (order.catatan) { %> &middot; <%= order.catatan %><% } %></td>
+<td class="p-4 font-body-sm text-on-surface-variant"><%= order.estimasi_pengerjaan || '-' %></td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full font-label-sm <%= statusClass %>">
+<span class="material-symbols-outlined text-[16px]"><%= statusIcon %></span>
+<%= statusLabel %>
+</span>
+</td>
+<td class="p-4 font-body-sm text-on-surface-variant whitespace-nowrap"><%= new Date(order.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %></td>
+<td class="p-4 text-right">
+<% if (order.status === 'menunggu_pembayaran') { %>
+<a href="/payment?order_id=<%= order.id %>" class="inline-flex items-center gap-1 bg-primary-container text-on-primary font-label-sm py-2 px-4 rounded-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+Pay
+</a>
+<% } else { %>
+<a href="/payment?order_id=<%= order.id %>" class="inline-flex items-center gap-1 text-primary font-label-sm hover:underline">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+Details
+</a>
+<% } %>
+</td>
+</tr>
+<% }) %>
+</tbody>
+</table>
+</div>
+<% } else { %>
+<!-- Empty State -->
+<div class="flex flex-col items-center justify-center py-stack-lg text-center">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">receipt_long</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">No orders yet</h2>
+<p class="font-body-md text-on-surface-variant max-w-md mb-stack-md">You haven't placed any design orders yet. Start your first project now and we'll take care of the rest.</p>
+<a href="/order" class="inline-flex items-center gap-2 bg-primary text-on-primary font-label-md py-3 px-6 rounded-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">design_services</span>
+Create First Order
+</a>
+</div>
+<% } %>
+</main>
+
+<!-- Footer -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-stack-md max-w-container-max-width mx-auto gap-4">
+<div class="flex flex-col gap-1">
+<div class="font-label-md font-bold text-primary">SmileOn Lab</div>
+<div class="font-body-sm text-on-surface-variant">© 2024 SmileOn Lab</div>
+</div>
+</div>
+</footer>
+</body></html>

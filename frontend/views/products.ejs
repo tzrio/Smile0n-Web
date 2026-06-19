@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="light" lang="en" style""><head>
+<!DOCTYPE html><html class="light" lang="en"  ><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Products | SmileOn Lab - Premium Design Solutions</title>
@@ -138,13 +138,16 @@
 
 <a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a>
 
-<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 
 <a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a>
 </div>
 <div class="flex items-center gap-4">
 <% if (locals.user) { %>
 <span class="hidden md:block text-on-surface-variant font-body-sm"><%= user.email %></span>
+<% if (locals.user && user.role === 'admin') { %>
+<a href="/admin/orders" class="text-primary font-label-md hover:underline">Admin</a>
+<% } %>
 <a href="/logout" class="text-primary font-label-md hover:underline">Logout</a>
 <% } else { %>
 <button onclick="window.location='/login'"
@@ -282,7 +285,7 @@ class="md:col-span-6 group relative overflow-hidden bg-white border border-outli
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
     <% products.forEach(function(product) { %>
-      <div onclick="window.location.href='/order'" class="group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl cursor-pointer">
+      <div onclick="window.location.href='/products/<%= product.id %>'" class="group relative overflow-hidden bg-white border border-outline-variant rounded-xl transition-all duration-300 hover:border-primary hover:shadow-xl cursor-pointer">
         <div class="p-6">
           <span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm mb-3"><%= product.kategori || 'General' %></span>
           <h3 class="font-headline-md text-headline-md mb-2"><%= product.nama_produk %></h3>

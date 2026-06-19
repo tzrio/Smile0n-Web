@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="light" lang="en" style"">
+<!DOCTYPE html><html class="light" lang="en"  >
     <head>
         <link rel="stylesheet" href="/css/style.css">
 <meta charset="utf-8">
@@ -136,13 +136,18 @@
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
 <div class="hidden md:flex items-center gap-stack-lg">
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/products">Products</a>
 <a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1" href="/order">Order</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/recommendation">Recommendation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="/orders">My Orders</a>
 </div>
 <div class="flex items-center gap-stack-md">
 <% if (locals.user) { %>
 <span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
+<% if (locals.user && user.role === 'admin') { %>
+<a class="font-label-md text-label-md px-4 py-2 text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="/admin/orders">Admin</a>
+<% } %>
 <a class="font-label-md text-label-md px-4 py-2 text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="/logout">Logout</a>
 <% } else { %>
 <a class="font-label-md text-label-md px-4 py-2 text-on-surface-variant hover:text-primary active:scale-95 transition-all" href="/login">Login</a>
@@ -155,6 +160,13 @@
 <div class="flex flex-col lg:flex-row gap-gutter">
 <!-- Left Column: Order Form -->
 <div class="flex-grow space-y-stack-lg">
+<!-- Back Nav -->
+<div class="mb-stack-sm">
+<a href="/products" class="inline-flex items-center gap-1 text-primary font-label-md hover:underline">
+<span class="material-symbols-outlined">arrow_back</span>
+Back to Products
+</a>
+</div>
 <section>
 <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-stack-sm">New Project Request</h1>
 <p class="text-on-surface-variant font-body-lg">Configure your design specifications below to get started.</p>
@@ -233,20 +245,21 @@
 </div>
 </section>
         </div>
-        <!-- Catatan Tambahan -->
+        <!-- Design Concept / Notes -->
         <section class="space-y-stack-md">
             <label class="font-label-md text-label-md text-on-surface flex items-center gap-2">
-                <span class="material-symbols-outlined text-[20px]">note_add</span> 4. Catatan / Konsep
+                <span class="material-symbols-outlined text-[20px]">note_add</span> 4. Design Concept / Notes
             </label>
             <div class="relative">
                 <span class="material-symbols-outlined absolute left-3 top-4 text-outline text-[20px]">edit_note</span>
-                <textarea class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="catatan" name="catatan" placeholder="Jelaskan konsep desain, warna yang diinginkan, referensi, atau kebutuhan spesifik lainnya..." rows="4"></textarea>
+                <textarea class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" id="catatan" name="catatan" placeholder="Describe your design concept, preferred colors, references, or any specific requirements..." rows="4"></textarea>
             </div>
+            <p class="text-body-sm text-on-surface-variant">Tip: The more detail you provide, the faster we can deliver exactly what you need.</p>
         </section>
         <!-- Deadline Picker -->
         <section class="space-y-stack-md">
             <label class="font-label-md text-label-md text-on-surface flex items-center gap-2">
-                <span class="material-symbols-outlined text-[20px]">calendar_today</span> 5. Desired Deadline
+                <span class="material-symbols-outlined text-[20px]">calendar_today</span> 5. Deadline
             </label>
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
 <div class="flex justify-between items-center mb-4">

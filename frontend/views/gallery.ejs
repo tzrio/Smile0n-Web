@@ -118,14 +118,17 @@
 <nav class="w-full top-0 sticky bg-surface-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline z-50">
 <div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
 <a class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary hover:opacity-90 transition-opacity" href="/">SmileOn Lab</a>
-<div class="hidden md:flex items-center gap-8"><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/ ">Home</a>
+<div class="hidden md:flex items-center gap-8"><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/">Home</a>
 <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/products">Products</a>
 <a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 active:scale-95 transition-transform" href="/gallery">Portfolio</a>
 <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/order">Order</a>
-<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/recommendation">Recommendation</a></div>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/recommendation">Recommendation</a><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 active:scale-95 transition-transform" href="/orders">My Orders</a></div>
 <div class="flex items-center gap-4">
 <% if (locals.user) { %>
 <span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
+<% if (locals.user && user.role === 'admin') { %>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/admin/orders">Admin</a>
+<% } %>
 <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/logout">Logout</a>
 <% } else { %>
 <a class="hidden md:block font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="/login">Login</a>
@@ -306,7 +309,7 @@
 </div>
 <div class="flex flex-col gap-stack-sm">
 <h4 class="font-label-md text-label-md text-on-surface mb-2">Company</h4>
-<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/ ">About Us</a><a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/products">Products</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/">About Us</a><a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/products">Products</a>
 <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/recommendation">Services</a>
 <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="/order">Contact</a>
 </div>

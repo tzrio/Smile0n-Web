@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title><%= locals.product && product.nama_produk ? product.nama_produk + ' | SmileOn Lab' : 'Product Detail | SmileOn Lab' %></title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            surface: "#f9f9ff",
+            "surface-container": "#e7eeff",
+            "surface-container-high": "#dee8ff",
+            "surface-container-highest": "#d8e3fb",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant": "#d8e3fb",
+            "on-surface": "#111c2d",
+            "on-surface-variant": "#424752",
+            primary: "#004d99",
+            "primary-container": "#1565c0",
+            "on-primary": "#ffffff",
+            secondary: "#5d5f5f",
+            "secondary-container": "#dfe0e0",
+            "on-secondary": "#ffffff",
+            tertiary: "#644a00",
+            "tertiary-fixed": "#ffdf9e",
+            "on-tertiary-fixed": "#261a00",
+            outline: "#727783",
+            "outline-variant": "#c2c6d4",
+            error: "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "inverse-surface": "#263143",
+          },
+          fontFamily: {
+            "body-md": ["Inter"], "body-sm": ["Inter"],
+            "headline-md": ["Inter"], "headline-lg": ["Inter"],
+            "label-md": ["Inter"], "label-sm": ["Inter"],
+            "display-lg": ["Inter"],
+          },
+          fontSize: {
+            "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+            "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            "headline-lg": ["32px", { lineHeight: "1.25", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "1", letterSpacing: "0.01em", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "1", fontWeight: "500" }],
+            "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+          },
+          spacing: {
+            "stack-sm": "8px", "stack-md": "16px", "stack-lg": "32px",
+            "gutter": "24px", "margin-desktop": "32px", "margin-mobile": "16px",
+            "container-max-width": "1280px",
+          },
+        },
+      },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+    }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- NavBar -->
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max-width mx-auto">
+<a href="/" class="font-headline-md text-headline-md font-bold text-primary hover:opacity-80 transition">SmileOn Lab</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/">Home</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-bold font-body-md" href="/products">Products</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/gallery">Portfolio</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/orders">My Orders</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="/order">Order</a>
+</div>
+<div class="flex items-center gap-4">
+<% if (locals.user) { %>
+<span class="hidden md:block text-on-surface-variant font-body-sm"><%= user.email %></span>
+<% if (locals.user && user.role === 'admin') { %>
+<a href="/admin/orders" class="text-primary font-label-md hover:underline">Admin</a>
+<% } %>
+<a href="/logout" class="text-primary font-label-md hover:underline">Logout</a>
+<% } else { %>
+<a href="/login" class="text-on-surface-variant font-label-md hover:underline">Login</a>
+<a href="/register" class="bg-primary text-on-primary font-label-md py-2 px-5 rounded-lg hover:opacity-90 transition-all">Register</a>
+<% } %>
+</div>
+</div>
+</nav>
+
+<main class="flex-1 max-w-container-max-width mx-auto px-margin-desktop py-stack-lg w-full">
+<!-- Flash Messages -->
+<% if (locals.error_msg && error_msg.length > 0) { %>
+  <% error_msg.forEach(function(msg) { %>
+    <div class="bg-error-container text-on-error-container p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+<% if (locals.success_msg && success_msg.length > 0) { %>
+  <% success_msg.forEach(function(msg) { %>
+    <div class="bg-surface-container-high text-primary p-4 rounded-lg mb-4 font-body-sm"><%= msg %></div>
+  <% }) %>
+<% } %>
+
+<!-- Back Navigation -->
+<div class="mb-stack-md">
+<a href="/products" class="inline-flex items-center gap-1 text-primary font-label-md hover:underline">
+<span class="material-symbols-outlined">arrow_back</span>
+Back to Products
+</a>
+</div>
+
+<% if (locals.product) { %>
+<!-- Product Hero -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-start">
+<!-- Image -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm max-h-[480px]">
+<% if (product.gambar_url) { %>
+<img src="<%= product.gambar_url %>" alt="<%= product.nama_produk %>" class="w-full h-full object-cover">
+<% } else { %>
+<div class="w-full h-80 flex items-center justify-center bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-6xl">image</span>
+</div>
+<% } %>
+</div>
+
+<!-- Details -->
+<div class="flex flex-col gap-stack-md">
+<div class="flex items-center gap-3">
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm uppercase tracking-wide"><%= product.kategori || 'General' %></span>
+<span class="font-label-sm text-on-surface-variant">ID: <%= product.id %></span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary leading-tight"><%= product.nama_produk %></h1>
+<% if (product.deskripsi) { %>
+<p class="font-body-md text-on-surface-variant leading-relaxed"><%= product.deskripsi %></p>
+<% } %>
+
+<!-- Specs Grid -->
+<div class="grid grid-cols-2 gap-4 mt-2">
+<% if (product.harga) { %>
+<div class="bg-surface-container rounded-lg p-4 border border-outline-variant">
+<div class="font-label-sm text-on-surface-variant mb-1">Price</div>
+<div class="font-headline-md text-primary">$<%= parseFloat(product.harga).toFixed(2) %></div>
+</div>
+<% } %>
+<% if (product.estimasi_pengerjaan) { %>
+<div class="bg-surface-container rounded-lg p-4 border border-outline-variant">
+<div class="font-label-sm text-on-surface-variant mb-1">Delivery</div>
+<div class="font-headline-md text-on-surface"><%= product.estimasi_pengerjaan %></div>
+</div>
+<% } %>
+</div>
+
+<!-- Order CTA -->
+<a href="/order?product_id=<%= product.id %>" class="inline-flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md py-4 px-8 rounded-lg hover:opacity-90 transition-all mt-4">
+<span class="material-symbols-outlined">shopping_cart</span>
+Order This Design
+</a>
+</div>
+</div>
+<% } else { %>
+<!-- Fallback -->
+<div class="flex flex-col items-center justify-center py-stack-lg text-center">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">inventory_2</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Product not found</h2>
+<p class="font-body-md text-on-surface-variant max-w-md mb-stack-md">We couldn't load this product. It may have been removed or is temporarily unavailable.</p>
+<a href="/products" class="inline-flex items-center gap-2 bg-primary text-on-primary font-label-md py-3 px-6 rounded-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+Browse Products
+</a>
+</div>
+<% } %>
+</main>
+
+<!-- Footer -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-stack-md max-w-container-max-width mx-auto gap-4">
+<div class="flex flex-col gap-1">
+<div class="font-label-md font-bold text-primary">SmileOn Lab</div>
+<div class="font-body-sm text-on-surface-variant">© 2024 SmileOn Lab</div>
+</div>
+</div>
+</footer>
+</body></html>

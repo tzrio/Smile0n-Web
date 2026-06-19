@@ -1,0 +1,452 @@
+{
+  "id": "019edddc-77de-75ec-bbab-16ce46b7c2bd",
+  "name": "Frontend Backend Integration",
+  "description": "Configuration and Integration Frontend to Backend",
+  "status": "complete",
+  "worktree": {
+    "path": "/home/khaa/Smile0n-Web",
+    "branch": "main",
+    "commit": "0752d929f2b0763562b922be164298852eda9a97"
+  },
+  "scoping": {
+    "goal": {
+      "answer": "Integrate the SmileOn Lab Express frontend with all backend microservices via the API Gateway, and polish the UI/UX so every page is clear and contextually appropriate. Fix broken order and payment user flows, complete missing user-facing pages (order history, product detail, payment status), build the admin order management and payment verification flow, and ensure graceful handling for stub backend services. Create or improve EJS views so pages that do not exist yet are built with intuitive design, and pages that are unclear are refined with better labels, navigation cues, empty states, and error messaging. Preserve existing working auth (login/register) unless a critical fix is required. Any material change to already-working code must be discussed with the user before applying.",
+      "confirmedAt": "2026-06-19T03:26:11.975Z"
+    },
+    "criteria": {
+      "answer": "Product browsing: Frontend serves /products and /products/:id pages that call /api/products via API Gateway and render data in EJS templates with clear layout and navigation. Verify by navigating to the pages and checking rendered output.\nOrder creation & history: Frontend serves /order (create) and /orders (list by user) pages calling /api/orders via API Gateway. Pages include intuitive forms, clear labels, and helpful empty states. Verify by submitting an order form and confirming it appears in history.\nPayment upload & tracking: Frontend serves /payment (upload proof) and /payments (track status) pages calling /api/payments via API Gateway. Upload form has clear instructions and payment status page shows readable state. Verify by submitting the upload form and checking payment status.\nAdmin order & payment management: Frontend serves /admin/orders page listing all orders with status update and payment verification. Admin dashboard has clear action buttons, status indicators, and responsive layout. Verify by updating an order status as admin.\nGallery & recommendation display: Frontend serves /gallery and /recommendation pages consuming respective APIs via API Gateway. Pages have clean layout and friendly fallback when data is empty. Verify by page render.\nCentralized API client config: All backend requests use a shared API Gateway base URL config (e.g., env var or config module), not scattered hardcoded localhosts. Verify by grep/code review.\nGraceful stub handling: When a backend service is unavailable or returns errors, frontend shows friendly fallback messages instead of crashing. Empty-state messages are contextually helpful. Verify by simulating error responses.\nExisting auth preserved: Login and register remain functional and unchanged unless a fix is unavoidable (user notified first). Verify by manual login/register test.\nChange report delivered: INTEGRATION_REPORT.md is created listing every changed file and its purpose. Verify by file existence and content.",
+      "confirmedAt": "2026-06-19T03:26:11.975Z"
+    },
+    "constraints": {
+      "answer": "Do not modify existing login/register routes unless a critical bug is found and the user is notified first., All backend calls must go through the API Gateway, not directly to individual services., Maintain existing session-based authentication pattern (no JWT overhaul)., Graceful handling is required for product-service and gallery-service if they are still stubs., New or updated EJS views must be clear and contextually intuitive; do not leave bare HTML or unlabeled forms.",
+      "confirmedAt": "2026-06-19T03:26:11.975Z"
+    },
+    "phases": {
+      "answer": "Fix User-Facing Integration, Build Admin Management Flow, Validation & Reporting",
+      "confirmedAt": "2026-06-19T03:26:11.975Z"
+    },
+    "assumptions": {
+      "answer": "auth-service endpoints (login/register) are already implemented and working per the user.; order-service, payment-service, and recommendation-service are fully implemented and reachable via API Gateway.; product-service and gallery-service may still be stubs; frontend should show friendly fallbacks.; API Gateway Nginx routing is correctly configured as documented in README.md and can reach all services.; Frontend runs as an Express + EJS application on port 3000 with express-session configured.; Environment variable API_GATEWAY_URL or default http://api-gateway is sufficient for local and K8s connectivity.; Existing EJS templates may be incomplete or unclear; they should be reviewed and improved during integration.",
+      "confirmedAt": "2026-06-19T03:26:11.975Z"
+    }
+  },
+  "phases": [
+    {
+      "id": "phase-1",
+      "index": 1,
+      "name": "Fix User-Facing Integration",
+      "goal": "Diagnose and fix existing order/payment routes, add missing user pages (order history, payment status, product detail), build or refine their EJS views with clear UI/UX, and verify the end-to-end user flow works.",
+      "description": "",
+      "parallel": false,
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Diagnose current failures: run frontend with backend services, test existing /order, /payment, /products routes and capture exact errors or missing functionality.",
+          "status": "verified",
+          "verification": {
+            "command": "npm start runs in frontend without crashing; manual test notes recorded",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:26:48.490Z",
+          "completedAt": "2026-06-19T03:34:15.630Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:34:15.630Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Fix any connectivity or data-format issues in existing order and payment route handlers (POST /order, POST /payment).",
+          "status": "verified",
+          "verification": {
+            "command": "curl -X POST to /order returns redirect with success flash; curl -X POST to /payment with multipart returns redirect",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:35:24.852Z",
+          "completedAt": "2026-06-19T03:43:05.133Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:43:05.133Z"
+          }
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "Add GET /orders route calling /api/orders/user/:userId via API Gateway and render a clean order-history EJS view with table/list layout, clear status labels, and empty-state message.",
+          "status": "verified",
+          "verification": {
+            "command": "curl -b session_cookie /orders returns rendered HTML with order list or friendly empty state",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:43:33.603Z",
+          "completedAt": "2026-06-19T03:46:40.902Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:46:40.902Z"
+          }
+        },
+        {
+          "id": "step-4",
+          "index": 4,
+          "description": "Add GET /products/:id route calling /api/products/:id via API Gateway and render a clear product-detail EJS view with back navigation, product specs, and an order CTA.",
+          "status": "verified",
+          "verification": {
+            "command": "curl /products/1 returns rendered product detail or fallback message",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:47:26.418Z",
+          "completedAt": "2026-06-19T03:50:20.375Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:50:20.375Z"
+          }
+        },
+        {
+          "id": "step-5",
+          "index": 5,
+          "description": "Add GET /payments route (or similar) calling /api/payments/order/:orderId to display payment status in a readable EJS view with current status, amount, and next steps.",
+          "status": "verified",
+          "verification": {
+            "command": "curl /payments?order_id=1 returns payment status detail or fallback message",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:50:44.744Z",
+          "completedAt": "2026-06-19T03:52:45.061Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:52:45.061Z"
+          }
+        },
+        {
+          "id": "step-6",
+          "index": 6,
+          "description": "Review and improve UI/UX of existing order.ejs and payment.ejs views: ensure labels are intuitive, form guidance is clear, navigation cues (e.g., breadcrumbs or back links) are present, and flash messages are styled/readable. If a view does not exist yet, create it with consistent styling.",
+          "status": "verified",
+          "verification": {
+            "command": "Visual inspection of /order and /payment in browser shows clear forms and helpful guidance",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:54:25.042Z",
+          "completedAt": "2026-06-19T03:56:07.781Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T03:56:07.781Z"
+          }
+        },
+        {
+          "id": "step-7",
+          "index": 7,
+          "description": "Run end-to-end manual test: login → browse products → place order → upload payment → view order history. Confirm every step has clear visual feedback.",
+          "status": "verified",
+          "verification": {
+            "command": "Manual walkthrough completes without errors; flash messages display correctly; user always knows what to do next",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T03:57:14.178Z",
+          "completedAt": "2026-06-19T04:09:47.424Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T04:09:47.424Z"
+          }
+        }
+      ],
+      "startedAt": "2026-06-19T03:26:18.726Z",
+      "completedAt": "2026-06-19T04:11:22.216Z",
+      "summary": "Phase 1 (Fix User-Facing Integration) completed successfully.\n- Diagnosed existing integration issues (diagnosis-report.md).\n- Built centralized API client config (frontend/config/api.js).\n- Fixed payment upload middleware (payment-service/middleware/upload.js).\n- Implemented GET /orders route + orders.ejs view with Tailwind badges, empty state, and action buttons.\n- Implemented GET /products/:id route + product-detail.ejs view with back navigation and \"Order This Design\" CTA.\n- Implemented GET /payments route + payments.ejs view with status card, specs grid, and contextual CTAs.\n- Polished existing order.ejs and payment.ejs with nav links, English labels, help tips, and status badge mapping.\n- Ran end-to-end manual test: login → products → product detail → place order → order history → payment status. All pages returned 200 with clear visual feedback and graceful error handling.\n- Wrote e2e-verification-report.md documenting results.\n\nAll work scoped for Phase 1's goal (user-facing integration: order, payment, product pages) is complete. Admin dashboard, gallery/recommendation pages, and the integration report belong to subsequent phases.",
+      "grade": {
+        "grade": "A",
+        "rationale": "All gates pass; project checks validate.",
+        "gradedAt": "2026-06-19T04:11:22.214Z"
+      }
+    },
+    {
+      "id": "phase-2",
+      "index": 2,
+      "name": "Build Admin Management Flow",
+      "goal": "Add admin middleware and routes for viewing all orders, updating order status, and verifying payments. Build or refine admin EJS views with clear, actionable UI/UX.",
+      "description": "",
+      "parallel": false,
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Create isAdmin middleware that checks req.session.user.role === 'admin' and blocks non-admin access with a clear error message.",
+          "status": "verified",
+          "verification": {
+            "command": "curl as non-admin to /admin/orders redirects with error flash",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T04:15:24.223Z",
+          "completedAt": "2026-06-19T04:23:07.834Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T04:23:07.834Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Add GET /admin/orders route calling GET /api/orders (all orders) via API Gateway and render an admin dashboard EJS view with a responsive table, status badges, filter/sort cues, and clear action buttons (Accept, Reject, Verify Payment).",
+          "status": "verified",
+          "verification": {
+            "command": "curl as admin to /admin/orders returns rendered HTML with full order list and action buttons",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T04:23:51.667Z",
+          "completedAt": "2026-06-19T04:26:37.850Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T04:26:37.850Z"
+          }
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "Add POST /admin/orders/:id/status route calling PUT /api/orders/:id/status via API Gateway to update order status, with success/error flash feedback.",
+          "status": "verified",
+          "verification": {
+            "command": "curl -X POST /admin/orders/1/status with body {status:'completed'} returns redirect with success flash",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T04:28:41.104Z",
+          "completedAt": "2026-06-19T04:33:05.589Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T04:33:05.589Z"
+          }
+        },
+        {
+          "id": "step-4",
+          "index": 4,
+          "description": "Add POST /admin/payments/:id/verify route calling PUT /api/payments/:id/verify via API Gateway, with clear confirmation messaging.",
+          "status": "verified",
+          "verification": {
+            "command": "curl -X POST /admin/payments/1/verify returns redirect with success flash",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T04:35:46.006Z",
+          "completedAt": "2026-06-19T04:38:31.638Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T04:38:31.638Z"
+          }
+        },
+        {
+          "id": "step-5",
+          "index": 5,
+          "description": "Refine admin view layout: ensure status colors are distinguishable, actions are obvious, and there are helpful empty states. Add navigation links between user and admin areas if missing.",
+          "status": "verified",
+          "verification": {
+            "command": "Visual inspection of /admin/orders shows clear status badges, obvious buttons, and helpful guidance",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T06:32:17.590Z",
+          "completedAt": "2026-06-19T06:45:50.254Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T06:45:50.254Z"
+          }
+        }
+      ],
+      "startedAt": "2026-06-19T04:15:15.742Z",
+      "completedAt": "2026-06-19T06:48:06.638Z",
+      "summary": "Phase 2 completed successfully. All five steps delivered:\n\n1. **isAdmin middleware** (`frontend/routes/index.js`): checks `req.session.user.role === 'admin'` and redirects non-admins with a flash message.\n2. **GET /admin/orders**: proxies `GET /api/orders` + `GET /api/payments` to build a payment map, renders `admin-orders.ejs` with status badges, action buttons, and payment indicators.\n3. **POST /admin/orders/:id/status**: proxies `PUT /api/orders/:id/status`, flashes success/error, redirects to `/admin/orders`.\n4. **POST /admin/payments/:id/verify**: proxies `PUT /api/payments/:id/verify`, flashes success/error, redirects to `/admin/orders`.\n5. **Admin view refinement**: improved navbar with complete site links; added conditional \"Admin\" nav links across 9 user-facing views (orders, payments, payment, order, product-detail, products, gallery, recommendation, home) so admins can switch contexts seamlessly.\n\nAll routes and views verified via authenticated curl against the running frontend on port 3030.",
+      "grade": {
+        "grade": "A",
+        "rationale": "All gates pass; project checks validate.",
+        "gradedAt": "2026-06-19T06:48:06.635Z"
+      }
+    },
+    {
+      "id": "phase-3",
+      "index": 3,
+      "name": "Validation & Reporting",
+      "goal": "Test all integrations including auth preservation, verify graceful stub handling and UI consistency across all pages, and deliver INTEGRATION_REPORT.md.",
+      "description": "",
+      "parallel": false,
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-1",
+          "index": 1,
+          "description": "Test gallery (/gallery) and recommendation (/recommendation) pages with backend running and stubbed; confirm graceful fallback UI when data is empty or service is unreachable.",
+          "status": "verified",
+          "verification": {
+            "command": "curl /gallery and /recommendation return 200 with friendly empty state when backend is down",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T06:50:02.259Z",
+          "completedAt": "2026-06-19T06:53:56.459Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T06:53:56.459Z"
+          }
+        },
+        {
+          "id": "step-2",
+          "index": 2,
+          "description": "Re-run login and register flows to confirm existing auth UI is untouched, fully functional, and flash messages remain clear.",
+          "status": "verified",
+          "verification": {
+            "command": "curl POST /login and POST /register succeed with correct redirects and session creation",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T06:55:51.822Z",
+          "completedAt": "2026-06-19T06:59:17.867Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T06:59:17.867Z"
+          }
+        },
+        {
+          "id": "step-3",
+          "index": 3,
+          "description": "UI/UX consistency review: walk through every page and confirm navigation is consistent (common header/navbar if used), labels are clear, error states are helpful, and forms are intuitive.",
+          "status": "verified",
+          "verification": {
+            "command": "Visual inspection of all frontend pages shows consistent navigation, readable labels, and helpful empty/error states",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T07:14:27.054Z",
+          "completedAt": "2026-06-19T07:38:33.171Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T07:38:33.171Z"
+          }
+        },
+        {
+          "id": "step-4",
+          "index": 4,
+          "description": "Create INTEGRATION_REPORT.md in repository root documenting all changed files, their purposes, UI/UX decisions, and any backend assumptions discovered.",
+          "status": "verified",
+          "verification": {
+            "command": "INTEGRATION_REPORT.md exists, is non-empty, and explains what changed and why",
+            "retries": 2,
+            "retryDelayMs": 1000
+          },
+          "parallel": false,
+          "startedAt": "2026-06-19T07:42:07.452Z",
+          "completedAt": "2026-06-19T07:48:46.653Z",
+          "result": {
+            "success": true,
+            "exitCode": 0,
+            "stdout": "",
+            "stderr": "",
+            "completedAt": "2026-06-19T07:48:46.653Z"
+          }
+        }
+      ],
+      "startedAt": "2026-06-19T06:49:56.975Z",
+      "completedAt": "2026-06-19T07:53:19.684Z",
+      "summary": "Phase 3 completed. All 4 steps finished: (1) gallery/recommendation tested against running backend with graceful fallback confirmed; (2) login/register flows re-verified and confirmed untouched; (3) UI/UX consistency reviewed across all 12 EJS views — navigation standardized, HTML typos fixed, missing nav links added, flash messages and empty states verified; (4) INTEGRATION_REPORT.md created and cross-referenced against the actual git changes. Frontend app smoke-tested successfully (HTTP 200 on startup).",
+      "grade": {
+        "grade": "A",
+        "rationale": "All gates pass; project checks validate.",
+        "gradedAt": "2026-06-19T07:53:19.683Z"
+      }
+    }
+  ],
+  "decisions": [],
+  "memories": [],
+  "createdAt": "2026-06-19T03:11:13.886Z",
+  "updatedAt": "2026-06-19T08:44:04.586Z",
+  "goal": "Integrate the SmileOn Lab Express frontend with all backend microservices via the API Gateway, and polish the UI/UX so every page is clear and contextually appropriate. Fix broken order and payment user flows, complete missing user-facing pages (order history, product detail, payment status), build the admin order management and payment verification flow, and ensure graceful handling for stub backend services. Create or improve EJS views so pages that do not exist yet are built with intuitive design, and pages that are unclear are refined with better labels, navigation cues, empty states, and error messaging. Preserve existing working auth (login/register) unless a critical fix is required. Any material change to already-working code must be discussed with the user before applying.",
+  "successCriteria": [
+    "Product browsing: Frontend serves /products and /products/:id pages that call /api/products via API Gateway and render data in EJS templates with clear layout and navigation. Verify by navigating to the pages and checking rendered output.",
+    "Order creation & history: Frontend serves /order (create) and /orders (list by user) pages calling /api/orders via API Gateway. Pages include intuitive forms, clear labels, and helpful empty states. Verify by submitting an order form and confirming it appears in history.",
+    "Payment upload & tracking: Frontend serves /payment (upload proof) and /payments (track status) pages calling /api/payments via API Gateway. Upload form has clear instructions and payment status page shows readable state. Verify by submitting the upload form and checking payment status.",
+    "Admin order & payment management: Frontend serves /admin/orders page listing all orders with status update and payment verification. Admin dashboard has clear action buttons, status indicators, and responsive layout. Verify by updating an order status as admin.",
+    "Gallery & recommendation display: Frontend serves /gallery and /recommendation pages consuming respective APIs via API Gateway. Pages have clean layout and friendly fallback when data is empty. Verify by page render.",
+    "Centralized API client config: All backend requests use a shared API Gateway base URL config (e.g., env var or config module), not scattered hardcoded localhosts. Verify by grep/code review.",
+    "Graceful stub handling: When a backend service is unavailable or returns errors, frontend shows friendly fallback messages instead of crashing. Empty-state messages are contextually helpful. Verify by simulating error responses.",
+    "Existing auth preserved: Login and register remain functional and unchanged unless a fix is unavoidable (user notified first). Verify by manual login/register test.",
+    "Change report delivered: INTEGRATION_REPORT.md is created listing every changed file and its purpose. Verify by file existence and content."
+  ],
+  "constraints": [
+    "Do not modify existing login/register routes unless a critical bug is found and the user is notified first.",
+    "All backend calls must go through the API Gateway, not directly to individual services.",
+    "Maintain existing session-based authentication pattern (no JWT overhaul).",
+    "Graceful handling is required for product-service and gallery-service if they are still stubs.",
+    "New or updated EJS views must be clear and contextually intuitive; do not leave bare HTML or unlabeled forms."
+  ],
+  "lastActiveAt": "2026-06-19T06:49:56.975Z"
+}

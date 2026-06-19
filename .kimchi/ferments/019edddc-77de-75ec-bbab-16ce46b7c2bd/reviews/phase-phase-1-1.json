@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "fermentId": "019edddc-77de-75ec-bbab-16ce46b7c2bd",
+  "phaseId": "phase-1",
+  "phaseName": "Fix User-Facing Integration",
+  "attempt": 1,
+  "timestamp": "2026-06-19T04:11:04.996Z",
+  "goal": "Diagnose and fix existing order/payment routes, add missing user pages (order history, payment status, product detail), build or refine their EJS views with clear UI/UX, and verify the end-to-end user flow works.",
+  "summary": "Phase 1 (Fix User-Facing Integration) completed successfully.\n- Diagnosed existing integration issues (diagnosis-report.md).\n- Built centralized API client config (frontend/config/api.js).\n- Fixed payment upload middleware (payment-service/middleware/upload.js).\n- Implemented GET /orders route + orders.ejs view with Tailwind badges, empty state, and action buttons.\n- Implemented GET /products/:id route + product-detail.ejs view with back navigation and \"Order This Design\" CTA.\n- Implemented GET /payments route + payments.ejs view with status card, specs grid, and contextual CTAs.\n- Polished existing order.ejs and payment.ejs with nav links, English labels, help tips, and status badge mapping.\n- Ran end-to-end manual test: login → products → product detail → place order → order history → payment status. All pages returned 200 with clear visual feedback and graceful error handling.\n- Wrote e2e-verification-report.md documenting results.\n\nDeferred to next phases: /admin/orders (admin order & payment management), /gallery, /recommendation, and INTEGRATION_REPORT.md.",
+  "stepSummaries": "  1. Diagnose current failures: run frontend with backend services, test existing /order, /payment, /products routes and capture exact errors or missing functionality. [verified]\n  2. Fix any connectivity or data-format issues in existing order and payment route handlers (POST /order, POST /payment). [verified]\n  3. Add GET /orders route calling /api/orders/user/:userId via API Gateway and render a clean order-history EJS view with table/list layout, clear status labels, and empty-state message. [verified]\n  4. Add GET /products/:id route calling /api/products/:id via API Gateway and render a clear product-detail EJS view with back navigation, product specs, and an order CTA. [verified]\n  5. Add GET /payments route (or similar) calling /api/payments/order/:orderId to display payment status in a readable EJS view with current status, amount, and next steps. [verified]\n  6. Review and improve UI/UX of existing order.ejs and payment.ejs views: ensure labels are intuitive, form guidance is clear, navigation cues (e.g., breadcrumbs or back links) are present, and flash messages are styled/readable. If a view does not exist yet, create it with consistent styling. [verified]\n  7. Run end-to-end manual test: login → browse products → place order → upload payment → view order history. Confirm every step has clear visual feedback. [verified]",
+  "diffAvailable": true,
+  "diffFilesChanged": "frontend/package-lock.json           | 174 ++++++++++++++++++++++++++++++++++-\n frontend/routes/index.js             |  71 ++++++++++----\n frontend/views/order.ejs             |  18 +++-\n frontend/views/payment.ejs           |  35 ++++++-\n frontend/views/products.ejs          |   2 +-\n payment-service/middleware/upload.js |   4 +-\n 6 files changed, 276 insertions(+), 28 deletions(-)",
+  "flags": [
+    {
+      "problem": "Gate F3 flagged: Deferred items explicitly acknowledged: admin dashboard, gallery/recommendation pages, and integration report remain for subsequent phases. User-facing integration pages for this phase are complete.",
+      "evidence": "Admin order management (/admin/orders) not built in this phase. Gallery (/gallery) and recommendation (/recommendation) pages not built. INTEGRATION_REPORT.md not created. These are deferred to the next phase(s).",
+      "severity": "block",
+      "redirect": "Address F3 before completing this phase. The flag was self-reported — fix the underlying problem and re-submit the gate with verdict 'pass' (or 'omitted' with rationale if the gate truly does not apply)."
+    }
+  ],
+  "derivedGrade": "F",
+  "reviewerRationale": "1 block flag(s) raised — see attached gate verdicts and project checks.",
+  "gateVerdicts": [
+    {
+      "evidence": "Step 7 (e2e test) used real curl HTTP requests to test login, products, product detail, order creation, order history, payment form, and payment status. Final step rendered actual HTML and confirmed 200 status codes. Earlier steps used file-existence and syntax checks (proxy) but load-bearing behavior was validated end-to-end.",
+      "id": "F1",
+      "rationale": "Mixed verification: syntactic checks for file creation and view syntax, but the critical e2e step exercised real HTTP through the full frontend+backend stack, confirming actual rendered pages and redirects.",
+      "verdict": "pass"
+    },
+    {
+      "evidence": "frontend/views/orders.ejs renders user order history with status badges; frontend/views/product-detail.ejs shows product info with back navigation and order CTA; frontend/views/payments.ejs tracks payment status with empty state; frontend/views/order.ejs and payment.ejs have polished UX with nav links, English labels, and help text. e2e-verification-report.md documents each page working.",
+      "id": "F2",
+      "rationale": "Phase output matches the goal: order and payment user flows are fixed, missing user pages built, views refined, and end-to-end flow verified with clear visual feedback.",
+      "verdict": "pass"
+    },
+    {
+      "evidence": "Admin order management (/admin/orders) not built in this phase. Gallery (/gallery) and recommendation (/recommendation) pages not built. INTEGRATION_REPORT.md not created. These are deferred to the next phase(s).",
+      "id": "F3",
+      "rationale": "Deferred items explicitly acknowledged: admin dashboard, gallery/recommendation pages, and integration report remain for subsequent phases. User-facing integration pages for this phase are complete.",
+      "verdict": "flag"
+    }
+  ],
+  "projectChecks": {
+    "discovered": false,
+    "anyFailed": false,
+    "commands": []
+  }
+}

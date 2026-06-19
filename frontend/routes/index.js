@@ -18,21 +18,14 @@
  *   Recommendation : /api/recommendations
  */
 
-const axios = require('axios');
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const FormData = require('form-data');
+const { API_GATEWAY, apiClient } = require('../config/api');
 
 const router = express.Router();
-
-// ============================================
-// KONFIGURASI
-// ============================================
-
-// URL API Gateway (di K8s: http://api-gateway, di local: http://localhost)
-const API_GATEWAY = process.env.API_GATEWAY_URL || 'http://api-gateway';
 
 // Konfigurasi multer untuk upload file bukti pembayaran
 const uploadDir = path.join(__dirname, '..', 'uploads');
@@ -66,6 +59,16 @@ function isAuthenticated(req, res, next) {
     return res.redirect('/login');
 }
 
+function isAdmin(req, res, next) {
+    if (req.session.user && req.session.user.role === 'admin') {
+        return next();
+    }
+    req.flash('error_msg', 'You do not have admin privileges');
+    return res.redirect('/');
+}
+
+
+
 // ============================================
 // HALAMAN UTAMA
 // ============================================
@@ -94,7 +97,7 @@ router.post('/login', async (req, res) => {
 
     try {
         // Panggil auth-service untuk login
-        const response = await axios.post(`${API_GATEWAY}/api/auth/login`, {
+        const response = await apiClient.post('/api/auth/login', {
             email,
             password
         });
@@ -163,7 +166,7 @@ router.post('/register', async (req, res) => {
 
     try {
         // Panggil auth-service untuk registrasi
-        await axios.post(`${API_GATEWAY}/api/auth/register`, {
+        await apiClient.post('/api/auth/register', {
             nama,
             email,
             password,
@@ -205,7 +208,7 @@ router.get('/logout', (req, res) => {
 // GET /products - Tampilkan daftar produk dari product-service
 router.get('/products', async (req, res) => {
     try {
-        const response = await axios.get(`${API_GATEWAY}/api/products`);
+        const response = await apiClient.get('/api/products');
         return res.render('products', { products: response.data });
     } catch (error) {
         console.error('[Products] Gagal fetch data:', error.message);
@@ -214,9 +217,34 @@ router.get('/products', async (req, res) => {
     }
 });
 
+// GET /products/:id - Detail produk
+router.get('/products/:id', async (req, res) => {
+    try {
+        const response = await apiClient.get(`/api/products/${req.params.id}`);
+        return res.render('product-detail', { product: response.data });
+    } catch (error) {
+        console.error('[Product Detail] Gagal fetch produk:', error.message);
+        req.flash('error_msg', 'Gagal memuat detail produk. Produk mungkin tidak tersedia.');
+        return res.redirect('/products');
+    }
+});
+
 // ============================================
 // PESANAN (ORDER)
 // ============================================
+
+// GET /orders - Riwayat pesanan user yang login
+router.get('/orders', isAuthenticated, async (req, res) => {
+    const userId = req.session.user.id;
+    try {
+        const response = await apiClient.get(`/api/orders/user/${userId}`);
+        return res.render('orders', { orders: response.data.orders || response.data || [] });
+    } catch (error) {
+        console.error('[Orders] Gagal fetch riwayat:', error.message);
+        req.flash('error_msg', 'Gagal memuat riwayat pesanan. Service tidak tersedia.');
+        return res.render('orders', { orders: [] });
+    }
+});
 
 // GET /order - Tampilkan halaman order
 router.get('/order', (req, res) => {
@@ -243,7 +271,7 @@ router.post('/order', async (req, res) => {
     } = req.body;
 
     try {
-        const response = await axios.post(`${API_GATEWAY}/api/orders`, {
+        const response = await apiClient.post('/api/orders', {
             user_id: userId,
             jenis_desain,
             konsep,
@@ -263,7 +291,7 @@ router.post('/order', async (req, res) => {
 
         if (error.response) {
             errorMessage = error.response.data.message || errorMessage;
-        } else if (error.code === 'ECONNREFUSED') {
+        } else if (error.code === 'ECONNREFUSED' || error.code === 'ENOTFOUND') {
             errorMessage = 'Service pesanan tidak tersedia. Pastikan semua service sudah jalan.';
         }
 
@@ -287,7 +315,7 @@ router.get('/payment', async (req, res) => {
 
     try {
         // Ambil detail pesanan dari order-service
-        const orderResponse = await axios.get(`${API_GATEWAY}/api/orders/${order_id}`);
+        const orderResponse = await apiClient.get(`/api/orders/${order_id}`);
         const order = orderResponse.data;
 
         return res.render('payment', { order, order_id });
@@ -295,6 +323,23 @@ router.get('/payment', async (req, res) => {
         console.error('[Payment] Gagal fetch order:', error.message);
         // Jika order-service error, render dengan data minimal
         return res.render('payment', { order: null, order_id });
+    }
+});
+
+// GET /payments - Track payment status
+router.get('/payments', async (req, res) => {
+    const { order_id } = req.query;
+
+    if (!order_id) {
+        return res.render('payments', { payment: null, order_id: null });
+    }
+
+    try {
+        const response = await apiClient.get(`/api/payments/order/${order_id}`);
+        return res.render('payments', { payment: response.data, order_id });
+    } catch (error) {
+        console.error('[Payments] Gagal fetch payment:', error.message);
+        return res.render('payments', { payment: null, order_id });
     }
 });
 
@@ -331,7 +376,7 @@ router.post('/payment', upload.single('bukti_pembayaran'), async (req, res) => {
         formData.append('jumlah', jumlah || '');
 
         // Kirim ke payment-service via API Gateway
-        await axios.post(`${API_GATEWAY}/api/payments/upload`, formData, {
+        await apiClient.post('/api/payments/upload', formData, {
             headers: formData.getHeaders(),
             maxContentLength: Infinity,
             maxBodyLength: Infinity
@@ -349,6 +394,8 @@ router.post('/payment', upload.single('bukti_pembayaran'), async (req, res) => {
 
         if (error.response) {
             errorMessage = error.response.data.message || errorMessage;
+        } else if (error.code === 'ECONNREFUSED' || error.code === 'ENOTFOUND') {
+            errorMessage = 'Service pembayaran tidak tersedia. Pastikan semua service sudah jalan.';
         }
 
         req.flash('error_msg', errorMessage);
@@ -363,7 +410,7 @@ router.post('/payment', upload.single('bukti_pembayaran'), async (req, res) => {
 // GET /gallery - Tampilkan galeri portofolio dari gallery-service
 router.get('/gallery', async (req, res) => {
     try {
-        const response = await axios.get(`${API_GATEWAY}/api/gallery`);
+        const response = await apiClient.get('/api/gallery');
         return res.render('gallery', { galleryItems: response.data });
     } catch (error) {
         console.error('[Gallery] Gagal fetch data:', error.message);
@@ -379,12 +426,70 @@ router.get('/gallery', async (req, res) => {
 router.get('/recommendation', async (req, res) => {
     try {
         // Coba ambil rekomendasi dari recommendation-service
-        const response = await axios.get(`${API_GATEWAY}/api/recommendations`);
+        const response = await apiClient.get('/api/recommendations');
         return res.render('recommendation', { recommendations: response.data });
     } catch (error) {
         console.error('[Recommendation] Gagal fetch data:', error.message);
         return res.render('recommendation', { recommendations: [] });
     }
+});
+
+// ============================================
+// ADMIN
+// ============================================
+
+// GET /admin/orders - Admin dashboard: lihat semua pesanan
+router.get('/admin/orders', isAdmin, async (req, res) => {
+    try {
+        const response = await apiClient.get('/api/orders');
+        let orders = response.data || [];
+        // Normalize if backend returns an object with orders array
+        if (orders.orders) orders = orders.orders;
+
+        // Fetch payments summary for each order for quick verification cues
+        let paymentsMap = {};
+        try {
+            const paymentsRes = await apiClient.get('/api/payments');
+            let payments = paymentsRes.data || [];
+            if (payments.payments) payments = payments.payments;
+            payments.forEach(p => { paymentsMap[p.order_id] = p; });
+        } catch (e) {
+            // gracefully ignore payment fetch errors
+        }
+
+        return res.render('admin-orders', { orders, paymentsMap });
+    } catch (error) {
+        console.error('[Admin Orders] Error:', error.message);
+        req.flash('error_msg', 'Failed to load orders dashboard');
+        return res.redirect('/');
+    }
+});
+
+// POST /admin/orders/:id/status - Admin update order status
+router.post('/admin/orders/:id/status', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        await apiClient.put(`/api/orders/${id}/status`, { status });
+        req.flash('success_msg', `Order #${id} status updated to ${status}`);
+    } catch (error) {
+        console.error(`[Admin Order Status] Error updating order ${req.params.id}:`, error.message);
+        req.flash('error_msg', `Failed to update order #${req.params.id} status`);
+    }
+    return res.redirect('/admin/orders');
+});
+
+// POST /admin/payments/:id/verify - Admin verify payment
+router.post('/admin/payments/:id/verify', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        await apiClient.put(`/api/payments/${id}/verify`);
+        req.flash('success_msg', `Payment #${id} has been verified successfully`);
+    } catch (error) {
+        console.error(`[Admin Payment Verify] Error verifying payment ${req.params.id}:`, error.message);
+        req.flash('error_msg', `Failed to verify payment #${req.params.id}`);
+    }
+    return res.redirect('/admin/orders');
 });
 
 module.exports = router;

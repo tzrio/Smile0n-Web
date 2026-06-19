@@ -24,11 +24,11 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = function (req, file, cb) {
-  const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png'];
+  const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Format file tidak didukung'), false);
+    cb(new Error('Format file tidak didukung. Hanya menerima JPG, PNG, dan PDF.'), false);
   }
 };
 

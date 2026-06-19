@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="light" lang="en" style""><head>
+<!DOCTYPE html><html class="light" lang="en"  ><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Best Price Design Packages | SmileOn Lab</title>
@@ -119,13 +119,16 @@
 </head>
 <body class="text-on-surface">
 <!-- Top Navigation Bar -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline">
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
 <div class="max-w-container-max-width mx-auto px-margin-desktop h-20 flex justify-between items-center">
 <a class="text-headline-md font-headline-md font-bold text-primary" href="/">SmileOn Lab</a>
-<div class="hidden md:flex items-center gap-stack-lg"><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/">Home</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/products">Products</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a><a class="text-primary font-bold border-b-2 border-primary pb-1" href="/recommendation">Recommendation</a></div>
+<div class="hidden md:flex items-center gap-stack-lg"><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/">Home</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/products">Products</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/gallery">Portfolio</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/order">Order</a><a class="text-primary font-bold border-b-2 border-primary pb-1" href="/recommendation">Recommendation</a><a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="/orders">My Orders</a></div>
 <div class="flex items-center gap-stack-md">
 <% if (locals.user) { %>
 <span class="hidden md:block font-body-sm text-body-sm text-on-surface-variant"><%= user.email %></span>
+<% if (locals.user && user.role === 'admin') { %>
+<a class="font-label-md text-label-md text-primary px-4 py-2 hover:opacity-80 transition-all" href="/admin/orders">Admin</a>
+<% } %>
 <a class="font-label-md text-label-md text-primary px-4 py-2 hover:opacity-80 transition-all" href="/logout">Logout</a>
 <% } else { %>
 <a class="hidden md:block font-label-md text-label-md text-primary px-4 py-2 hover:opacity-80 transition-all" href="/login">Login</a>
@@ -134,7 +137,7 @@
 </div>
 </div>
 </nav>
-<main class="pt-20">
+<main>
 <!-- Flash Messages -->
 <% if (locals.error_msg && error_msg.length > 0) { %>
   <% error_msg.forEach(function(msg) { %>
@@ -308,6 +311,17 @@ class="border-2 border-on-tertiary-fixed text-on-tertiary-fixed font-bold px-8 p
         <button onclick="window.location.href='/order'" class="mt-4 w-full py-2 bg-primary text-white rounded-lg font-label-sm hover:opacity-90 transition-all">Order Now</button>
       </div>
     <% }) %>
+  </div>
+</section>
+<% } else { %>
+<section class="py-stack-lg px-margin-desktop max-w-container-max-width mx-auto">
+  <div class="text-center space-y-stack-sm max-w-2xl mx-auto">
+    <div class="flex justify-center mb-4">
+      <span class="material-symbols-outlined text-6xl text-outline-variant">update</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-on-surface">No Recommendations Available Right Now</h2>
+    <p class="font-body-md text-body-md text-on-surface-variant">We're refreshing our recommendation engine. In the meantime, explore our full product catalog or reach out for a bespoke solution tailored to your goals.</p>
+    <a href="/products" class="mt-4 inline-flex items-center gap-2 bg-primary text-on-primary font-label-md py-3 px-6 rounded-lg hover:opacity-90 transition-all">Browse Products</a>
   </div>
 </section>
 <% } %>
