@@ -502,7 +502,7 @@ router.post('/admin/orders/:id/status', isAdmin, async (req, res) => {
 router.post('/admin/payments/:id/verify', isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        await apiClient.put(`/api/payments/${id}/verify`);
+        await apiClient.put(`/api/payments/${id}/verify`, { status_verifikasi : 'terverifikasi'});
         req.flash('success_msg', `Payment #${id} has been verified successfully`);
     } catch (error) {
         console.error(`[Admin Payment Verify] Error verifying payment ${req.params.id}:`, error.message);
